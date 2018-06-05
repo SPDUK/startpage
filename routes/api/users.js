@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
-
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 
@@ -24,10 +24,32 @@ router.post('/register', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const email = req.body;
-  const password = req.body;
+  const email = req.body.email;
+  const password = req.body.password;
   // check mongoDB to see if any emails exist where req.body.email = User.email in database
-  User.findOne({ email }).then(user => {});
+  UserModel.findOne({ email }).then(user => {
+    if (user) {
+      errors.email = 'A user with this emial already exists';
+      return res.status(400).json(errors);
+    }
+    const newUser = new UserModel({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    });
+    // hash and salt the password
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser
+          .save()
+          .then(console.log(newUser))
+          .then(newSavedUser => res.json(newSavedUser))
+          .catch(err => console.log(err));
+      });
+    });
+  });
 });
 
 router.get('/login', (req, res) => {
