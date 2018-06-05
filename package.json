@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A fast and simple start-page, synced up to all browsers.",
   "main": "index.js",
-  "repository": "https://github.com/SPDUK/startpage.git",
+  "repository": "https://github.com/SPDUK/startpage",
   "author": "SPDUK",
   "license": "GPLv3",
   "devDependencies": {
@@ -20,5 +20,17 @@
     "eslint-plugin-standard": "^3.1.0",
     "install": "^0.11.0",
     "prettier": "^1.13.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.2",
+    "mongoose": "^5.1.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.3.0"
   }
 }
