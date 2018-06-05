@@ -1,0 +1,26 @@
+const express = require('express');
+const mongoose = require('mongoose');
+
+// Create Schema
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    isRequired: true
+  },
+  password2: {
+    type: String,
+    required: true
+  }
+});
+
+module.exports = mongoose.model('users', userSchema);
+// 'users' is the databsase collection
+// userSchema is my schema set up with name and password
