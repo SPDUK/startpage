@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 const users = require('./routes/api/users.js');
-const userSettings = require('./routes/api/userSettings.js');
+const todos = require('./routes/api/settings.js');
 
 require('./config/passport')(passport);
 
@@ -22,7 +22,9 @@ app.use(bodyParser.json());
 
 // sets api to default to localhost:5000/api/users
 app.use('/api/users', users);
-app.use('/api/users/:user/settings', userSettings);
+
+// settings
+app.use('/api/users/:user/settings/', todos);
 
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
