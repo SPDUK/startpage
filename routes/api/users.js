@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
-
+require('dotenv').config({ path: 'variables.env' });
 // const ExtractJwt = passportJWT.ExtractJwt;
 // const JwtStrategy = passportJWT.Strategy;
 const router = express.Router();
@@ -13,7 +13,7 @@ const router = express.Router();
 const UserModel = require('../../models/User.js');
 // validation function
 const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 // @route POST api/users/register
 // @desc Register user
@@ -59,9 +59,9 @@ router.post('/login', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  // email = req.body.email from the post request to api/users/login
-  const email = req.body;
-  const password = req.body;
+  //  destructuring this breaks the code, do not destructure this!!
+  const email = req.body.email;
+  const password = req.body.password;
   // look through users collection where req.body.email = email field in users
   UserModel.findOne({ email }).then(user => {
     if (!user) {
@@ -70,9 +70,20 @@ router.post('/login', (req, res) => {
       return res.status(400).json(errors);
     }
     // isMatch is the response of comparing password to user.password (true/false)
+
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
+        // JWT payload
         const payload = { id: user.id, name: user.name };
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '60d' }, (err, token) => {
+          res.json({
+            success: true,
+            token: `Bearer ${token}`
+          });
+        });
+      } else {
+        errors.password = 'Incorrect user / password combination';
+        return res.status(400).json(errors);
       }
     });
   });
