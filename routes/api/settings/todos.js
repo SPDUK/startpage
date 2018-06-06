@@ -10,32 +10,17 @@ const router = express.Router();
 
 require('dotenv').config({ path: 'variables.env' });
 
-const UserModel = require('../../models/User.js');
-const SettingsModel = require('../../models/Settings.js');
+const UserModel = require('../../../models/User.js');
+const TodosModel = require('../../../models/Todos.js');
 
-// @route GET api/users/:user/settings
-// @desc get profile by user ID
+// @route POST api/users/:user/todos
+// @desc create a new todo for a logged in user
 // @access Private
-// router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-//   res.json({
-//     message: 'hey!!!'
-//   });-
-// });
-
-// @route GET api/users/:user/settings/current
-// @desc Test who the current user is
-// @access Private
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({
-    id: req.user.id,
-    name: req.user.name,
-    email: req.user.email
-  });
-});
-
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   UserModel.findOne({ user: req.user.id }).then(user => {
-    const newTodo = new SettingsModel({
+    req.body.todo = req.sanitize(req.body.todo);
+    req.body.completed = req.sanitize(req.body.completed);
+    const newTodo = new TodosModel({
       user: req.user.id,
       todo: req.body.todo,
       completed: req.body.completed
@@ -47,6 +32,16 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         user: req.user
       })
     );
+  });
+});
+
+// @route GET api/users/:user/todos
+// @desc list all of the current todos for a logged in user
+// @access Private
+router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  // find what user is opening the page
+  UserModel.findOne({ user: req.user.id }).then(user => {
+    TodosModel.find({ user: req.user.id }).then(posts => res.json(posts));
   });
 });
 
