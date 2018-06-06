@@ -20,10 +20,6 @@ const validateTodoInput = require('../../../validation/todos');
 // @desc create a new todo for a logged in user
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  req.sanitizeBody(req.body.todo);
-  if (!_.isBoolean(req.body.completed)) {
-    req.body.completed = false;
-  }
   UserModel.findOne({ user: req.user.id }).then(user => {
     const { errors, isValid } = validateTodoInput(req.body);
     if (!isValid) {
@@ -35,12 +31,15 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       completed: req.body.completed
     });
     // just test stuff
-    newTodo.save().then(post =>
-      res.json({
-        post,
-        user: req.user
-      })
-    );
+    newTodo
+      .save()
+      .then(post =>
+        res.json({
+          post,
+          user: req.user
+        })
+      )
+      .catch(err => res.status(404).json({ todoError: 'There was an error with todo' }));
   });
 });
 
