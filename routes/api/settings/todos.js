@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const passportJWT = require('passport-jwt');
+const _ = require('lodash');
 
 const router = express.Router();
 
@@ -12,14 +13,22 @@ require('dotenv').config({ path: 'variables.env' });
 
 const UserModel = require('../../../models/User.js');
 const TodosModel = require('../../../models/Todos.js');
+const { sanitizeBody } = require('express-validator/filter');
+const validateTodoInput = require('../../../validation/todos');
 
 // @route POST api/users/:user/todos
 // @desc create a new todo for a logged in user
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  req.sanitizeBody(req.body.todo);
+  if (!_.isBoolean(req.body.completed)) {
+    req.body.completed = false;
+  }
   UserModel.findOne({ user: req.user.id }).then(user => {
-    req.body.todo = req.sanitize(req.body.todo);
-    req.body.completed = req.sanitize(req.body.completed);
+    const { errors, isValid } = validateTodoInput(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
     const newTodo = new TodosModel({
       user: req.user.id,
       todo: req.body.todo,
