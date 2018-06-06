@@ -20,6 +20,8 @@ const validateTodoInput = require('../../../validation/todos');
 // @desc create a new todo for a logged in user
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  req.sanitizeBody('todo');
+  req.sanitizeBody('completed');
   UserModel.findOne({ user: req.user.id }).then(user => {
     const { errors, isValid } = validateTodoInput(req.body);
     if (!isValid) {
