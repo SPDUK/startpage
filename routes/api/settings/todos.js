@@ -58,6 +58,31 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   });
 });
 
+// @route UPDATE api/users/:user/todos/:todo_id
+// @desc update a specific todo
+// @access Private
+router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  UserModel.findOne({ user: req.user.id })
+    .then(user => {
+      TodosModel.findById(req.params.id).then(todo => {
+        // if the user.id making the request is not the same as the jWT.id stop
+        if (todo.user.toString() !== req.user.id.toString()) {
+          return res.status(401).json({ notauthorized: 'User is not authoritzed ' });
+        }
+        // if the user.id and the JWT.id are the same then the user owns this todo - update it
+        todo
+          .update({
+            $set: {
+              todo: req.body.todo || todo.todo,
+              completed: req.body.completed || todo.completed
+            }
+          })
+          .then(() => res.json({ success: true }));
+      });
+    })
+    .catch(err => res.status(404).json({ nopostfound: 'No todo was found with that ID' }));
+});
+
 // @route DELETE api/users/:user/todos/:todo_id
 // @desc delete a specific todo
 // @access Private
