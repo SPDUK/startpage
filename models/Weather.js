@@ -13,7 +13,7 @@ const weatherSchema = new Schema({
   },
   temptype: {
     type: String,
-    default: 'c',
+    default: 'metric',
     lowercase: true
   },
   displayweather: {

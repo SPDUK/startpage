@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const { sanitizeBody } = require('express-validator/filter');
-const moment = require('moment-timezone');
-const axios = require('axios');
-
+// TODO: remove unused things eg: axios
 const app = express();
 const users = require('./routes/api/users.js');
 const todos = require('./routes/api/settings/todos.js');
@@ -27,7 +25,7 @@ app.use(bodyParser.json());
 // sets api to default to localhost:5000/api/users
 app.use('/api/users', users);
 
-// settings
+// settings sets defaults in each to api/users/:user/*
 app.use('/api/users/:user/todos', todos);
 app.use('/api/users/:user/clock', clock);
 app.use('/api/users/:user/weather', weather);

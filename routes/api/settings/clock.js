@@ -67,7 +67,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 });
 const key = '1e252c6355bd41b138ceaf1cc03e0538';
 
-const url = `http://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&appid=${key}`;
+const url = `http://api.openweathermap.org/data/2.5/forecast?q=london&units=imperial&appid=${key}`;
 router.get('/test', (req, res) => {
   axios
     .get(url)

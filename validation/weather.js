@@ -22,8 +22,8 @@ module.exports = function validateWeatherInput(data) {
     errors.temptype = 'Temperature field is required';
   }
 
-  if (data.temptype !== 'c' && data.temptype !== 'f') {
-    errors.temptype = 'Temperature type must be in Celcius or Fahrenheit';
+  if (data.temptype !== 'metric' && data.temptype !== 'imperial') {
+    errors.temptype = 'Temperature type must be in Metric(celcius) or Imperial(fahrenheit)';
   }
   return {
     errors,
