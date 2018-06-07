@@ -2,8 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const path = require('path');
-const expressValidator = require('express-validator');
+const { sanitizeBody } = require('express-validator/filter');
 
 const app = express();
 const users = require('./routes/api/users.js');
@@ -17,7 +16,7 @@ mongoose
   .connect(process.env.MONGODB)
   .then(() => console.log('mongoDB connected'))
   .catch(err => console.log(err));
-app.use(expressValidator());
+app.use(sanitizeBody('*').escape());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
