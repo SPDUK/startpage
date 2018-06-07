@@ -5,8 +5,6 @@ const axios = require('axios');
 
 const router = express.Router();
 
-require('dotenv').config({ path: 'variables.env' });
-
 const UserModel = require('../../../models/User.js');
 const WeatherModel = require('../../../models/Weather');
 

@@ -3,8 +3,6 @@ const passport = require('passport');
 
 const router = express.Router();
 
-require('dotenv').config({ path: 'variables.env' });
-
 const UserModel = require('../../../models/User.js');
 const TodosModel = require('../../../models/Todos.js');
 const { sanitizeBody } = require('express-validator/filter');

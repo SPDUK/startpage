@@ -6,6 +6,13 @@
   "repository": "https://github.com/SPDUK/startpage",
   "author": "SPDUK",
   "license": "GPL-3.0",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node index.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
   "devDependencies": {
     "babel-eslint": "7.2.3",
     "eslint": "^4.19.1",

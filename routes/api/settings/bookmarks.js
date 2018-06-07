@@ -3,8 +3,6 @@ const passport = require('passport');
 
 const router = express.Router();
 
-require('dotenv').config({ path: 'variables.env' });
-
 const UserModel = require('../../../models/User.js');
 const Bookmark = require('../../../models/Todos.js');
 const BookmarksModel = require('../../../models/Bookmarks.js');
