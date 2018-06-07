@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const { sanitizeBody } = require('express-validator/filter');
+const moment = require('moment-timezone');
 
 const app = express();
 const users = require('./routes/api/users.js');
@@ -25,6 +26,12 @@ app.use('/api/users', users);
 
 // settings
 app.use('/api/users/:user/todos', todos);
+
+console.log(
+  moment()
+    .tz('Europe/London')
+    .format('HH:mm dddd MMMM Do YYYY')
+);
 
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -1,12 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const passportJWT = require('passport-jwt');
+
 require('dotenv').config({ path: 'variables.env' });
-// const ExtractJwt = passportJWT.ExtractJwt;
-// const JwtStrategy = passportJWT.Strategy;
+
 const router = express.Router();
 
 // user Model
@@ -43,8 +40,7 @@ router.post('/register', (req, res) => {
         newUser.password = hash;
         newUser
           .save()
-          .then(console.log(newUser))
-          .then(newSavedUser => res.json(newSavedUser))
+          .then(res.json({ completed: newUser }))
           .catch(err => console.log(err));
       });
     });
@@ -70,7 +66,6 @@ router.post('/login', (req, res) => {
       return res.status(400).json(errors);
     }
     // isMatch is the response of comparing password to user.password (true/false)
-
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // JWT payload
