@@ -8,7 +8,6 @@ const router = express.Router();
 require('dotenv').config({ path: 'variables.env' });
 
 const UserModel = require('../../../models/User.js');
-const ClockModel = require('../../../models/Clock.js');
 const WeatherModel = require('../../../models/Weather');
 
 const validateWeatherInput = require('../../../validation/weather');

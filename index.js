@@ -9,6 +9,7 @@ const users = require('./routes/api/users.js');
 const todos = require('./routes/api/settings/todos.js');
 const clock = require('./routes/api/settings/clock.js');
 const weather = require('./routes/api/settings/weather.js');
+const bookmarks = require('./routes/api/settings/bookmarks.js');
 
 require('./config/passport')(passport);
 
@@ -29,6 +30,7 @@ app.use('/api/users', users);
 app.use('/api/users/:user/todos', todos);
 app.use('/api/users/:user/clock', clock);
 app.use('/api/users/:user/weather', weather);
+app.use('/api/users/:user/bookmarks', bookmarks);
 
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
