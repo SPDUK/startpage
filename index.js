@@ -10,6 +10,7 @@ const todos = require('./routes/api/settings/todos.js');
 const clock = require('./routes/api/settings/clock.js');
 const weather = require('./routes/api/settings/weather.js');
 const bookmarks = require('./routes/api/settings/bookmarks.js');
+const background = require('./routes/api/settings/background.js');
 
 require('./config/passport')(passport);
 
@@ -27,10 +28,11 @@ app.use(bodyParser.json());
 app.use('/api/users', users);
 
 // settings sets defaults in each to api/users/:user/*
-app.use('/api/users/:user/todos', todos);
-app.use('/api/users/:user/clock', clock);
-app.use('/api/users/:user/weather', weather);
-app.use('/api/users/:user/bookmarks', bookmarks);
+app.use('/api/users/todos', todos);
+app.use('/api/users/clock', clock);
+app.use('/api/users/weather', weather);
+app.use('/api/users/bookmarks', bookmarks);
+app.use('/api/users/background', background);
 
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

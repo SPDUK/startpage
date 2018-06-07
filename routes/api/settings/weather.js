@@ -22,8 +22,8 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   });
 });
 
-// @route POST api/users/:user/clock
-// @desc Set up clock timer
+// @route POST api/users/:user/weather
+// @desc Set up weather location
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { errors, isValid } = validateWeatherInput(req.body);
@@ -31,7 +31,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     return res.status(400).json(errors);
   }
   WeatherModel.findOne({ user: req.user.id }).then(user => {
-    // if there is a clock already set up for the user, update that instead of making a new one
+    // if there is a weather setting already set up for the user, update that instead of making a new one
     if (user) {
       WeatherModel.findOneAndUpdate(
         { user: req.user.id },
@@ -48,7 +48,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         .catch(err =>
           res.status(404).json({ weatherError: 'There was an error with weather settings' })
         );
-      // if the user does not have a clock set up, create a new one
+      // if the user does not have a weather setting set up, create a new one
     } else {
       const newWeather = new WeatherModel({
         user: req.user.id,
