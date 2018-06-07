@@ -4,11 +4,13 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const { sanitizeBody } = require('express-validator/filter');
 const moment = require('moment-timezone');
+const axios = require('axios');
 
 const app = express();
 const users = require('./routes/api/users.js');
 const todos = require('./routes/api/settings/todos.js');
 const clock = require('./routes/api/settings/clock.js');
+const weather = require('./routes/api/settings/weather.js');
 
 require('./config/passport')(passport);
 
@@ -28,12 +30,7 @@ app.use('/api/users', users);
 // settings
 app.use('/api/users/:user/todos', todos);
 app.use('/api/users/:user/clock', clock);
-
-// console.log(
-//   moment()
-//     .tz('Europe/London')
-//     .format('HH:mm dddd MMMM Do YYYY')
-// );
+app.use('/api/users/:user/weather', weather);
 
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
