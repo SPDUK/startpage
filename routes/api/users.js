@@ -55,7 +55,7 @@ router.post('/login', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  //  destructuring this breaks the code, do not destructure this!!
+  // destructuring this breaks the code, do not destructure this!!
   const email = req.body.email;
   const password = req.body.password;
   // look through users collection where req.body.email = email field in users

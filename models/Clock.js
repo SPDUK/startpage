@@ -7,7 +7,7 @@ const clockSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  location: {
+  clocklocation: {
     type: String,
     default: 'Europe/London'
   },
@@ -18,11 +18,7 @@ const clockSchema = new Schema({
     type: String,
     default: 'h:mm A dddd MMMM Do YYYY'
   },
-  displayseconds: {
-    type: Boolean,
-    default: true
-  },
-  displayweather: {
+  displayclock: {
     type: Boolean,
     default: true
   }

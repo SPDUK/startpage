@@ -8,6 +8,7 @@ const moment = require('moment-timezone');
 const app = express();
 const users = require('./routes/api/users.js');
 const todos = require('./routes/api/settings/todos.js');
+const clock = require('./routes/api/settings/clock.js');
 
 require('./config/passport')(passport);
 
@@ -26,12 +27,13 @@ app.use('/api/users', users);
 
 // settings
 app.use('/api/users/:user/todos', todos);
+app.use('/api/users/:user/clock', clock);
 
-console.log(
-  moment()
-    .tz('Europe/London')
-    .format('HH:mm dddd MMMM Do YYYY')
-);
+// console.log(
+//   moment()
+//     .tz('Europe/London')
+//     .format('HH:mm dddd MMMM Do YYYY')
+// );
 
 const port = 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

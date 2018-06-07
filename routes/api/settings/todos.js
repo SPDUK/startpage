@@ -26,27 +26,26 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   sanitizeBody('todo');
   sanitizeBody('completed');
-  UserModel.findOne({ user: req.user.id }).then(user => {
-    const { errors, isValid } = validateTodoInput(req.body);
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
-    const newTodo = new TodosModel({
-      user: req.user.id,
-      todo: req.body.todo,
-      completed: req.body.completed
-    });
-    // just test stuff
-    newTodo
-      .save()
-      .then(post =>
-        res.json({
-          post,
-          user: req.user
-        })
-      )
-      .catch(err => res.status(404).json({ todoError: 'There was an error with todo' }));
+  const { errors, isValid } = validateTodoInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const newTodo = new TodosModel({
+    user: req.user.id,
+    todo: req.body.todo,
+    completed: req.body.completed
   });
+  // just test stuff
+  newTodo
+    .save()
+    .then(post =>
+      res.json({
+        post,
+        user: req.user
+      })
+    )
+    .catch(err => res.status(404).json({ todoError: 'There was an error with todo' }));
 });
 
 // @route UPDATE api/users/:user/todos/:todo_id
@@ -55,12 +54,12 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   sanitizeBody('todo');
   sanitizeBody('completed');
+  const { errors, isValid } = validateTodoInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   UserModel.findOne({ user: req.user.id })
     .then(user => {
-      const { errors, isValid } = validateTodoInput(req.body);
-      if (!isValid) {
-        return res.status(400).json(errors);
-      }
       TodosModel.findById(req.params.id).then(todo => {
         // if the user.id making the request is not the same as the jWT.id stop
         if (todo.user.toString() !== req.user.id.toString()) {
