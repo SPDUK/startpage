@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-
+import { inject,  observer} from 'mobx-react';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
 
@@ -10,17 +10,19 @@ if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
 }
 
-inject 'authStore'
+@inject ('authStore')
 @observer class App extends Component {
   constructor() {
     super();
     this.state = {
+      name: '',
       email: '',
       password: '',
+      password2: '',
+
       currentUser: {}
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    // this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,45 +35,24 @@ inject 'authStore'
     }
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    // eslint-disable-next-line
-    const userData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    this.loginUser(userData);
-  }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state.currentUser);
-  }
-  loginUser(userData) {
-    axios.post('/api/users/login', userData).then(res => {
-      // save to localStorage
-      const { token } = res.data;
-      // set token to localStorage
-      localStorage.setItem('jwtToken', token);
-      // set token to auth header
-      setAuthToken(token);
-      // decode token to get user data
-      const decoded = jwt_decode(token);
-      // set current user
-      // eslint-disable-next-line
-      this.setState({ currentUser: decoded})
-    });
-  }
 
   render() {
+    const handleSubmit = (e)  => {
+      e.preventDefault();
+      this.props.authStore.registerUser(e.target);
+      console.log(this.props.authStore.errors);
+    }
     return (
       <div className="App">
-        <p>hi!</p>
-        <form onSubmit={this.onSubmit}>
-          <input value={this.state.email} onChange={this.onChange} name="email" type="text" />
-          <input value={this.state.password} onChange={this.onChange} name="password" type="text" />
-          <input type="submit" />
-        </form>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Enter your email</label>
+        <input id="email" name="email" type="email" />
+
+        <label htmlFor="password">Enter your password</label>
+        <input id="birthdate" name="password" type="text" />
+        <button>Send data!</button>
+      </form>
       </div>
     );
   }

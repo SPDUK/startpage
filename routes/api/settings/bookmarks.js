@@ -11,7 +11,7 @@ const { sanitizeBody } = require('express-validator/filter');
 
 const validateBookmarksInput = require('../../../validation/bookmarks.js');
 
-// @route GET api/users/:user/bookmarks
+// @route GET api/users/bookmarks
 // @desc list all of the current bookmarks for a logged in user
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -21,7 +21,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   });
 });
 
-// @route POST api/users/:user/bookmarks
+// @route POST api/users/bookmarks
 // @desc create a new bookmark for a logged in user
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -48,7 +48,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     .catch(err => res.status(404).json({ bookmarkError: 'There was an error with bookmarks' }));
 });
 
-// @route UPDATE api/users/:user/bookmarks/:id
+// @route UPDATE api/users/bookmarks/:id
 // @desc update a bookmark and or icon
 // @access Private
 router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -84,7 +84,7 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
     .catch(err => res.status(404).json({ nopostfound: 'No bookmark was found with that ID' }));
 });
 
-// @route DELETE api/users/:user/bookmarks/:id
+// @route DELETE api/users/bookmarks/:id
 // @desc delete a specific bookmark
 // @access Private
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {

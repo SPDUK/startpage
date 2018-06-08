@@ -10,7 +10,7 @@ const ClockModel = require('../../../models/Clock.js');
 const validateClockInput = require('../../../validation/clock');
 // user, clocklocation, format, displayclock
 
-// @route GET api/users/:user/clock
+// @route GET api/users/clock
 // @desc view the current clock settings for the user
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -20,7 +20,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   });
 });
 
-// @route POST api/users/:user/clock
+// @route POST api/users/clock
 // @desc Set up clock timer
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -67,7 +67,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 // test api fetch
 const key = '1e252c6355bd41b138ceaf1cc03e0538';
 const url = `http://api.openweathermap.org/data/2.5/forecast?q=london&units=imperial&appid=${key}`;
-router.get('/test', (req, res) => {
+router.post('/test', (req, res) => {
   axios
     .get(url)
     .then(data => {

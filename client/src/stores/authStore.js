@@ -18,9 +18,9 @@ class AuthStore {
   @action
   registerUser = (userData, history) => {
     axios
-      .post('api/users/register', userData)
-      .then(res => history.push('/login'))
-      .catch(err => (errors = err));
+      .post('api/users/login', userData)
+      .then(userData => console.log(userData))
+      .catch(err => (this.errors = err));
   };
 
   @action
@@ -28,9 +28,10 @@ class AuthStore {
     axios.post('api/users/login', userData).then(res => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
+      const decoded = jwt_decode(token);
+      this.currentUser = decoded.catch(err => console.log(err));
     });
-    const decoded = jwt_decode(token);
-    this.currentUser = decoded.catch(err => console.log(err));
+
   };
 }
 
