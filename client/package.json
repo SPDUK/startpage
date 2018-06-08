@@ -7,6 +7,8 @@
     "classnames": "^2.2.5",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.10",
+    "mobx": "^5.0.0",
+    "mobx-react": "^5.2.2",
     "moment": "^2.22.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
@@ -21,5 +23,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "mobx-devtools": "^0.9.14"
+  }
 }

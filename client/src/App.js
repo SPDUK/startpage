@@ -10,13 +10,13 @@ if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
 }
 
-class App extends Component {
+inject 'authStore'
+@observer class App extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: '',
-      errors: {},
       currentUser: {}
     };
     this.onChange = this.onChange.bind(this);
