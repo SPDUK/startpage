@@ -8,7 +8,7 @@ const BackgroundModel = require('../../../models/Background');
 
 const validateBackgroundInput = require('../../../validation/background');
 
-// @route GET api/users/:user/background
+// @route GET api/users/background
 // @desc view the current background settings for the user
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   });
 });
 
-// @route POST api/users/:user/background
+// @route POST api/users/background
 // @desc Set up background timer
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {

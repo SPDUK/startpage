@@ -8,7 +8,7 @@ const TodosModel = require('../../../models/Todos.js');
 const { sanitizeBody } = require('express-validator/filter');
 const validateTodoInput = require('../../../validation/todos');
 
-// @route GET api/users/:user/todos
+// @route GET api/users/todos
 // @desc list all of the current todos for a logged in user
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   });
 });
 
-// @route POST api/users/:user/todos
+// @route POST api/users/todos
 // @desc create a new todo for a logged in user
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -46,7 +46,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     .catch(err => res.status(404).json({ todoError: 'There was an error with todo' }));
 });
 
-// @route UPDATE api/users/:user/todos/:todo_id
+// @route UPDATE api/users/todos/:todo_id
 // @desc update a todo and or completed status
 // @access Private
 router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -83,7 +83,7 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
     .catch(err => res.status(404).json({ nopostfound: 'No todo was found with that ID' }));
 });
 
-// @route DELETE api/users/:user/todos/:todo_id
+// @route DELETE api/users/todos/:todo_id
 // @desc delete a specific todo
 // @access Private
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {

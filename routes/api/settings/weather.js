@@ -10,7 +10,7 @@ const WeatherModel = require('../../../models/Weather');
 
 const validateWeatherInput = require('../../../validation/weather');
 
-// @route GET api/users/:user/weather
+// @route GET api/users/weather
 // @desc view the current weather settings for the user
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -20,7 +20,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   });
 });
 
-// @route POST api/users/:user/weather
+// @route POST api/users/weather
 // @desc Set up weather location
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {

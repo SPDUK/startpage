@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 // sets api to default to localhost:5000/api/users
 app.use('/api/users', users);
 
-// settings sets defaults in each to api/users/:user/*
+// settings sets defaults in each to api/users/*
 app.use('/api/users/todos', todos);
 app.use('/api/users/clock', clock);
 app.use('/api/users/weather', weather);
