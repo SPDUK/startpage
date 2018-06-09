@@ -26,8 +26,12 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // check to see if user is authenticated
+  componentDidMount() {
+    // sets the background image to be the image set in the database
+    // currently just sets a pre-selected imgur link for test
+    const bg = document.getElementById('bg');
+    console.log(this.props.authStore.background);
+    bg.style.backgroundImage = `url(${this.props.authStore.background}`;
   }
 
   onChange(e) {
@@ -49,7 +53,7 @@ class App extends Component {
         {/* <DevTools /> */}
         <CssBaseline />
         <div className="app-background">
-          <div className="app-background-image" alt="" />
+          <div id="bg" className="app-background-image" />
         </div>
       </ReactAux>
     );
