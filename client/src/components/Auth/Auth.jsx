@@ -171,7 +171,7 @@ class Auth extends Component {
                   id="password-input2"
                   label="confirm password"
                   type="password"
-                  name="password"
+                  name="password2"
                   value={this.state.password2}
                   autoComplete="current-password"
                   className={classes.textField}
