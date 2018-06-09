@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import { Provider } from 'mobx-react';
-import registerServiceWorker from './registerServiceWorker';
+
+import App from './App';
 import authStore from './stores/authStore';
 
 const Root = (
@@ -12,4 +11,3 @@ const Root = (
   </Provider>
 );
 ReactDOM.render(Root, document.getElementById('root'));
-registerServiceWorker();
