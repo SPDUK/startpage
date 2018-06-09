@@ -7,6 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   auth: {
@@ -16,22 +19,51 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center'
   },
-  cardWrapper: {},
   card: {
     maxWidth: '95%',
-    maxHeight: '85%',
-    height: '85vh',
+    maxHeight: '80%',
+    height: '80vh',
     width: '95vw',
     margin: 'auto',
-    backgroundColor: 'rgba(255,255,255,0.8)'
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column'
   },
-  cardBottom: {
-    height: 300
+  logo: {
+    marginLeft: '21px'
+  },
+  privacy: {
+    marginLeft: '21px',
+    marginBottom: 10
+  },
+  text: {
+    textAlign: 'center'
+  },
+  login: {
+    height: '73%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loginform: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 300
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexDirection: 'column'
+  },
+  logincontainer: {
+    display: 'flex',
+    justifyContent: 'center'
   },
   '@media (min-width: 720px)': {
     card: {
       maxWidth: '90%',
-      maxHeight: '75%',
+      maxHeight: '80%',
       height: '80vh',
       width: '90vw'
     }
@@ -44,8 +76,11 @@ class Auth extends Component {
   constructor() {
     super();
     this.state = {
+      username: '',
       email: '',
-      password: ''
+      password: '',
+      password2: '',
+      loginform: 'Sign Up'
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,11 +104,78 @@ class Auth extends Component {
 
     return (
       <div className={classes.auth}>
-        <div className={classes.cardWrapper}>
-          <Card className={classes.card}>
-            <p>hi</p>
-          </Card>
-        </div>
+        <Card className={classes.card}>
+          <h2 className={classes.logo}>AppName.</h2>
+          <div className={classes.text}>
+            <Typography variant="display3">{this.state.loginform}</Typography>
+            <Typography variant="subheading">
+              Lorem ipsum, dolor sit amet consectetur adipisicing.
+            </Typography>
+            <Typography variant="subheading">
+              Aliquam, mollitia aspernatur temporibus doloremque.
+            </Typography>
+          </div>
+          <div className={classes.logincontainer}>
+            <form className={classes.loginform}>
+              <TextField
+                required
+                onChange={this.onChange}
+                name="username"
+                id="username"
+                label="username"
+                value={this.state.username}
+                className={classes.textField}
+                margin="normal"
+              />
+              <TextField
+                required
+                onChange={this.onChange}
+                id="email"
+                label="email"
+                name="email"
+                value={this.state.email}
+                className={classes.textField}
+                margin="normal"
+              />
+              <TextField
+                required
+                onChange={this.onChange}
+                id="password-input"
+                label="password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                autoComplete="current-password"
+                className={classes.textField}
+                margin="normal"
+              />
+              <TextField
+                required
+                onChange={this.onChange}
+                id="password-input2"
+                label="confirm password"
+                type="password"
+                name="password"
+                value={this.state.password2}
+                autoComplete="current-password"
+                className={classes.textField}
+                margin="normal"
+              />
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button style={{ textAlign: 'left' }} className={classes.button}>
+                  Log in
+                </Button>
+                <Button variant="contained" color="secondary" className={classes.button}>
+                  {this.state.loginform}
+                </Button>
+              </div>
+            </form>
+          </div>
+
+          <Typography className={classes.privacy} variant="subheading">
+            Privacy Policy
+          </Typography>
+        </Card>
       </div>
     );
   }
