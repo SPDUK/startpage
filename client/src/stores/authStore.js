@@ -12,7 +12,7 @@ class AuthStore {
     id: '',
     name: ''
   };
-  @observable background = 'https://i.imgur.com/MTK7dgC.jpg';
+  @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
   @action
   registerUser = (userData, history) => {
