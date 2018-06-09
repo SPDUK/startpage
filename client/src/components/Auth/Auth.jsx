@@ -60,12 +60,18 @@ const styles = {
     display: 'flex',
     justifyContent: 'center'
   },
+  subheading: {
+    fontSize: ' 0.8em'
+  },
   '@media (min-width: 720px)': {
     card: {
       maxWidth: '90%',
       maxHeight: '80%',
       height: '80vh',
       width: '90vw'
+    },
+    subheading: {
+      fontSize: ' 1em'
     }
   }
 };
@@ -80,7 +86,7 @@ class Auth extends Component {
       email: '',
       password: '',
       password2: '',
-      loginform: 'Sign Up'
+      signUp: true
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -98,6 +104,11 @@ class Auth extends Component {
     };
     this.props.authStore.loginUser(loginForm);
   }
+  toggleForm = () => {
+    this.setState(prevState => ({
+      signUp: !prevState.signUp
+    }));
+  };
 
   render() {
     const { classes } = this.props;
@@ -107,26 +118,28 @@ class Auth extends Component {
         <Card className={classes.card}>
           <h2 className={classes.logo}>AppName.</h2>
           <div className={classes.text}>
-            <Typography variant="display3">{this.state.loginform}</Typography>
-            <Typography variant="subheading">
+            <Typography variant="display3">{this.state.signUp ? 'Sign Up' : 'Log in'}</Typography>
+            <Typography className={classes.subheading} variant="subheading">
               Lorem ipsum, dolor sit amet consectetur adipisicing.
             </Typography>
-            <Typography variant="subheading">
+            <Typography className={classes.subheading} variant="subheading">
               Aliquam, mollitia aspernatur temporibus doloremque.
             </Typography>
           </div>
           <div className={classes.logincontainer}>
             <form className={classes.loginform}>
-              <TextField
-                required
-                onChange={this.onChange}
-                name="username"
-                id="username"
-                label="username"
-                value={this.state.username}
-                className={classes.textField}
-                margin="normal"
-              />
+              {this.state.signUp ? (
+                <TextField
+                  required
+                  onChange={this.onChange}
+                  name="username"
+                  id="username"
+                  label="username"
+                  value={this.state.username}
+                  className={classes.textField}
+                  margin="normal"
+                />
+              ) : null}
               <TextField
                 required
                 onChange={this.onChange}
@@ -149,24 +162,30 @@ class Auth extends Component {
                 className={classes.textField}
                 margin="normal"
               />
-              <TextField
-                required
-                onChange={this.onChange}
-                id="password-input2"
-                label="confirm password"
-                type="password"
-                name="password"
-                value={this.state.password2}
-                autoComplete="current-password"
-                className={classes.textField}
-                margin="normal"
-              />
+              {this.state.signUp ? (
+                <TextField
+                  required
+                  onChange={this.onChange}
+                  id="password-input2"
+                  label="confirm password"
+                  type="password"
+                  name="password"
+                  value={this.state.password2}
+                  autoComplete="current-password"
+                  className={classes.textField}
+                  margin="normal"
+                />
+              ) : null}
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button style={{ textAlign: 'left' }} className={classes.button}>
-                  Log in
+                <Button
+                  onClick={this.toggleForm}
+                  style={{ textAlign: 'left' }}
+                  className={classes.button}
+                >
+                  {this.state.signUp ? 'Log In' : 'Sign Up'}
                 </Button>
                 <Button variant="contained" color="secondary" className={classes.button}>
-                  {this.state.loginform}
+                  {this.state.loginForm ? 'Login' : 'Sign Up'}
                 </Button>
               </div>
             </form>
