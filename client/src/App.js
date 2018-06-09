@@ -48,7 +48,9 @@ class App extends Component {
       <ReactAux>
         {/* <DevTools /> */}
         <CssBaseline />
-        <img className="app-background" src={authStore.background} alt="" />
+        <div className="app-background">
+          <div className="app-background-image" alt="" />
+        </div>
       </ReactAux>
     );
   }
