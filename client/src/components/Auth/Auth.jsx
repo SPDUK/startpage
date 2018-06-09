@@ -99,8 +99,10 @@ class Auth extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const loginForm = {
+      username: this.state.username,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.password2
     };
     this.props.authStore.loginUser(loginForm);
   }
