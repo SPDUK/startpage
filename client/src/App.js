@@ -4,7 +4,7 @@ import axios from 'axios';
 import { inject,  observer} from 'mobx-react';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
-
+import DevTools from 'mobx-react-devtools';
 if (localStorage.jwtToken) {
   // set auth token header auth
   setAuthToken(localStorage.jwtToken);
@@ -15,44 +15,49 @@ if (localStorage.jwtToken) {
   constructor() {
     super();
     this.state = {
-      name: '',
       email: '',
       password: '',
-      password2: '',
-
-      currentUser: {}
+      errors: {
+        email: '',
+        password: ''
+      }
     };
-    // this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     // check to see if user is authenticated
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+
+  }
+ handleSubmit(e) {
+    e.preventDefault();
+    const loginForm = {
+      email: this.state.email,
+      password: this.state.password
     }
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
+    this.props.authStore.loginUser(loginForm);
+  }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
 
-
   render() {
-    const handleSubmit = (e)  => {
-      e.preventDefault();
-      this.props.authStore.registerUser(e.target);
-      console.log(this.props.authStore.errors);
-    }
     return (
       <div className="App">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Enter your email</label>
-        <input id="email" name="email" type="email" />
-
-        <label htmlFor="password">Enter your password</label>
-        <input id="birthdate" name="password" type="text" />
+      <form onSubmit={this.handleSubmit}>
+        <input onChange={this.onChange}  name="email" type="email" />
+        <input onChange={this.onChange}  name="password" type="text" />
         <button>Send data!</button>
       </form>
+      {this.props.authStore.errors.email ? 
+      <h1>{this.props.authStore.errors.email}</h1>
+        : null}
+              {this.props.authStore.errors.password ? 
+      <h1>{this.props.authStore.errors.password}</h1>
+        : null}
+      <DevTools />
       </div>
     );
   }

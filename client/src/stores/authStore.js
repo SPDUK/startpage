@@ -10,9 +10,8 @@ class AuthStore {
   @observable currentUser = {};
   @observable
   user = {
-    name: '',
-    email: '',
-    password: ''
+    id: '',
+    name: ''
   };
 
   @action
@@ -28,10 +27,13 @@ class AuthStore {
     axios.post('api/users/login', userData).then(res => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
+      setAuthToken(token)
       const decoded = jwt_decode(token);
-      this.currentUser = decoded.catch(err => console.log(err));
-    });
-
+      this.user = decoded;
+      console.log(this.user.id)
+      console.log(this.user.name)
+    })
+    .catch(err => this.errors = err.response.data);
   };
 }
 
