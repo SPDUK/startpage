@@ -49,6 +49,17 @@ const styles = {
   subheading: {
     fontSize: ' 0.8em'
   },
+  '@media (max-width: 400px)': {
+    loginform: {
+      width: 280
+    },
+    card: {
+      maxWidth: '95%',
+      maxHeight: '90%',
+      height: '90vh',
+      width: '95vw'
+    }
+  },
   '@media (min-width: 720px)': {
     card: {
       maxWidth: '90%',
@@ -125,7 +136,7 @@ class Auth extends Component {
           <div className={classes.logincontainer}>
             <form id="authForm" onSubmit={this.handleSubmit} className={classes.loginform}>
               <Collapse in={this.state.signUp}>
-                <FormControl error={authStore.errors.name}>
+                <FormControl>
                   <TextField
                     onChange={this.onChange}
                     name="name"
@@ -136,12 +147,14 @@ class Auth extends Component {
                     margin="dense"
                     style={{ width: 375 }}
                   />
-                  <Collapse in={authStore.errors.name}>
-                    <FormHelperText>{authStore.errors.name}</FormHelperText>
+                  <Collapse in={!!authStore.errors.name}>
+                    <FormHelperText style={{ color: 'red' }}>
+                      {authStore.errors.name}
+                    </FormHelperText>
                   </Collapse>
                 </FormControl>
               </Collapse>
-              <FormControl error={authStore.errors.email}>
+              <FormControl>
                 <TextField
                   onChange={this.onChange}
                   id="email"
@@ -151,11 +164,11 @@ class Auth extends Component {
                   className={classes.textField}
                   margin="dense"
                 />
-                <Collapse in={authStore.errors.email}>
-                  <FormHelperText id="name-error-text">{authStore.errors.email}</FormHelperText>
+                <Collapse in={!!authStore.errors.email}>
+                  <FormHelperText style={{ color: 'red' }}>{authStore.errors.email}</FormHelperText>
                 </Collapse>
               </FormControl>
-              <FormControl error={authStore.errors.email}>
+              <FormControl>
                 <TextField
                   onChange={this.onChange}
                   id="password-input"
@@ -167,12 +180,14 @@ class Auth extends Component {
                   className={classes.textField}
                   margin="dense"
                 />
-                <Collapse in={authStore.errors.password}>
-                  <FormHelperText>{authStore.errors.password}</FormHelperText>
+                <Collapse in={!!authStore.errors.password}>
+                  <FormHelperText style={{ color: 'red' }}>
+                    {authStore.errors.password}
+                  </FormHelperText>
                 </Collapse>
               </FormControl>
               <Collapse in={this.state.signUp}>
-                <FormControl error={authStore.errors.password2}>
+                <FormControl>
                   <TextField
                     onChange={this.onChange}
                     id="password-input2"
@@ -185,8 +200,10 @@ class Auth extends Component {
                     margin="dense"
                     style={{ width: 375 }}
                   />
-                  <Collapse in={authStore.errors.password2}>
-                    <FormHelperText>{authStore.errors.password2}</FormHelperText>
+                  <Collapse in={!!authStore.errors.password2}>
+                    <FormHelperText style={{ color: 'red' }}>
+                      {authStore.errors.password2}
+                    </FormHelperText>
                   </Collapse>
                 </FormControl>
               </Collapse>
