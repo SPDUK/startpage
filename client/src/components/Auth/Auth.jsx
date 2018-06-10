@@ -73,6 +73,7 @@ const styles = {
     }
   }
 };
+
 @inject('authStore')
 @observer
 class Auth extends Component {
@@ -101,6 +102,8 @@ class Auth extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
+    // signUp state controls if the current form should show a Sign Up form or a Log In form
+    // if Sign Up is true it will sign up AND log in after.
     if (this.state.signUp) {
       this.props.authStore.registerUser(loginForm);
     } else {
@@ -108,6 +111,7 @@ class Auth extends Component {
     }
   }
 
+  // changes Sign Up form to Log In form & vice versa
   toggleForm = () => {
     this.setState(prevState => ({
       signUp: !prevState.signUp
@@ -118,6 +122,10 @@ class Auth extends Component {
     const { classes, authStore } = this.props;
     return (
       <ReactAux>
+        {/* if isSignedIn is false it will display the form, when you submit the form it will be true
+          when the page loads in App.js it will check for isAuthenticated,
+           if isAuthenticated is true this entire component will never show
+        */}
         <Collapse in={!authStore.isSignedIn} timeout={500}>
           <div className={classes.auth}>
             <Card className={classes.card}>
