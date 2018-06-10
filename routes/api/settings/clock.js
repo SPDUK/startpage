@@ -19,6 +19,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     ClockModel.findOne({ user: req.user.id }).then(clock => res.json(clock));
   });
 });
+// TODO: Set up an error if no clocks exist
 
 // @route POST api/users/clock
 // @desc Set up clock timer
@@ -74,6 +75,14 @@ router.post('/test', (req, res) => {
       res.json(data.data);
     })
     .catch(err => console.log(err));
+});
+
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({
+    id: req.user.id,
+    name: req.user.name,
+    email: req.user.email
+  });
 });
 
 module.exports = router;

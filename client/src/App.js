@@ -6,6 +6,8 @@ import jwtDecode from 'jwt-decode';
 import Collapse from '@material-ui/core/Collapse';
 
 import ReactAux from './hoc/ReactAux';
+import Clock from './components/Clock/Clock';
+
 // import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import setAuthToken from './utils/setAuthToken';
 import './App.scss';
@@ -34,6 +36,7 @@ class App extends Component {
       <ReactAux>
         <DevTools />
         <CssBaseline />
+        <Clock />
         {!authStore.isAuthenticated ? <Auth /> : null}
         <div className="app-background">
           <div id="bg" className="app-background-image" />

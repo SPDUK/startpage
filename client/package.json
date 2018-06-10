@@ -36,6 +36,7 @@
     "mobx-react": "^5.2.2",
     "mobx-react-devtools": "^5.0.1",
     "moment": "^2.22.1",
+    "moment-timezone": "^0.5.17",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",

@@ -17,6 +17,9 @@ class AuthStore {
   };
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
+  // REGISTER -----
+  // registers the user and then when it is finished it will call logInUser with
+  // the same form logging them in right away
   @action
   registerUser = userData => {
     axios
@@ -36,7 +39,6 @@ class AuthStore {
     axios
       .post('api/users/login', userData)
       .then(res => {
-        console.log(this.user.name);
         const { token } = res.data;
         localStorage.setItem('jwtToken', token);
         setAuthToken(token);
@@ -46,7 +48,6 @@ class AuthStore {
         setTimeout(() => {
           this.isAuthenticated = true;
         }, 600);
-        console.log(this.user.name);
       })
       .catch(err => {
         this.errors = err.response.data;
@@ -55,12 +56,18 @@ class AuthStore {
 
   @action
   setUser = decoded => {
-    console.log(decoded);
     this.isAuthenticated = !_.isEmpty(decoded);
-    console.log(this.user);
     this.user = decoded;
-    console.log(this.user);
   };
+
+  // CLOCK  -----
+  @action
+  setClock() {
+    axios
+      .get('/api/users/clock/', this.user)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
 }
 
 export default new AuthStore();
