@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import axios from 'axios';
 import Collapse from '@material-ui/core/Collapse';
 
 const styles = {
@@ -84,6 +78,7 @@ class Auth extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
   handleSubmit(e) {
     e.preventDefault();
     const loginForm = {
@@ -104,8 +99,9 @@ class Auth extends Component {
       signUp: !prevState.signUp
     }));
   };
+
   render() {
-    const { classes, authStore } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.auth}>
         <Card className={classes.card}>
@@ -186,7 +182,7 @@ class Auth extends Component {
                   {this.state.signUp ? 'Log In' : 'Sign Up'}
                 </Button>
                 <Button type="submit" variant="raised" color="secondary" className={classes.button}>
-                  {this.state.loginForm ? 'Login' : 'Sign Up'}
+                  {this.state.signUp ? 'Sign Up' : 'Log In'}
                 </Button>
               </div>
             </form>
