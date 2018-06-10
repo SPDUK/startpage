@@ -16,7 +16,11 @@ const clockSchema = new Schema({
   // no date: HH:mm A
   format: {
     type: String,
-    default: 'h:mm A dddd MMMM Do YYYY'
+    default: 'h:mm A'
+  },
+  dateformat: {
+    type: String,
+    default: 'dddd MMMM Do YYYY'
   },
   displayclock: {
     type: Boolean,

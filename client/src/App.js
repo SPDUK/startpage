@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { inject, observer } from 'mobx-react';
 import jwtDecode from 'jwt-decode';
 import Collapse from '@material-ui/core/Collapse';
+import Grow from '@material-ui/core/Grow';
 
 import ReactAux from './hoc/ReactAux';
 import Clock from './components/Clock/Clock';
@@ -36,7 +37,7 @@ class App extends Component {
       <ReactAux>
         <DevTools />
         <CssBaseline />
-        <Clock />
+        {authStore.isAuthenticated ? <Clock /> : null}
         {!authStore.isAuthenticated ? <Auth /> : null}
         <div className="app-background">
           <div id="bg" className="app-background-image" />

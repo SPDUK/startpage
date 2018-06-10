@@ -7,6 +7,7 @@ module.exports = function validateClockInput(data) {
 
   data.clocklocation = !_.isEmpty(data.clocklocation) ? data.clocklocation : '';
   data.format = !_.isEmpty(data.format) ? data.format : '';
+  data.dateformat = !_.isEmpty(data.dateformat) ? data.dateformat : '';
 
   if (Validator.isEmpty(data.clocklocation)) {
     errors.clocklocation = 'Location field is required';
@@ -14,6 +15,9 @@ module.exports = function validateClockInput(data) {
 
   if (Validator.isEmpty(data.format)) {
     errors.format = 'Format field is required';
+  }
+  if (Validator.isEmpty(data.dateformat)) {
+    errors.dateformat = 'DateFormat field is required';
   }
 
   return {

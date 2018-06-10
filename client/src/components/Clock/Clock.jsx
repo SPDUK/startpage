@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { inject, observer } from 'mobx-react';
+import { inject, observer, computed } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
+
+import moment from 'moment-timezone';
+import Fade from '@material-ui/core/Fade';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Collapse from '@material-ui/core/Collapse';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import ReactAux from '../../hoc/ReactAux';
+
 import Bookmarks from './Bookmarks/Bookmarks';
 import Searchbar from './Searchbar/Searchbar';
 
@@ -54,16 +57,32 @@ const styles = {
 @inject('authStore')
 @observer
 class Clock extends Component {
+  componentDidMount() {
+    if (this.props.authStore.isAuthenticated) {
+      this.props.authStore.setClock();
+    }
+    if (!this.props.authStore.clock.isLoading) {
+      if (this.props.authStore.clock.format === 'h:mm A') {
+        console.log('hi');
+      }
+      console.log(this.props.authStore.time);
+      console.log(this.props.authStore.date);
+    }
+  }
+
   render(props) {
     const { classes, authStore } = this.props;
-    // fetches current user clock settings from DB when they are authenticated
-    if (authStore.isAuthenticated) authStore.setClock();
 
+    // fetches current user clock settings from DB when they are authenticated
     return (
       <div className={classes.wrapper}>
         <div className={classes.clockwrapper}>
-          <h1 className={classes.clock}>2:35PM</h1>
-          <h4 className={classes.date}>Monday June 4th 2018</h4>
+          <Fade in={!authStore.clock.isLoading} timeout={300}>
+            <h1 className={classes.clock}>{this.props.authStore.time}</h1>
+          </Fade>
+          <Fade in={!authStore.clock.isLoading} timeout={300}>
+            <h4 className={classes.date}>{this.props.authStore.timezone}</h4>
+          </Fade>
         </div>
         <Searchbar />
         <Bookmarks />

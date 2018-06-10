@@ -19,7 +19,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     ClockModel.findOne({ user: req.user.id }).then(clock => res.json(clock));
   });
 });
-// TODO: Set up an error if no clocks exist
+// TODO: Set up an error if no clocks exist & set up further auth if ids arent same etc
 
 // @route POST api/users/clock
 // @desc Set up clock timer

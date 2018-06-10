@@ -1,11 +1,12 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import _ from 'lodash';
-
+import moment from 'moment-timezone';
 import setAuthToken from '../utils/setAuthToken';
 
 class AuthStore {
+  // auth
   @observable isLoaded = false;
   @observable isAuthenticated = false;
   @observable isSignedIn = false;
@@ -16,6 +17,16 @@ class AuthStore {
     name: ''
   };
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
+
+  // clock
+  @observable
+  clock = {
+    clocklocation: 'Europe/London',
+    format: 'h:mm A',
+    displayclock: true,
+    isLoading: true,
+    dateformat: 'dddd MMMM Do YYYY'
+  };
 
   // REGISTER -----
   // registers the user and then when it is finished it will call logInUser with
@@ -62,11 +73,22 @@ class AuthStore {
 
   // CLOCK  -----
   @action
-  setClock() {
+  setClock = () => {
     axios
       .get('/api/users/clock/', this.user)
-      .then(res => console.log(res))
+      .then(res => {
+        this.clock = res.data;
+      })
       .catch(err => console.log(err));
+    this.clock.isLoading = false;
+  };
+
+  @computed
+  get time() {
+    return moment.tz(this.clock.clocklocation).format(`${this.clock.format}`);
+  }
+  get date() {
+    return moment.tz(this.clock.clocklocation).format(this.clock.dateformat);
   }
 }
 
