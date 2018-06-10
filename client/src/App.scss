@@ -27,14 +27,3 @@ html {
     @media (max-width: 1200px) {}
   }
 }
-
-.clock {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  height: 400px;
-  width: 500px;
-  background-color: red;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
