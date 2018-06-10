@@ -8,6 +8,7 @@ import setAuthToken from '../utils/setAuthToken';
 class AuthStore {
   @observable isLoaded = false;
   @observable isAuthenticated = false;
+  @observable isSignedIn = false;
   @observable errors = {};
   @observable
   user = {
@@ -41,7 +42,10 @@ class AuthStore {
         setAuthToken(token);
         const decoded = jwtDecode(token);
         this.user = decoded;
-        this.isAuthenticated = true;
+        this.isSignedIn = true;
+        setTimeout(() => {
+          this.isAuthenticated = true;
+        }, 600);
         console.log(this.user.name);
       })
       .catch(err => {

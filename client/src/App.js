@@ -3,6 +3,7 @@ import DevTools from 'mobx-react-devtools';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { inject, observer } from 'mobx-react';
 import jwtDecode from 'jwt-decode';
+import Collapse from '@material-ui/core/Collapse';
 
 import ReactAux from './hoc/ReactAux';
 // import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
