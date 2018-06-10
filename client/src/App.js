@@ -20,7 +20,7 @@ class App extends Component {
     const bg = document.getElementById('bg');
     bg.style.backgroundImage = `url(${this.props.authStore.background}`;
     if (localStorage.jwtToken) {
-      // set auth token header auth
+      // set auth token to the local storage  token if it exists
       setAuthToken(localStorage.jwtToken);
       const decoded = jwtDecode(localStorage.jwtToken);
       this.props.authStore.setUser(decoded);

@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = {
   auth: {
@@ -101,7 +103,7 @@ class Auth extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, authStore } = this.props;
     return (
       <div className={classes.auth}>
         <Card className={classes.card}>
@@ -123,50 +125,70 @@ class Auth extends Component {
           <div className={classes.logincontainer}>
             <form id="authForm" onSubmit={this.handleSubmit} className={classes.loginform}>
               <Collapse in={this.state.signUp}>
+                <FormControl error={authStore.errors.name}>
+                  <TextField
+                    onChange={this.onChange}
+                    name="name"
+                    id="username"
+                    label="username *"
+                    value={this.state.name}
+                    className={classes.textField}
+                    margin="dense"
+                    style={{ width: 375 }}
+                  />
+                  <Collapse in={authStore.errors.name}>
+                    <FormHelperText>{authStore.errors.name}</FormHelperText>
+                  </Collapse>
+                </FormControl>
+              </Collapse>
+              <FormControl error={authStore.errors.email}>
                 <TextField
                   onChange={this.onChange}
-                  name="name"
-                  id="username"
-                  label="username *"
-                  value={this.state.name}
+                  id="email"
+                  label="email *"
+                  name="email"
+                  value={this.state.email}
                   className={classes.textField}
                   margin="dense"
-                  style={{ width: 375 }}
                 />
-              </Collapse>
-              <TextField
-                onChange={this.onChange}
-                id="email"
-                label="email *"
-                name="email"
-                value={this.state.email}
-                className={classes.textField}
-                margin="dense"
-              />
-              <TextField
-                onChange={this.onChange}
-                id="password-input"
-                label="password *"
-                type="password"
-                name="password"
-                value={this.state.password}
-                autoComplete="current-password"
-                className={classes.textField}
-                margin="dense"
-              />
-              <Collapse in={this.state.signUp}>
+                <Collapse in={authStore.errors.email}>
+                  <FormHelperText id="name-error-text">{authStore.errors.email}</FormHelperText>
+                </Collapse>
+              </FormControl>
+              <FormControl error={authStore.errors.email}>
                 <TextField
                   onChange={this.onChange}
-                  id="password-input2"
-                  label="confirm password *"
+                  id="password-input"
+                  label="password *"
                   type="password"
-                  name="password2"
-                  value={this.state.password2}
+                  name="password"
+                  value={this.state.password}
                   autoComplete="current-password"
                   className={classes.textField}
                   margin="dense"
-                  style={{ width: 375 }}
                 />
+                <Collapse in={authStore.errors.password}>
+                  <FormHelperText>{authStore.errors.password}</FormHelperText>
+                </Collapse>
+              </FormControl>
+              <Collapse in={this.state.signUp}>
+                <FormControl error={authStore.errors.password2}>
+                  <TextField
+                    onChange={this.onChange}
+                    id="password-input2"
+                    label="confirm password *"
+                    type="password"
+                    name="password2"
+                    value={this.state.password2}
+                    autoComplete="current-password"
+                    className={classes.textField}
+                    margin="dense"
+                    style={{ width: 375 }}
+                  />
+                  <Collapse in={authStore.errors.password2}>
+                    <FormHelperText>{authStore.errors.password2}</FormHelperText>
+                  </Collapse>
+                </FormControl>
               </Collapse>
               <div
                 id="formBtns"
