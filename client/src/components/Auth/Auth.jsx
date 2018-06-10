@@ -31,31 +31,17 @@ const styles = {
     justifyContent: 'space-between',
     flexDirection: 'column'
   },
-  logo: {
-    marginLeft: '21px'
-  },
-  privacy: {
+  marginLeft: {
     marginLeft: '21px',
     marginBottom: 10
   },
   text: {
     textAlign: 'center'
   },
-  login: {
-    height: '73%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   loginform: {
     display: 'flex',
     flexDirection: 'column',
     width: 300
-  },
-  container: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexDirection: 'column'
   },
   logincontainer: {
     display: 'flex',
@@ -124,7 +110,7 @@ class Auth extends Component {
     return (
       <div className={classes.auth}>
         <Card className={classes.card}>
-          <h2 className={classes.logo}>AppName.</h2>
+          <h2 className={classes.marginLeft}>AppName.</h2>
           <div className={classes.text}>
             <Typography variant="display3">{this.state.signUp ? 'Sign Up' : 'Log in'}</Typography>
             <Typography className={classes.subheading} variant="subheading">
@@ -205,7 +191,7 @@ class Auth extends Component {
             </form>
           </div>
 
-          <Typography className={classes.privacy} variant="subheading">
+          <Typography className={classes.marginLeft} variant="subheading">
             Privacy Policy
           </Typography>
         </Card>
