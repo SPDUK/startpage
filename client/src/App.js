@@ -29,6 +29,7 @@ class App extends Component {
     const { authStore } = this.props;
     return (
       <ReactAux>
+        <h1>Welcome user : {this.props.authStore.user.name}</h1>
         <DevTools />
         <CssBaseline />
         {!authStore.isAuthenticated ? <Auth /> : null}

@@ -18,7 +18,11 @@ class AuthStore {
   registerUser = userData => {
     axios
       .post('api/users/register', userData)
-      .then(res => console.log(res))
+      .then(res => {
+        if (res.data.completed) {
+          this.loginUser(userData);
+        }
+      })
       .catch(err => {
         this.errors = err.response.data;
       });
