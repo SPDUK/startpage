@@ -55,8 +55,8 @@ const styles = {
     },
     card: {
       maxWidth: '95%',
-      maxHeight: '90%',
-      height: '90vh',
+      maxHeight: '95%',
+      height: '95vh',
       width: '95vw'
     }
   },
@@ -141,7 +141,7 @@ class Auth extends Component {
                     onChange={this.onChange}
                     name="name"
                     id="username"
-                    label="username *"
+                    label="username"
                     value={this.state.name}
                     className={classes.textField}
                     margin="dense"
@@ -158,7 +158,7 @@ class Auth extends Component {
                 <TextField
                   onChange={this.onChange}
                   id="email"
-                  label="email *"
+                  label="email"
                   name="email"
                   value={this.state.email}
                   className={classes.textField}
@@ -172,7 +172,7 @@ class Auth extends Component {
                 <TextField
                   onChange={this.onChange}
                   id="password-input"
-                  label="password *"
+                  label="password"
                   type="password"
                   name="password"
                   value={this.state.password}
@@ -191,7 +191,7 @@ class Auth extends Component {
                   <TextField
                     onChange={this.onChange}
                     id="password-input2"
-                    label="confirm password *"
+                    label="confirm password"
                     type="password"
                     name="password2"
                     value={this.state.password2}
