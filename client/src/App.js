@@ -31,7 +31,7 @@ class App extends Component {
       <ReactAux>
         <DevTools />
         <CssBaseline />
-        <Auth />
+        {!authStore.isAuthenticated ? <Auth /> : null}
         <div className="app-background">
           <div id="bg" className="app-background-image" />
         </div>

@@ -34,8 +34,7 @@ class AuthStore {
         setAuthToken(token);
         const decoded = jwtDecode(token);
         this.user = decoded;
-        console.log(this.user.id);
-        console.log(this.user.name);
+        this.isAuthenticated = true;
       })
       .catch(err => {
         this.errors = err.response.data;

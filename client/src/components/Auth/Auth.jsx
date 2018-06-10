@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
+import Collapse from '@material-ui/core/Collapse';
 
 const styles = {
   auth: {
@@ -18,7 +19,8 @@ const styles = {
     height: '100vh',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    transition: '0.3s ease-in'
   },
   card: {
     maxWidth: '95%',
@@ -26,7 +28,7 @@ const styles = {
     height: '80vh',
     width: '95vw',
     margin: 'auto',
-    backgroundColor: 'rgba(255,255,255,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column'
@@ -41,7 +43,8 @@ const styles = {
   loginform: {
     display: 'flex',
     flexDirection: 'column',
-    width: 300
+    width: 375,
+    transition: '0.3s ease'
   },
   logincontainer: {
     display: 'flex',
@@ -62,9 +65,8 @@ const styles = {
     }
   }
 };
-
-@observer
 @inject('authStore')
+@observer
 class Auth extends Component {
   constructor() {
     super();
@@ -73,7 +75,7 @@ class Auth extends Component {
       email: '',
       password: '',
       password2: '',
-      signUp: true
+      signUp: false
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -82,7 +84,6 @@ class Auth extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
   handleSubmit(e) {
     e.preventDefault();
     const loginForm = {
@@ -103,94 +104,93 @@ class Auth extends Component {
       signUp: !prevState.signUp
     }));
   };
-
   render() {
     const { classes, authStore } = this.props;
-
     return (
       <div className={classes.auth}>
         <Card className={classes.card}>
           <h2 className={classes.marginLeft}>AppName.</h2>
           <div className={classes.text}>
-            <Typography variant="display3">{this.state.signUp ? 'Sign Up' : 'Log in'}</Typography>
-            <Typography className={classes.subheading} variant="subheading">
+            <Collapse in={this.state.signUp} timeout={600}>
+              <Typography variant="display3">Sign Up</Typography>
+            </Collapse>
+            <Collapse in={!this.state.signUp} timeout={650}>
+              <Typography variant="display3">Log In</Typography>
+            </Collapse>
+            <Typography className={classes.subheading} variant="display1">
               Lorem ipsum, dolor sit amet consectetur adipisicing.
             </Typography>
-            <Typography className={classes.subheading} variant="subheading">
+            <Typography className={classes.subheading} variant="display1">
               Aliquam, mollitia aspernatur temporibus doloremque.
             </Typography>
           </div>
           <div className={classes.logincontainer}>
-            <form onSubmit={this.handleSubmit} className={classes.loginform}>
-              {this.state.signUp ? (
+            <form id="authForm" onSubmit={this.handleSubmit} className={classes.loginform}>
+              <Collapse in={this.state.signUp}>
                 <TextField
-                  required
                   onChange={this.onChange}
                   name="name"
                   id="username"
-                  label="username"
+                  label="username *"
                   value={this.state.name}
                   className={classes.textField}
-                  margin="normal"
+                  margin="dense"
+                  style={{ width: 375 }}
                 />
-              ) : null}
+              </Collapse>
               <TextField
-                required
                 onChange={this.onChange}
                 id="email"
-                label="email"
+                label="email *"
                 name="email"
                 value={this.state.email}
                 className={classes.textField}
-                margin="normal"
+                margin="dense"
               />
               <TextField
-                required
                 onChange={this.onChange}
                 id="password-input"
-                label="password"
+                label="password *"
                 type="password"
                 name="password"
                 value={this.state.password}
                 autoComplete="current-password"
                 className={classes.textField}
-                margin="normal"
+                margin="dense"
               />
-              {this.state.signUp ? (
+              <Collapse in={this.state.signUp}>
                 <TextField
-                  required
                   onChange={this.onChange}
                   id="password-input2"
-                  label="confirm password"
+                  label="confirm password *"
                   type="password"
                   name="password2"
                   value={this.state.password2}
                   autoComplete="current-password"
                   className={classes.textField}
-                  margin="normal"
+                  margin="dense"
+                  style={{ width: 375 }}
                 />
-              ) : null}
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              </Collapse>
+              <div
+                id="formBtns"
+                style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}
+              >
                 <input type="submit" style={{ display: 'none' }} />
                 <Button
                   onClick={this.toggleForm}
                   style={{ textAlign: 'left' }}
                   className={classes.button}
+                  variant="outlined"
                 >
                   {this.state.signUp ? 'Log In' : 'Sign Up'}
                 </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                >
+                <Button type="submit" variant="raised" color="secondary" className={classes.button}>
                   {this.state.loginForm ? 'Login' : 'Sign Up'}
                 </Button>
               </div>
             </form>
           </div>
-
           <Typography className={classes.marginLeft} variant="subheading">
             Privacy Policy
           </Typography>
