@@ -1,6 +1,8 @@
 import { observable, action } from 'mobx';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import _ from 'lodash';
+
 import setAuthToken from '../utils/setAuthToken';
 
 class AuthStore {
@@ -33,16 +35,27 @@ class AuthStore {
     axios
       .post('api/users/login', userData)
       .then(res => {
+        console.log(this.user.name);
         const { token } = res.data;
         localStorage.setItem('jwtToken', token);
         setAuthToken(token);
         const decoded = jwtDecode(token);
         this.user = decoded;
         this.isAuthenticated = true;
+        console.log(this.user.name);
       })
       .catch(err => {
         this.errors = err.response.data;
       });
+  };
+
+  @action
+  setUser = decoded => {
+    console.log(decoded);
+    this.isAuthenticated = !_.isEmpty(decoded);
+    console.log(this.user);
+    this.user = decoded;
+    console.log(this.user);
   };
 }
 
