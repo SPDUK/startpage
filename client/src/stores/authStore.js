@@ -15,10 +15,10 @@ class AuthStore {
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
   @action
-  registerUser = (userData, history) => {
+  registerUser = userData => {
     axios
-      .post('api/users/login', userData)
-      .then(res => history.push('/login'))
+      .post('api/users/register', userData)
+      .then(res => console.log(res))
       .catch(err => {
         this.errors = err.response.data;
       });

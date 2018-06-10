@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import jwtDecode from 'jwt-decode';
-import axios from 'axios';
 import DevTools from 'mobx-react-devtools';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { inject, observer } from 'mobx-react';

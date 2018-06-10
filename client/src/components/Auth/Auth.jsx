@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from 'axios';
 
 const styles = {
   auth: {
@@ -82,7 +83,7 @@ class Auth extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
+      name: '',
       email: '',
       password: '',
       password2: '',
@@ -99,13 +100,18 @@ class Auth extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const loginForm = {
-      username: this.state.username,
+      name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
-    this.props.authStore.loginUser(loginForm);
+    if (this.state.signUp) {
+      this.props.authStore.registerUser(loginForm);
+    } else {
+      this.props.authStore.loginUser(loginForm);
+    }
   }
+
   toggleForm = () => {
     this.setState(prevState => ({
       signUp: !prevState.signUp
@@ -113,7 +119,7 @@ class Auth extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, authStore } = this.props;
 
     return (
       <div className={classes.auth}>
@@ -129,15 +135,15 @@ class Auth extends Component {
             </Typography>
           </div>
           <div className={classes.logincontainer}>
-            <form className={classes.loginform}>
+            <form onSubmit={this.handleSubmit} className={classes.loginform}>
               {this.state.signUp ? (
                 <TextField
                   required
                   onChange={this.onChange}
-                  name="username"
+                  name="name"
                   id="username"
                   label="username"
-                  value={this.state.username}
+                  value={this.state.name}
                   className={classes.textField}
                   margin="normal"
                 />
@@ -179,6 +185,7 @@ class Auth extends Component {
                 />
               ) : null}
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <input type="submit" style={{ display: 'none' }} />
                 <Button
                   onClick={this.toggleForm}
                   style={{ textAlign: 'left' }}
@@ -186,7 +193,12 @@ class Auth extends Component {
                 >
                   {this.state.signUp ? 'Log In' : 'Sign Up'}
                 </Button>
-                <Button variant="contained" color="secondary" className={classes.button}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                >
                   {this.state.loginForm ? 'Login' : 'Sign Up'}
                 </Button>
               </div>
