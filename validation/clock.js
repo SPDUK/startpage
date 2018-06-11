@@ -10,7 +10,7 @@ module.exports = function validateClockInput(data) {
   data.dateformat = !_.isEmpty(data.dateformat) ? data.dateformat : '';
 
   if (Validator.isEmpty(data.clocklocation)) {
-    errors.clocklocation = 'Location field is required';
+    errors.clocklocation = 'Try again, if this fails try using timezones eg. GMT+2';
   }
 
   if (Validator.isEmpty(data.format)) {
