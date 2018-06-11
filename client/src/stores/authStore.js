@@ -92,6 +92,7 @@ class AuthStore {
       .then(res => {
         console.log(res.data);
         console.log(this.user);
+        // TODO: re-enable this after user is forced to set a location
         // this.clock = res.data;
       })
       .catch(err => console.log(err));
