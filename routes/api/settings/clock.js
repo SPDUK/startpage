@@ -38,7 +38,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
           $set: {
             clocklocation: req.body.clocklocation || user.clocklocation,
             format: req.body.format || user.format,
-            displayclock: req.body.displayclock || user.displayclock
+            displayclock: req.body.displayclock || user.displayclock,
+            dateformat: req.body.dateformat || user.dateformat
           }
         },
         { new: true }
@@ -53,7 +54,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         user: req.user.id,
         clocklocation: req.body.clocklocation,
         format: req.body.format,
-        displayclock: req.body.displayclock
+        displayclock: req.body.displayclock,
+        dateformat: req.body.dateformat
       });
       newClock
         .save()

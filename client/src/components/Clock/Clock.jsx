@@ -29,28 +29,26 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  // when changing 24 hr etc change the padding to make it fit.
+  // when changing 24 hr etc change the padding to make it fit maybe?
   clockwrapper: {
-    padding: '0 19%'
+    padding: '0 0%'
   },
   clock: {
     fontSize: '5em',
-    color: '#FAFAFA',
+    color: 'rgba(250,250,250, 0.8)',
     fontWeight: 400,
     fontFamily: 'Roboto',
     textAlign: 'center',
-    opacity: '0.9',
-    textShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    marginBottom: 0
+    marginBottom: 0,
+    fontVariant: 'small-caps'
   },
   date: {
-    fontSize: '1.02em',
-    color: '#FAFAFA',
+    fontSize: '1.05em',
     fontFamily: 'Roboto',
     marginTop: -10,
     fontWeight: 300,
-    paddingLeft: 20,
-    opacity: '0.9'
+    color: 'rgba(250,250,250, 0.7)',
+    textAlign: 'center'
   }
 };
 
@@ -61,27 +59,23 @@ class Clock extends Component {
     if (this.props.authStore.isAuthenticated) {
       this.props.authStore.setClock();
     }
-    if (!this.props.authStore.clock.isLoading) {
-      if (this.props.authStore.clock.format === 'h:mm A') {
-        console.log('hi');
-      }
-      console.log(this.props.authStore.time);
-      console.log(this.props.authStore.date);
-    }
   }
 
   render(props) {
     const { classes, authStore } = this.props;
-
-    // fetches current user clock settings from DB when they are authenticated
+    console.log(this.props.authStore.date);
     return (
       <div className={classes.wrapper}>
         <div className={classes.clockwrapper}>
-          <Fade in={!authStore.clock.isLoading} timeout={300}>
-            <h1 className={classes.clock}>{this.props.authStore.time}</h1>
+          <Fade in={!authStore.clock.isLoading} timeout={600}>
+            <h1 id="clock" className={classes.clock}>
+              {this.props.authStore.time}
+            </h1>
           </Fade>
-          <Fade in={!authStore.clock.isLoading} timeout={300}>
-            <h4 className={classes.date}>{this.props.authStore.timezone}</h4>
+          <Fade in={!authStore.clock.isLoading} timeout={600}>
+            <h4 id="date" className={classes.date}>
+              {this.props.authStore.date}
+            </h4>
           </Fade>
         </div>
         <Searchbar />

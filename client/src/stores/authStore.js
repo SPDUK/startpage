@@ -87,6 +87,7 @@ class AuthStore {
   get time() {
     return moment.tz(this.clock.clocklocation).format(`${this.clock.format}`);
   }
+  @computed
   get date() {
     return moment.tz(this.clock.clocklocation).format(this.clock.dateformat);
   }
