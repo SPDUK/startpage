@@ -72,10 +72,12 @@ class AuthStore {
   };
 
   // CLOCK  -----
+
   @action
-  setClock = () => {
+  setUpClock = () => {
+    this.clock.isLoading = true;
     axios
-      .get('/api/users/clock/', this.user)
+      .post('api/users/clock', this.user)
       .then(res => {
         this.clock = res.data;
       })
@@ -83,9 +85,24 @@ class AuthStore {
     this.clock.isLoading = false;
   };
 
-  @computed
-  get time() {
-    return moment.tz(this.clock.clocklocation).format(`${this.clock.format}`);
+  @action
+  fetchClockTime = () => {
+    axios
+      .get('/api/users/clock/', this.user)
+      .then(res => {
+        console.log(res.data);
+        console.log(this.user);
+        // this.clock = res.data;
+      })
+      .catch(err => console.log(err));
+    // setTimeout(() => {
+    this.clock.isLoading = false;
+    // }, 300);
+  };
+
+  @action
+  time() {
+    return moment.tz(this.clock.clocklocation).format(this.clock.format);
   }
   @computed
   get date() {

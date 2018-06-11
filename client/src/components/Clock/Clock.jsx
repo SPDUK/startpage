@@ -15,6 +15,7 @@ import ReactAux from '../../hoc/ReactAux';
 
 import Bookmarks from './Bookmarks/Bookmarks';
 import Searchbar from './Searchbar/Searchbar';
+import ClockForm from './ClockForm/ClockForm';
 
 // send the user with this request
 const styles = {
@@ -40,7 +41,8 @@ const styles = {
     fontFamily: 'Roboto',
     textAlign: 'center',
     marginBottom: 0,
-    fontVariant: 'small-caps'
+    fontVariant: 'small-caps',
+    height: '98px'
   },
   date: {
     fontSize: '1.05em',
@@ -55,28 +57,50 @@ const styles = {
 @inject('authStore')
 @observer
 class Clock extends Component {
-  componentDidMount() {
+  constructor() {
+    super();
+    this.state = {
+      currentTime: ''
+    };
+  }
+  componentWillMount() {
     if (this.props.authStore.isAuthenticated) {
-      this.props.authStore.setClock();
+      // this.props.authStore.fetchClockTime();
+
+      // to hide any incorrect times / when the timer might flash to new timer
+      setTimeout(() => {
+        this.updatedTime();
+      }, 350);
+
+      setInterval(this.updatedTime, 1000);
     }
   }
 
+  updatedTime = () => {
+    // this.setState({ currentTime: this.props.authStore.time() });
+  };
+
   render(props) {
     const { classes, authStore } = this.props;
-    console.log(this.props.authStore.date);
     return (
       <div className={classes.wrapper}>
         <div className={classes.clockwrapper}>
-          <Fade in={!authStore.clock.isLoading} timeout={600}>
-            <h1 id="clock" className={classes.clock}>
-              {this.props.authStore.time}
-            </h1>
-          </Fade>
-          <Fade in={!authStore.clock.isLoading} timeout={600}>
-            <h4 id="date" className={classes.date}>
-              {this.props.authStore.date}
-            </h4>
-          </Fade>
+          {!authStore.clock.isLoading ? (
+            <ReactAux>
+              <Fade in={!authStore.clock.isLoading} timeout={2000}>
+                <h1 id="clock" className={classes.clock}>
+                  {this.state.currentTime}
+                </h1>
+              </Fade>
+              <Fade in={!authStore.clock.isLoading} timeout={2000}>
+                <h4 id="date" className={classes.date}>
+                  {this.props.authStore.date}
+                </h4>
+              </Fade>
+            </ReactAux>
+          ) : (
+            <ClockForm />
+          )}
         </div>
         <Searchbar />
         <Bookmarks />
