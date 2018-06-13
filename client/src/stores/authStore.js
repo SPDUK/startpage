@@ -97,9 +97,10 @@ class AuthStore {
       .then(res => {
         console.log(res.data);
         console.log(this.user);
+        this.clock = res.data;
         // TODO: re-enable this after user is forced to set a location
-        // this.clock =
-        if (!_.isEmpty(this.clock.clocklocation)) {
+        if (_.isEmpty(this.clock.clocklocation)) {
+          console.log('?');
           setTimeout(() => {
             this.clock.isLoading = false;
           }, 0);

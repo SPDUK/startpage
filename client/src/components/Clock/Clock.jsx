@@ -65,6 +65,7 @@ class Clock extends Component {
   }
   componentWillMount() {
     if (this.props.authStore.clock.isLoading) {
+      console.log('hi');
       this.props.authStore.fetchClockTime();
 
       // to hide any incorrect times / when the timer might flash to new timer
