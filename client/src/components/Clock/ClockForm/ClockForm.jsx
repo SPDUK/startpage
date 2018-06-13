@@ -83,46 +83,54 @@ function findCity(city) {
   return '';
 }
 
-// findCity('costa rica');
+findCity('london');
 
 @inject('authStore')
 @observer
 class ClockForm extends Component {
-  state = {
-    format: '',
-    dateformat: 'hai',
-    clocklocation: ''
-  };
+  constructor() {
+    super();
+    this.state = {
+      format: '',
+      dateformat: '',
+      clocklocation: ''
+    };
+  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    // const clockloc = findCity(this.state.clocklocation);
+    // console.log(clockloc);
     const clockForm = {
-      clocklocation: this.state.clocklocation,
+      clocklocation: findCity(this.state.clocklocation),
       format: this.state.format,
-      dateformat: this.state.formatdate
+      dateformat: this.state.dateformat,
+      displayclock: true
     };
+    // console.log(clockForm);
 
-    // this.props.authStore.
+    // console.log(this.state.clocklocation);
+    // console.log(this.state.format);
+    // console.log(this.state.dateformat);
+
+    this.props.authStore.setUpClock(clockForm);
   };
   render() {
     const { classes, authStore } = this.props;
-    // console.log(moment().format('HH:mm dddd MMMM D YYYY'));
-    // console.log(moment().format('hh:mm'));
-    // console.log(moment().format('hh:mm:ss'));
-    // console.log(moment().format('h:mm:ss A'));
 
     return (
       <Card className={classes.card}>
         <div className={classes.clockform}>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <TextField
               onChange={this.onChange}
               className={classes.input}
               id="full-width"
-              color="secondary"
+              name="clocklocation"
               placeholder="Enter Location eg. London, New York, Paris,"
               margin="normal"
             />
@@ -132,7 +140,7 @@ class ClockForm extends Component {
                   value={this.state.format}
                   onChange={this.onChange}
                   className={classes.select}
-                  input={<Input name="format" value="hi" id="format-helper" />}
+                  input={<Input name="format" id="format-helper" />}
                 >
                   <MenuItem value="h:mm:a">6:30 PM</MenuItem>
                   <MenuItem value="hh:mm:ss A">6:30:28 PM</MenuItem>
@@ -156,7 +164,7 @@ class ClockForm extends Component {
               </FormControl>
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 40px' }}>
-              <Button>Submit</Button>
+              <Button onClick={this.handleSubmit}>Submit</Button>
             </div>
           </form>
         </div>

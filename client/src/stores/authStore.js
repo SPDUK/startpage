@@ -21,11 +21,11 @@ class AuthStore {
   // clock
   @observable
   clock = {
-    clocklocation: 'Europe/London',
+    clocklocation: '',
     format: 'h:mm A',
+    dateformat: 'dddd MMMM Do YYYY',
     displayclock: true,
-    isLoading: true,
-    dateformat: 'dddd MMMM Do YYYY'
+    isLoading: true
   };
 
   // REGISTER -----
@@ -74,15 +74,20 @@ class AuthStore {
   // CLOCK  -----
 
   @action
-  setUpClock = () => {
+  setUpClock = format => {
     this.clock.isLoading = true;
     axios
-      .post('api/users/clock', this.user)
+      .post('api/users/clock', format)
       .then(res => {
         this.clock = res.data;
+        console.log(res.data);
+        if (!_.isEmpty(this.clock.clocklocation)) {
+          this.clock.isLoading = false;
+        }
       })
-      .catch(err => console.log(err));
-    this.clock.isLoading = false;
+      .catch(err => {
+        this.errors = err.response.data;
+      });
   };
 
   @action
@@ -93,12 +98,14 @@ class AuthStore {
         console.log(res.data);
         console.log(this.user);
         // TODO: re-enable this after user is forced to set a location
-        // this.clock = res.data;
+        // this.clock =
+        if (!_.isEmpty(this.clock.clocklocation)) {
+          setTimeout(() => {
+            this.clock.isLoading = false;
+          }, 0);
+        }
       })
       .catch(err => console.log(err));
-    // setTimeout(() => {
-    this.clock.isLoading = false;
-    // }, 300);
   };
 
   @action

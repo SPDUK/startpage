@@ -64,8 +64,8 @@ class Clock extends Component {
     };
   }
   componentWillMount() {
-    if (this.props.authStore.isAuthenticated) {
-      // this.props.authStore.fetchClockTime();
+    if (this.props.authStore.clock.isLoading) {
+      this.props.authStore.fetchClockTime();
 
       // to hide any incorrect times / when the timer might flash to new timer
       setTimeout(() => {
@@ -77,7 +77,7 @@ class Clock extends Component {
   }
 
   updatedTime = () => {
-    // this.setState({ currentTime: this.props.authStore.time() });
+    this.setState({ currentTime: this.props.authStore.time() });
   };
 
   render(props) {
@@ -86,7 +86,7 @@ class Clock extends Component {
       <div className={classes.wrapper}>
         <div className={classes.clockwrapper}>
           {/* when the fetch request has finished and the user has a location set, show the clock  */}
-          {!authStore.clock.isLoading ? (
+          {!this.props.authStore.clock.isLoading ? (
             <ReactAux>
               <Fade in={!authStore.clock.isLoading} timeout={2000}>
                 <h1 id="clock" className={classes.clock}>

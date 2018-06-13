@@ -8,6 +8,8 @@ const router = express.Router();
 
 // user Model
 const UserModel = require('../../models/User.js');
+const ClockModel = require('../../models/Clock.js');
+
 // validation function
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');

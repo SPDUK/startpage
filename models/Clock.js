@@ -9,7 +9,7 @@ const clockSchema = new Schema({
   },
   clocklocation: {
     type: String,
-    default: 'Europe/London'
+    default: ''
   },
   // default format 3:31 PM Thursday June 7th 2018
   // 24hr: HH:mm dddd MMMM Do YYYY
