@@ -91,6 +91,7 @@ class AuthStore {
 
   // make an edit clock option, that does not use setupclock as changing isloading etc
   // might cause problems and it will be easier to just avoid them
+  // TODO: make the ui refresh after sending this request
 
   // if the user has logged in before -> set the clock to be the response
   // in front-end we show form to setUpClock.
