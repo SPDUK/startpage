@@ -84,6 +84,7 @@ class AuthStore {
         this.clock.isLoading = false;
       })
       .catch(err => {
+        console.log(err);
         this.clock.isLoading = true;
         this.errors = err.response.data;
       });
@@ -106,7 +107,10 @@ class AuthStore {
         }
       })
       .catch(err => {
-        console.log(err);
+        this.errors = err;
+        // console.log(err);
+        // console.log(res.data);
+        // this.errors = err.response.data;
       });
   };
 

@@ -46,7 +46,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       )
         .then(clock => res.json(clock))
         .catch(err =>
-          res.status(404).json({ clockError: 'There was an error with clock settings' })
+          res.status(401).json({ clockError: 'There was an error with clock settings' })
         );
       // if the user does not have a clock set up, create a new one
     } else {

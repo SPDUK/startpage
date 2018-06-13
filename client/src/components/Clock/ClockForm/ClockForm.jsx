@@ -51,40 +51,6 @@ const styles = {
 // TODO: consider making this better somehow, maybe a form/input picker thing
 // basically loops through the entire array of timezones and compares
 // the input  to the timezone/city/country, works for most things
-function findCity(city) {
-  const arr = moment.tz.names();
-  try {
-    for (let i = 0; i < arr.length; i += 1) {
-      // splits each element so the input could possibly match any part
-      // of the city name
-      const element = arr[i].split('/');
-      // replaces any spaces with underscores to match timezone options
-      const _city = city.replace(/ /g, '_');
-      if (_city.toLowerCase() === element[0].toLowerCase()) {
-        return element.join('/');
-      } else if (element[1]) {
-        if (_city.toLowerCase() === element[1].toLowerCase()) {
-          return element.join('/');
-        }
-      } else if (element[2]) {
-        if (_city.toLowerCase() === element[2].toLowerCase()) {
-          return element.join('/');
-        } else if (element[3]) {
-          if (_city.toLowerCase() === element[3].toLowerCase()) {
-            return element.join('/');
-          }
-        }
-      }
-    }
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-  console.log('error');
-  return '';
-}
-
-findCity('london');
 
 @inject('authStore')
 @observer
@@ -106,7 +72,7 @@ class ClockForm extends Component {
     e.preventDefault();
     // const clockloc = findCity(this.state.clocklocation);
     const clockForm = {
-      clocklocation: findCity(this.state.clocklocation),
+      clocklocation: this.findCity(this.state.clocklocation),
       format: this.state.format,
       dateformat: this.state.dateformat,
       displayclock: true
@@ -119,22 +85,61 @@ class ClockForm extends Component {
 
     this.props.authStore.setUpClock(clockForm);
   };
+
+  findCity(city) {
+    const arr = moment.tz.names();
+    try {
+      for (let i = 0; i < arr.length; i += 1) {
+        // splits each element so the input could possibly match any part
+        // of the city name
+        const element = arr[i].split('/');
+        // replaces any spaces with underscores to match timezone options
+        const _city = city.replace(/ /g, '_');
+        if (_city.toLowerCase() === element[0].toLowerCase()) {
+          return element.join('/');
+        } else if (element[1]) {
+          if (_city.toLowerCase() === element[1].toLowerCase()) {
+            return element.join('/');
+          }
+        } else if (element[2]) {
+          if (_city.toLowerCase() === element[2].toLowerCase()) {
+            return element.join('/');
+          } else if (element[3]) {
+            if (_city.toLowerCase() === element[3].toLowerCase()) {
+              return element.join('/');
+            }
+          }
+        }
+      }
+    } catch (error) {
+      return error;
+    }
+    console.log(this.props.authStore.errors);
+    console.log('huh?');
+    return '';
+  }
+
   render() {
     const { classes, authStore } = this.props;
-
     return (
       <Fade in={authStore.clock.isLoading} timeout={2000}>
         <Card className={classes.card}>
+          {this.props.authStore.error ? <div>???</div> : null}
           <div className={classes.clockform}>
             <form onSubmit={this.handleSubmit}>
-              <TextField
-                onChange={this.onChange}
-                className={classes.input}
-                id="full-width"
-                name="clocklocation"
-                placeholder="Enter Location eg. London, New York, Paris,"
-                margin="normal"
-              />
+              <FormControl>
+                <TextField
+                  onChange={this.onChange}
+                  className={classes.input}
+                  id="full-width"
+                  name="clocklocation"
+                  placeholder="Enter Location eg. London, New York, Paris,"
+                  margin="normal"
+                />
+                <FormHelperText style={{ color: 'red' }}>
+                  {authStore.errors.clocklocation}
+                </FormHelperText>
+              </FormControl>
               <div className={classes.selects}>
                 <FormControl className={classes.formControl}>
                   <Select
@@ -148,7 +153,13 @@ class ClockForm extends Component {
                     <MenuItem value="hh:mm">18:30</MenuItem>
                     <MenuItem value="hh:mm:ss">18:30:28</MenuItem>
                   </Select>
-                  <FormHelperText>Time Format</FormHelperText>
+                  {!authStore.errors.format ? (
+                    <FormHelperText>Time Format</FormHelperText>
+                  ) : (
+                    <FormHelperText style={{ color: 'red' }}>
+                      {authStore.errors.format}{' '}
+                    </FormHelperText>
+                  )}
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <Select
@@ -161,7 +172,13 @@ class ClockForm extends Component {
                     <MenuItem value="dddd MMMM Do">Wesnesday June 13th</MenuItem>
                     <MenuItem value="dddd D">Wesnesday 13</MenuItem>
                   </Select>
-                  <FormHelperText>Date Format</FormHelperText>
+                  {!authStore.errors.dateformat ? (
+                    <FormHelperText>Date Format</FormHelperText>
+                  ) : (
+                    <FormHelperText style={{ color: 'red' }}>
+                      {authStore.errors.dateformat}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 40px' }}>

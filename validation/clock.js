@@ -16,7 +16,7 @@ module.exports = function validateClockInput(data) {
     errors.format = 'Format field is required';
   }
   if (Validator.isEmpty(data.dateformat)) {
-    errors.dateformat = 'DateFormat field is required';
+    errors.dateformat = 'Date Format field is required';
   }
 
   return {
