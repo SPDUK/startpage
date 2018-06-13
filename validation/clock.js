@@ -1,4 +1,3 @@
-// TODO: if lodash isn't used much elsewhere change for just isEmpty module
 const _ = require('lodash');
 const Validator = require('validator');
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { inject, observer, computed } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 
 import moment from 'moment-timezone';
@@ -85,6 +85,7 @@ class Clock extends Component {
     return (
       <div className={classes.wrapper}>
         <div className={classes.clockwrapper}>
+          {/* when the fetch request has finished and the user has a location set, show the clock  */}
           {!authStore.clock.isLoading ? (
             <ReactAux>
               <Fade in={!authStore.clock.isLoading} timeout={2000}>

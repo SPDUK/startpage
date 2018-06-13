@@ -34,5 +34,5 @@ app.use('/api/users/weather', weather);
 app.use('/api/users/bookmarks', bookmarks);
 app.use('/api/users/background', background);
 
-const port = 3001;
+const port = 8888;
 app.listen(port, () => console.log(`Server running on port ${port}`));

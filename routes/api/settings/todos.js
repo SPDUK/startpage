@@ -101,5 +101,4 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
     .catch(err => res.status(404).json({ nopostfound: 'No todo was found with that ID' }));
 });
 
-// TODO: add update & edit with front-end using parms
 module.exports = router;
