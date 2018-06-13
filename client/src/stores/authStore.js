@@ -71,8 +71,9 @@ class AuthStore {
     this.user = decoded;
   };
 
-  // CLOCK  -----
+  // CLOCK  TODO: check over this when you are not tired
 
+  //  set up the initial clock
   @action
   setUpClock = format => {
     this.clock.isLoading = true;
@@ -80,33 +81,32 @@ class AuthStore {
       .post('api/users/clock', format)
       .then(res => {
         this.clock = res.data;
-        console.log(res.data);
-        if (!_.isEmpty(this.clock.clocklocation)) {
-          this.clock.isLoading = false;
-        }
+        this.clock.isLoading = false;
       })
       .catch(err => {
+        this.clock.isLoading = true;
         this.errors = err.response.data;
       });
   };
 
+  // make an edit clock option, that does not use setupclock as changing isloading etc
+  // might cause problems and it will be easier to just avoid them
+
+  // if the user has logged in before -> set the clock to be the response
+  // in front-end we show form to setUpClock.
   @action
   fetchClockTime = () => {
     axios
       .get('/api/users/clock/', this.user)
       .then(res => {
-        console.log(res.data);
-        console.log(this.user);
-        this.clock = res.data;
-        // TODO: re-enable this after user is forced to set a location
-        if (_.isEmpty(this.clock.clocklocation)) {
-          console.log('?');
-          setTimeout(() => {
-            this.clock.isLoading = false;
-          }, 0);
+        if (res.data.displayclock) {
+          this.clock.isLoading = false;
+          this.clock = res.data;
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   @action

@@ -16,6 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
 
 const styles = {
   card: {
@@ -104,7 +105,6 @@ class ClockForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // const clockloc = findCity(this.state.clocklocation);
-    // console.log(clockloc);
     const clockForm = {
       clocklocation: findCity(this.state.clocklocation),
       format: this.state.format,
@@ -123,52 +123,54 @@ class ClockForm extends Component {
     const { classes, authStore } = this.props;
 
     return (
-      <Card className={classes.card}>
-        <div className={classes.clockform}>
-          <form onSubmit={this.handleSubmit}>
-            <TextField
-              onChange={this.onChange}
-              className={classes.input}
-              id="full-width"
-              name="clocklocation"
-              placeholder="Enter Location eg. London, New York, Paris,"
-              margin="normal"
-            />
-            <div className={classes.selects}>
-              <FormControl className={classes.formControl}>
-                <Select
-                  value={this.state.format}
-                  onChange={this.onChange}
-                  className={classes.select}
-                  input={<Input name="format" id="format-helper" />}
-                >
-                  <MenuItem value="h:mm:a">6:30 PM</MenuItem>
-                  <MenuItem value="hh:mm:ss A">6:30:28 PM</MenuItem>
-                  <MenuItem value="hh:mm">18:30</MenuItem>
-                  <MenuItem value="hh:mm:ss">18:30:28</MenuItem>
-                </Select>
-                <FormHelperText>Time Format</FormHelperText>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <Select
-                  value={this.state.dateformat}
-                  onChange={this.onChange}
-                  className={classes.select}
-                  input={<Input name="dateformat" value="hi" id="dateformat-helper" />}
-                >
-                  <MenuItem value="dddd MMMM Do YYYY">Wednesday June 13th 2018</MenuItem>
-                  <MenuItem value="dddd MMMM Do">Wesnesday June 13th</MenuItem>
-                  <MenuItem value="dddd D">Wesnesday 13</MenuItem>
-                </Select>
-                <FormHelperText>Date Format</FormHelperText>
-              </FormControl>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 40px' }}>
-              <Button onClick={this.handleSubmit}>Submit</Button>
-            </div>
-          </form>
-        </div>
-      </Card>
+      <Fade in={authStore.clock.isLoading} timeout={2000}>
+        <Card className={classes.card}>
+          <div className={classes.clockform}>
+            <form onSubmit={this.handleSubmit}>
+              <TextField
+                onChange={this.onChange}
+                className={classes.input}
+                id="full-width"
+                name="clocklocation"
+                placeholder="Enter Location eg. London, New York, Paris,"
+                margin="normal"
+              />
+              <div className={classes.selects}>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    value={this.state.format}
+                    onChange={this.onChange}
+                    className={classes.select}
+                    input={<Input name="format" id="format-helper" />}
+                  >
+                    <MenuItem value="h:mm:a">6:30 PM</MenuItem>
+                    <MenuItem value="hh:mm:ss A">6:30:28 PM</MenuItem>
+                    <MenuItem value="hh:mm">18:30</MenuItem>
+                    <MenuItem value="hh:mm:ss">18:30:28</MenuItem>
+                  </Select>
+                  <FormHelperText>Time Format</FormHelperText>
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    value={this.state.dateformat}
+                    onChange={this.onChange}
+                    className={classes.select}
+                    input={<Input name="dateformat" value="hi" id="dateformat-helper" />}
+                  >
+                    <MenuItem value="dddd MMMM Do YYYY">Wednesday June 13th 2018</MenuItem>
+                    <MenuItem value="dddd MMMM Do">Wesnesday June 13th</MenuItem>
+                    <MenuItem value="dddd D">Wesnesday 13</MenuItem>
+                  </Select>
+                  <FormHelperText>Date Format</FormHelperText>
+                </FormControl>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 40px' }}>
+                <Button onClick={this.handleSubmit}>Submit</Button>
+              </div>
+            </form>
+          </div>
+        </Card>
+      </Fade>
     );
   }
 }

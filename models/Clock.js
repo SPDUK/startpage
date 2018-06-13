@@ -24,7 +24,7 @@ const clockSchema = new Schema({
   },
   displayclock: {
     type: Boolean,
-    default: true
+    default: false
   }
 });
 
