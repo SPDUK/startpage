@@ -90,7 +90,8 @@ function findCity(city) {
 class ClockForm extends Component {
   state = {
     format: '',
-    formatdate: 'hai'
+    dateformat: 'hai',
+    clocklocation: ''
   };
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -131,7 +132,7 @@ class ClockForm extends Component {
                   value={this.state.format}
                   onChange={this.onChange}
                   className={classes.select}
-                  input={<Input name="format" id="format-helper" />}
+                  input={<Input name="format" value="hi" id="format-helper" />}
                 >
                   <MenuItem value="h:mm:a">6:30 PM</MenuItem>
                   <MenuItem value="hh:mm:ss A">6:30:28 PM</MenuItem>
@@ -145,7 +146,7 @@ class ClockForm extends Component {
                   value={this.state.dateformat}
                   onChange={this.onChange}
                   className={classes.select}
-                  input={<Input name="dateformat" id="dateformat-helper" />}
+                  input={<Input name="dateformat" value="hi" id="dateformat-helper" />}
                 >
                   <MenuItem value="dddd MMMM Do YYYY">Wednesday June 13th 2018</MenuItem>
                   <MenuItem value="dddd MMMM Do">Wesnesday June 13th</MenuItem>
