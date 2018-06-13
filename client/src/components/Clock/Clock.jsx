@@ -25,7 +25,7 @@ const styles = {
     left: '50%',
     height: 400,
     width: 500,
-    border: '2px solid red',
+    // border: '2px solid red',
     transform: 'translate(-50%, -50%)',
     display: 'flex',
     flexDirection: 'column'
