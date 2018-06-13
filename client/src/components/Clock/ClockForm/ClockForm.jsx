@@ -31,12 +31,12 @@ function findCity(city) {
   const arr = moment.tz.names();
   try {
     for (let i = 0; i < arr.length; i += 1) {
-      // splits each
+      // splits each element so the input could possibly match any part
+      // of the city name
       const element = arr[i].split('/');
-      // replaces any spaces with underscores to match
+      // replaces any spaces with underscores to match timezone options
       const _city = city.replace(/ /g, '_');
       if (_city.toLowerCase() === element[0].toLowerCase()) {
-        // element[0].replace(' ', '_');
         return element.join('/');
       } else if (element[1]) {
         if (_city.toLowerCase() === element[1].toLowerCase()) {
