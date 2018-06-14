@@ -6,6 +6,7 @@ class BookmarkItem extends Component {
     return (
       <a className="bookmarkitem" href={this.props.bookmark}>
         <i className={`${this.props.icon} bookmarkitem`} />
+        <p className="bookmarkitem-text">{this.props.name}</p>
       </a>
     );
   }

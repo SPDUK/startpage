@@ -13,6 +13,10 @@ const bookmarksSchema = new Schema({
   icon: {
     type: String,
     default: 'fas fa-heart'
+  },
+  name: {
+    type: String,
+    default: 'Link'
   }
 });
 

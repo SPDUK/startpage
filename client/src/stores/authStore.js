@@ -18,16 +18,6 @@ class AuthStore {
   };
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
-  // clock
-  @observable
-  clock = {
-    clocklocation: '',
-    format: 'h:mm A',
-    dateformat: 'dddd MMMM Do YYYY',
-    displayclock: true,
-    isLoading: true
-  };
-
   // REGISTER -----
   // registers the user and then when it is finished it will call logInUser with
   // the same form logging them in right away
@@ -72,6 +62,16 @@ class AuthStore {
   };
 
   // CLOCK  TODO: check over this when you are not tired
+
+  // clock
+  @observable
+  clock = {
+    clocklocation: '',
+    format: 'h:mm A',
+    dateformat: 'dddd MMMM Do YYYY',
+    displayclock: true,
+    isLoading: true
+  };
 
   //  set up the initial clock
   @action
@@ -122,6 +122,29 @@ class AuthStore {
   get date() {
     return moment.tz(this.clock.clocklocation).format(this.clock.dateformat);
   }
+
+  // clock
+  @observable
+  bookmark = {
+    bookmark: '',
+    name: '',
+    icon: 'fas-fa heart'
+  };
+
+  @action
+  handleBookmark = bookmark => {
+    axios
+      .post('api/users/bookmark', bookmark)
+      .then(res => {
+        this.bookmark = res.data;
+      })
+      .catch(err => {
+        console.log(err);
+        this.errors = err.response.data;
+      });
+  };
 }
+
+// / bookmarks
 
 export default new AuthStore();

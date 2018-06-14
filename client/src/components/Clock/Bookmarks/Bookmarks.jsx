@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
 import BookmarkItem from './BookmarkItem/BookmarkItem';
+
 // set up post request to add a new bookmark &  edit / delete bookmark
 // give user ability to enter a string and use it as classname for fontawesome icon // eg. <i class="fab fa-reddit"></i>
 // map through bookmarks, display 1 component for each and use classname from input as a prop
@@ -7,29 +24,116 @@ import BookmarkItem from './BookmarkItem/BookmarkItem';
 // limit to max of 9..
 import './Bookmarks.scss';
 
-class Bookmarks extends Component {
-  render() {
-    return (
-      <div className="bookmarks">
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
-        <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" />
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap'
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
+  }
+});
 
-        <i className="bookmarks-controller fas fa-sort-down" />
+class Bookmarks extends Component {
+  constructor() {
+    super();
+    this.state = {
+      open: false,
+      bookmark: '',
+      name: '',
+      icon: ''
+    };
+  }
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const bookmarkForm = {
+      bookmark: this.state.bookmark,
+      name: this.state.name,
+      icon: this.state.icon
+    };
+
+    this.props.authStore.handleBookmark(bookmarkForm);
+  };
+  render() {
+    const { open } = this.state;
+    const { classes } = this.props;
+    return (
+      <div>
+        <div className="bookmarks">
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          <i
+            onClick={this.handleClickOpen}
+            onKeyDown={this.handleClickOpen}
+            className="fas fa-plus bookmarks-controller"
+            role="menu"
+            tabIndex={0}
+          />
+        </div>
+        <Dialog open={this.state.open} onClose={this.handleClose}>
+          <DialogTitle>Add a Bookmark</DialogTitle>
+          <DialogContent>
+            <form className={classes.container}>
+              <TextField
+                label="Bookmark Name"
+                name="name"
+                className={classes.textField}
+                value={this.state.name}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+              <TextField
+                name="bookmark"
+                label="Website Link"
+                className={classes.textField}
+                value={this.state.bookmark}
+                onChange={this.handleChange}
+                margin="normal"
+              />{' '}
+              <TextField
+                label="Icon Class"
+                name="icon"
+                className={classes.textField}
+                value={this.state.icon}
+                placeholder="eg. fas fa-heart"
+                onChange={this.handleChange}
+                margin="normal"
+              />
+            </form>
+          </DialogContent>
+          <DialogActions style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleSubmit} variant="raised" color="secondary">
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
 }
 
-export default Bookmarks;
+export default withStyles(styles)(Bookmarks);

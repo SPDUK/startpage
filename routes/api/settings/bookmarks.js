@@ -35,7 +35,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   const newBookmark = new BookmarksModel({
     user: req.user.id,
     bookmark: req.body.bookmark,
-    icon: req.body.icon
+    icon: req.body.icon,
+    name: req.body.name
   });
   newBookmark
     .save()

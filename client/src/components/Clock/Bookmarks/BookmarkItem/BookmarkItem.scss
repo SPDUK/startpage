@@ -1,14 +1,27 @@
 .bookmarkitem {
   transition: 0.15s ease-in;
-  height: 50px;
+  height: 40px;
   width: 50px;
   font-size: 1.5em;
   margin-top: 8px;
   margin-right: 0px;
   color: rgba($color: #fafafa, $alpha: 0.7);
+  display: inline-block;
   &:hover {
     transition: 0.15s ease;
     color: rgba($color: #fafafa, $alpha: 1);
     transform: scale(1.1);
+  }
+  &-text {
+    margin: 0px 5px;
+    font-size: 0.5em;
+    right: 7px;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    font-family: 'Roboto';
+    &:hover {
+      opacity: 1;
+    }
   }
 }
