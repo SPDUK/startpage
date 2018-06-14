@@ -1,0 +1,23 @@
+.searchbar {
+  border-bottom: 2px solid rgba($color: #fafafa, $alpha: 0.7);
+  margin-top: 10px;
+  &-input {
+    background-color: rgba($color: #000000, $alpha: 0);
+    -webkit-appearance: none;
+    outline: none;
+    appearance: none;
+    background:none;
+    border:none;
+    font-size: 2em;
+    color: rgba(#fafafa, $alpha: 0.7) !important;    
+  }
+}
+
+::placeholder { 
+ color: rgba(#fafafa, $alpha: 0.7);
+ transition: 0.2s ease;
+}
+input:focus::-webkit-input-placeholder { color: rgba(255, 255,255, 0);  transition: 0.2s ease; }
+input:focus:-moz-placeholder { color: rgba(255, 255,255, 0);  transition: 0.2s ease; } /* FF 4-18 */
+input:focus::-moz-placeholder { color: rgba(255, 255,255, 0);  transition: 8s ease;} /* FF 19+ */
+input:focus:-ms-input-placeholder { color: rgba(255, 255,255, 0);  transition: 0.2s ease; } /* IE 10+ */

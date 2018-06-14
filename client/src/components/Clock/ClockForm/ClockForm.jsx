@@ -18,6 +18,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 
+// todo : make it work better on mobile, needs to be quite a bit smaller
 const styles = {
   card: {
     height: 250,
@@ -38,7 +39,7 @@ const styles = {
   },
   selects: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     margin: '10px',
     textAlign: 'left'
   },
@@ -70,18 +71,12 @@ class ClockForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // const clockloc = findCity(this.state.clocklocation);
     const clockForm = {
       clocklocation: this.findCity(this.state.clocklocation),
       format: this.state.format,
       dateformat: this.state.dateformat,
       displayclock: true
     };
-    // console.log(clockForm);
-
-    // console.log(this.state.clocklocation);
-    // console.log(this.state.format);
-    // console.log(this.state.dateformat);
 
     this.props.authStore.setUpClock(clockForm);
   };
@@ -122,7 +117,7 @@ class ClockForm extends Component {
   render() {
     const { classes, authStore } = this.props;
     return (
-      <Fade in={authStore.clock.isLoading} timeout={2000}>
+      <Fade in={authStore.clock.isLoading} timeout={600}>
         <Card className={classes.card}>
           {this.props.authStore.error ? <div>???</div> : null}
           <div className={classes.clockform}>
@@ -136,9 +131,11 @@ class ClockForm extends Component {
                   placeholder="Enter Location eg. London, New York, Paris,"
                   margin="normal"
                 />
-                <FormHelperText style={{ color: 'red' }}>
-                  {authStore.errors.clocklocation}
-                </FormHelperText>
+                <Fade in={authStore.errors.clocklocation} timeout={600}>
+                  <FormHelperText style={{ color: 'red' }}>
+                    {authStore.errors.clocklocation}
+                  </FormHelperText>
+                </Fade>
               </FormControl>
               <div className={classes.selects}>
                 <FormControl className={classes.formControl}>
@@ -156,9 +153,11 @@ class ClockForm extends Component {
                   {!authStore.errors.format ? (
                     <FormHelperText>Time Format</FormHelperText>
                   ) : (
-                    <FormHelperText style={{ color: 'red' }}>
-                      {authStore.errors.format}{' '}
-                    </FormHelperText>
+                    <Fade in={authStore.errors.format} timeout={600}>
+                      <FormHelperText style={{ color: 'red' }}>
+                        {authStore.errors.format}{' '}
+                      </FormHelperText>
+                    </Fade>
                   )}
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -169,20 +168,30 @@ class ClockForm extends Component {
                     input={<Input name="dateformat" value="hi" id="dateformat-helper" />}
                   >
                     <MenuItem value="dddd MMMM Do YYYY">Wednesday June 13th 2018</MenuItem>
-                    <MenuItem value="dddd MMMM Do">Wesnesday June 13th</MenuItem>
-                    <MenuItem value="dddd D">Wesnesday 13</MenuItem>
+                    <MenuItem value="dddd MMMM Do">Wednesday June 13th</MenuItem>
+                    <MenuItem value="dddd D">Wednesday 13</MenuItem>
                   </Select>
                   {!authStore.errors.dateformat ? (
                     <FormHelperText>Date Format</FormHelperText>
                   ) : (
-                    <FormHelperText style={{ color: 'red' }}>
-                      {authStore.errors.dateformat}
-                    </FormHelperText>
+                    <Fade in={authStore.errors.dateformat} timeout={400}>
+                      <FormHelperText style={{ color: 'red' }}>
+                        {authStore.errors.dateformat}
+                      </FormHelperText>
+                    </Fade>
                   )}
                 </FormControl>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 40px' }}>
-                <Button onClick={this.handleSubmit}>Submit</Button>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  margin: '20px 10px 0px 0px'
+                }}
+              >
+                <Button variant="raised" color="secondary" onClick={this.handleSubmit}>
+                  Submit
+                </Button>
               </div>
             </form>
           </div>
