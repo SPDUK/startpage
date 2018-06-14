@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Fade from '@material-ui/core/Fade';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -28,6 +31,7 @@ const styles = theme => ({
     minWidth: 120
   }
 });
+
 @inject('authStore')
 @observer
 class Bookmarks extends Component {
@@ -44,6 +48,14 @@ class Bookmarks extends Component {
   componentDidMount() {
     this.props.authStore.fetchBookmarks();
   }
+
+  componentDidUpdate() {
+    if (this.props.authStore.errors === '') {
+      this.props.authStore.clearErrors();
+      this.handleClose();
+    }
+  }
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -64,15 +76,16 @@ class Bookmarks extends Component {
       icon: this.state.icon
     };
 
+    // if the form has no errors remove the form from the screen
+
     this.props.authStore.handleBookmark(bookmarkForm);
-    this.setState({ open: false });
   };
 
   // fetch the id , add id as props.. use id to update / delete?
   render() {
     const { classes, authStore } = this.props;
     let bookmarks;
-
+    console.log('update');
     if (authStore.bookmarks[0]) {
       bookmarks = authStore.bookmarks.map(bookmark => (
         <BookmarkItem
@@ -83,9 +96,14 @@ class Bookmarks extends Component {
         />
       ));
     }
+
+    // eslint-disable-next-line
     return (
-      // eslint-disable-next-line
       <div>
+        <h1>{`${this.props.authStore.errors.name} `}</h1>
+        <h1>{`${this.props.authStore.errors.icon} `}</h1>
+        <h1>{`${this.props.authStore.errors.bookmark} `}</h1>
+
         <div className="bookmarks">
           {bookmarks}
           <i
@@ -96,10 +114,10 @@ class Bookmarks extends Component {
             tabIndex={0}
           />
         </div>
-        <Dialog open={this.state.open} onClose={this.handleClose}>
-          <DialogTitle>Add a Bookmark</DialogTitle>
+        <Dialog open={this.state.open}>
+          <DialogTitle>Add a Bookmark {this.props.authStore.errors.name}</DialogTitle>
           <DialogContent>
-            <form className={classes.container}>
+            <form onSubmit={this.handleSubmit} className={classes.container}>
               <TextField
                 label="Bookmark Name"
                 name="name"
@@ -107,7 +125,13 @@ class Bookmarks extends Component {
                 value={this.state.name}
                 onChange={this.handleChange}
                 margin="normal"
+                required
               />
+
+              {authStore.errors.name ? (
+                <FormHelperText style={{ color: 'red' }}>{authStore.errors.name}</FormHelperText>
+              ) : null}
+
               <TextField
                 name="bookmark"
                 label="Website Link"
@@ -115,7 +139,13 @@ class Bookmarks extends Component {
                 value={this.state.bookmark}
                 onChange={this.handleChange}
                 margin="normal"
+                required
               />
+              {authStore.errors.bookmark ? (
+                <FormHelperText style={{ color: 'red' }}>
+                  {authStore.errors.bookmark}
+                </FormHelperText>
+              ) : null}
               <TextField
                 label="Icon Class"
                 name="icon"
@@ -124,17 +154,24 @@ class Bookmarks extends Component {
                 placeholder="eg. fas fa-heart"
                 onChange={this.handleChange}
                 margin="normal"
+                required
               />
+
+              {authStore.errors.icon ? (
+                <FormHelperText style={{ color: 'red' }}>{authStore.errors.icon}</FormHelperText>
+              ) : null}
+
+              <input style={{ display: 'none' }} type="submit" />
             </form>
           </DialogContent>
-          <DialogActions style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <Button onClick={this.handleClose} color="primary">
-              Cancel
+              Close
             </Button>
             <Button onClick={this.handleSubmit} variant="raised" color="secondary">
               Submit
             </Button>
-          </DialogActions>
+          </div>
         </Dialog>
       </div>
     );

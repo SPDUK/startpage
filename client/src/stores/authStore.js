@@ -107,7 +107,7 @@ class AuthStore {
         }
       })
       .catch(err => {
-        this.errors = err;
+        console.log(err);
         // console.log(err);
         // console.log(res.data);
         // this.errors = err.response.data;
@@ -124,42 +124,42 @@ class AuthStore {
   }
 
   // bookmarks
+
   @observable
   bookmarks = {
     bookmark: '',
     name: '',
-    icon: 'fas-fa heart'
+    icon: ''
   };
+  @observable bookmarkCompleted = false;
 
-  @action
   handleBookmark = bookmark => {
     axios
       .post('api/users/bookmarks', bookmark)
       .then(res => {
-        if (this.bookmarks.length > 0) {
-          this.bookmarks.push(res.data);
-        }
-        console.log(res);
         this.bookmarks.push(res.data.bookmark);
+        this.errors = '';
       })
+      .then((this.bookmarkCompleted = true))
       .catch(err => {
-        console.log(err);
+        console.log(err.response.data);
         this.errors = err.response.data;
       });
   };
+
+  clearErrors = () => {
+    this.errors = {};
+  };
+
   @action
   fetchBookmarks = () => {
     axios
       .get('/api/users/bookmarks/', this.user)
       .then(res => {
         this.bookmarks = res.data;
-        console.log(this.bookmarks);
       })
       .catch(err => {
-        this.errors = err;
-        // console.log(err);
-        // console.log(res.data);
-        // this.errors = err.response.data;
+        this.errors = err.response.data;
       });
   };
 }

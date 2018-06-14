@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
+
 import './BookmarkItem.scss';
 
 class BookmarkItem extends Component {

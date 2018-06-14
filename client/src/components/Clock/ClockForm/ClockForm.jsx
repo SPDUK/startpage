@@ -71,7 +71,6 @@ class ClockForm extends Component {
       dateformat: this.state.dateformat,
       displayclock: true
     };
-
     this.props.authStore.setUpClock(clockForm);
   };
 

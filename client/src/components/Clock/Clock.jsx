@@ -13,9 +13,10 @@ import ClockForm from './ClockForm/ClockForm';
 const styles = {
   wrapper: {
     position: 'fixed',
+    // maxHeight: '70vh',
+    overflow: 'hidden',
     top: '50%',
     left: '50%',
-    height: 400,
     width: 500,
     // border: '2px solid red',
     transform: 'translate(-50%, -50%)',
