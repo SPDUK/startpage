@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
 
@@ -9,13 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
 import BookmarkItem from './BookmarkItem/BookmarkItem';
 
 // set up post request to add a new bookmark &  edit / delete bookmark
@@ -78,7 +70,6 @@ class Bookmarks extends Component {
 
   // fetch the id , add id as props.. use id to update / delete?
   render() {
-    const { open } = this.state;
     const { classes, authStore } = this.props;
     let bookmarks;
 
@@ -94,7 +85,7 @@ class Bookmarks extends Component {
     }
     return (
       // eslint-disable-next-line
-      <div onClick={this.findBookmarks}>
+      <div>
         <div className="bookmarks">
           {bookmarks}
           <i

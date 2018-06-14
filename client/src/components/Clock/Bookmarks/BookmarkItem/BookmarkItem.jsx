@@ -5,7 +5,7 @@ class BookmarkItem extends Component {
   render() {
     return (
       <a className="bookmarkitem" href={this.props.bookmark}>
-        <i className={`${this.props.icon} bookmarkitem`} />
+        <i className={`${this.props.icon}`} />
         <p className="bookmarkitem-text">{this.props.name}</p>
       </a>
     );
