@@ -1,42 +1,65 @@
 .searchbar {
   border-bottom: 2px solid rgba($color: #fafafa, $alpha: 0.7);
   margin-top: 10px;
+  width: 500px;
+  display: flex;
+  height: 38px;
   &-input {
     background-color: rgba($color: #000000, $alpha: 0);
     -webkit-appearance: none;
     outline: none;
     appearance: none;
-    background:none;
-    border:none;
-    width: 500px;
+    background: none;
+    border: none;
+    width: 480px;
     font-size: 2em;
-    color: rgba(#fafafa, $alpha: 0.7) !important;    
+    color: rgba(#fafafa, $alpha: 0.7) !important;
   }
-  input:focus::-webkit-input-placeholder { color: rgba(255, 255,255, 0);  transition: 0.2s ease; }
-input:focus:-moz-placeholder { color: rgba(255, 255,255, 0);  transition: 0.2s ease; } /* FF 4-18 */
-input:focus::-moz-placeholder { color: rgba(255, 255,255, 0);  transition: 8s ease;} /* FF 19+ */
-input:focus:-ms-input-placeholder { color: rgba(255, 255,255, 0);  transition: 0.2s ease; } /* IE 10+ */
+  &-changer {
+    transition: 0.2s ease-in;
+    color: rgba($color: #fafafa, $alpha: 0.7);
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    &:hover {
+      transition: 0.2s ease-in;
+      color: #fafafa;
+      transform: scale(1.1);
+    }
+  }
+  input:focus::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0);
+    transition: 0.2s ease;
+  }
+  input:focus:-moz-placeholder {
+    color: rgba(255, 255, 255, 0);
+    transition: 0.2s ease;
+  } /* FF 4-18 */
+  input:focus::-moz-placeholder {
+    color: rgba(255, 255, 255, 0);
+    transition: 8s ease;
+  } /* FF 19+ */
+  input:focus:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0);
+    transition: 0.2s ease;
+  } /* IE 10+ */
 
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-input:-webkit-autofill, 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  transition: 0.3s ease;
-  -webkit-text-fill-color: rgba($color: #fafafa, $alpha: 0.7);
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset;
-  transition: background-color 5000s ease-in-out 0s;
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    transition: 0.3s ease;
+    -webkit-text-fill-color: rgba($color: #fafafa, $alpha: 0.7);
+    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 }
-}
 
-
-::placeholder { 
- color: rgba(#fafafa, $alpha: 0.7);
- transition: 0.2s ease;
+::placeholder {
+  color: rgba(#fafafa, $alpha: 0.7);
+  transition: 0.2s ease;
 }

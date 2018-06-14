@@ -31,6 +31,7 @@ class SearchBar extends Component {
             type="text"
           />
         </form>
+        <i className="material-icons searchbar-changer">arrow_drop_down </i>
       </div>
     );
   }
