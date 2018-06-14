@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { inject, observer } from 'mobx-react';
 
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -35,7 +36,8 @@ const styles = theme => ({
     minWidth: 120
   }
 });
-
+@inject('authStore')
+@observer
 class Bookmarks extends Component {
   constructor() {
     super();
@@ -47,6 +49,9 @@ class Bookmarks extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.authStore.fetchBookmarks();
+  }
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -68,21 +73,30 @@ class Bookmarks extends Component {
     };
 
     this.props.authStore.handleBookmark(bookmarkForm);
+    this.setState({ open: false });
   };
+
+  // fetch the id , add id as props.. use id to update / delete?
   render() {
     const { open } = this.state;
-    const { classes } = this.props;
+    const { classes, authStore } = this.props;
+    let bookmarks;
+
+    if (authStore.bookmarks[0]) {
+      bookmarks = authStore.bookmarks.map(bookmark => (
+        <BookmarkItem
+          key={bookmark._id}
+          icon={bookmark.icon}
+          bookmark={bookmark.bookmark}
+          name={bookmark.name}
+        />
+      ));
+    }
     return (
-      <div>
+      // eslint-disable-next-line
+      <div onClick={this.findBookmarks}>
         <div className="bookmarks">
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
-          <BookmarkItem icon="fab fa-reddit" bookmark="https://www.google.com" name="Google" />
+          {bookmarks}
           <i
             onClick={this.handleClickOpen}
             onKeyDown={this.handleClickOpen}
@@ -110,7 +124,7 @@ class Bookmarks extends Component {
                 value={this.state.bookmark}
                 onChange={this.handleChange}
                 margin="normal"
-              />{' '}
+              />
               <TextField
                 label="Icon Class"
                 name="icon"

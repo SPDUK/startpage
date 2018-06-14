@@ -70,7 +70,8 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
           .update({
             $set: {
               bookmark: req.body.bookmark,
-              icon: req.body.icon
+              icon: req.body.icon,
+              name: req.body.name
             }
           })
           .then(() => res.json({ success: true }))

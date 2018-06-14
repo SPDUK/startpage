@@ -123,9 +123,9 @@ class AuthStore {
     return moment.tz(this.clock.clocklocation).format(this.clock.dateformat);
   }
 
-  // clock
+  // bookmarks
   @observable
-  bookmark = {
+  bookmarks = {
     bookmark: '',
     name: '',
     icon: 'fas-fa heart'
@@ -134,13 +134,32 @@ class AuthStore {
   @action
   handleBookmark = bookmark => {
     axios
-      .post('api/users/bookmark', bookmark)
+      .post('api/users/bookmarks', bookmark)
       .then(res => {
-        this.bookmark = res.data;
+        if (this.bookmarks.length > 0) {
+          this.bookmarks.push(res.data);
+        }
+        console.log(res);
+        this.bookmarks.push(res.data.bookmark);
       })
       .catch(err => {
         console.log(err);
         this.errors = err.response.data;
+      });
+  };
+  @action
+  fetchBookmarks = () => {
+    axios
+      .get('/api/users/bookmarks/', this.user)
+      .then(res => {
+        this.bookmarks = res.data;
+        console.log(this.bookmarks);
+      })
+      .catch(err => {
+        this.errors = err;
+        // console.log(err);
+        // console.log(res.data);
+        // this.errors = err.response.data;
       });
   };
 }

@@ -16,6 +16,7 @@ class SearchBar extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // handle errors, if errors then show them , if not close the modal
   onSubmit = e => {
     e.preventDefault();
     if (this.state.searchType === 'Google') {
