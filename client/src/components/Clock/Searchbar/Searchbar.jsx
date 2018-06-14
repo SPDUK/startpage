@@ -10,7 +10,7 @@ class SearchBar extends Component {
     this.state = {
       searchInput: '',
       anchorEl: null,
-      searchType: 'google'
+      searchType: 'Google'
     };
   }
   onChange = e => {
@@ -19,13 +19,13 @@ class SearchBar extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    if (this.state.searchType === 'google') {
+    if (this.state.searchType === 'Google') {
       window.location.href = `https://www.google.com/search?q=${this.state.searchInput}`;
     }
-    if (this.state.searchType === 'wikipedia') {
+    if (this.state.searchType === 'Wikipedia') {
       window.location.href = `https://en.wikipedia.org/wiki/${this.state.searchInput}`;
     }
-    if (this.state.searchType === 'reddit') {
+    if (this.state.searchType === 'Reddit') {
       window.location.href = `https://www.reddit.com/search?q=${this.state.searchInput}`;
     }
   };
@@ -53,7 +53,7 @@ class SearchBar extends Component {
           <input
             name="searchInput"
             onSubmit={this.onSubmit}
-            placeholder="Google"
+            placeholder={this.state.searchType}
             onChange={this.onChange}
             className="searchbar-input"
             type="text"
@@ -67,7 +67,7 @@ class SearchBar extends Component {
           role="menu"
           tabIndex={0}
         >
-          arrow_drop_down{' '}
+          arrow_drop_down
         </i>
         <Menu
           id="simple-menu"
@@ -75,13 +75,13 @@ class SearchBar extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem id="google" onClick={this.handleClose}>
+          <MenuItem id="Google" onClick={this.handleClose}>
             Google
           </MenuItem>
-          <MenuItem id="wikipedia" onClick={this.handleClose}>
+          <MenuItem id="Wikipedia" onClick={this.handleClose}>
             Wikipedia
           </MenuItem>
-          <MenuItem id="reddit" onClick={this.handleClose}>
+          <MenuItem id="Reddit" onClick={this.handleClose}>
             Reddit
           </MenuItem>
         </Menu>
