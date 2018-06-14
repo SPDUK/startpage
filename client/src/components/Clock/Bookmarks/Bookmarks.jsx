@@ -81,6 +81,8 @@ class Bookmarks extends Component {
     this.props.authStore.handleBookmark(bookmarkForm);
   };
 
+  // TODO: look over this and make sure all the things work properly
+
   // fetch the id , add id as props.. use id to update / delete?
   render() {
     const { classes, authStore } = this.props;
@@ -100,10 +102,6 @@ class Bookmarks extends Component {
     // eslint-disable-next-line
     return (
       <div>
-        <h1>{`${this.props.authStore.errors.name} `}</h1>
-        <h1>{`${this.props.authStore.errors.icon} `}</h1>
-        <h1>{`${this.props.authStore.errors.bookmark} `}</h1>
-
         <div className="bookmarks">
           {bookmarks}
           <i
@@ -114,8 +112,8 @@ class Bookmarks extends Component {
             tabIndex={0}
           />
         </div>
-        <Dialog open={this.state.open}>
-          <DialogTitle>Add a Bookmark {this.props.authStore.errors.name}</DialogTitle>
+        <Dialog open={this.state.open} onClose={this.handleClose}>
+          <DialogTitle>Add a Bookmark</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit} className={classes.container}>
               <TextField

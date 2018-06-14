@@ -131,7 +131,6 @@ class AuthStore {
     name: '',
     icon: ''
   };
-  @observable bookmarkCompleted = false;
 
   handleBookmark = bookmark => {
     axios
@@ -140,7 +139,6 @@ class AuthStore {
         this.bookmarks.push(res.data.bookmark);
         this.errors = '';
       })
-      .then((this.bookmarkCompleted = true))
       .catch(err => {
         console.log(err.response.data);
         this.errors = err.response.data;
