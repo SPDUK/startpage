@@ -1,16 +1,16 @@
 .bookmarks {
+  width: 480px;
   &-controller {
-    right: 10px;
+    right: 8px;
+    top: 230px;
     position: absolute;
     transition: 0.2s ease-in;
-    color: rgba($color: #fafafa, $alpha: 0.7);
+    color: rgba($color: #fafafa, $alpha: 0.4);
     text-align: center;
     line-height: 42px;
     font-size: 1.1em;
     cursor: pointer;
-    opacity: 0;
     &:hover {
-      opacity: 1;
       transition: 0.2s ease-in;
       color: #fafafa;
       transform: scale(1.1);
