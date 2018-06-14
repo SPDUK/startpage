@@ -1,0 +1,14 @@
+.bookmarkitem {
+  transition: 0.15s ease-in;
+  height: 50px;
+  width: 50px;
+  font-size: 1.5em;
+  margin-top: 8px;
+  margin-right: 0px;
+  color: rgba($color: #fafafa, $alpha: 0.7);
+  &:hover {
+    transition: 0.15s ease;
+    color: rgba($color: #fafafa, $alpha: 1);
+    transform: scale(1.1);
+  }
+}

@@ -19,9 +19,12 @@
     transition: 0.2s ease-in;
     color: rgba($color: #fafafa, $alpha: 0.7);
     text-align: center;
-    line-height: 50px;
+    line-height: 42px;
+    font-size: 1.1em;
     cursor: pointer;
+    opacity: 0;
     &:hover {
+      opacity: 1;
       transition: 0.2s ease-in;
       color: #fafafa;
       transform: scale(1.1);

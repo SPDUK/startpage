@@ -40,7 +40,7 @@ class SearchBar extends Component {
 
   handleClose = e => {
     console.log(e.target);
-    this.setState({ searchType: e.target.id });
+    this.setState({ searchType: e.target.id || 'Google' });
     this.setState({ anchorEl: null });
   };
 
@@ -63,12 +63,10 @@ class SearchBar extends Component {
         <i
           onClick={this.handleClick}
           onKeyDown={this.handleClick}
-          className="material-icons searchbar-changer"
+          className="fas fa-sort-up searchbar-changer"
           role="menu"
           tabIndex={0}
-        >
-          arrow_drop_down
-        </i>
+        />
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
