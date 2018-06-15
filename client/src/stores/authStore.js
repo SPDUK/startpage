@@ -18,6 +18,10 @@ class AuthStore {
   };
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
+  clearErrors = () => {
+    this.errors = {};
+  };
+
   // REGISTER -----
   // registers the user and then when it is finished it will call logInUser with
   // the same form logging them in right away
@@ -145,10 +149,6 @@ class AuthStore {
       });
   };
 
-  clearErrors = () => {
-    this.errors = {};
-  };
-
   @action
   fetchBookmarks = () => {
     axios
@@ -159,6 +159,12 @@ class AuthStore {
       .catch(err => {
         this.errors = err.response.data;
       });
+  };
+
+  deleteBookmark = id => {
+    axios.delete(`api/users/bookmarks/${id}`).then(res => {
+      this.fetchBookmarks();
+    });
   };
 }
 

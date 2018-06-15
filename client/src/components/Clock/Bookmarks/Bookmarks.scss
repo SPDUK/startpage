@@ -1,11 +1,12 @@
 .bookmarks {
   width: 500px;
-  height: 340px;
+  height: 0px;
   margin-right: 0;
   display: flex;
   &-wrapper {
     width: 480px;
     margin-right: 0px;
+    height: 200px;
   }
   &-controller {
     transition: 0.2s ease-in;

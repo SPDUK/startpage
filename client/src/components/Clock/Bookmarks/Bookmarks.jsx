@@ -95,6 +95,7 @@ class Bookmarks extends Component {
           icon={bookmark.icon}
           bookmark={bookmark.bookmark}
           name={bookmark.name}
+          id={bookmark._id}
         />
       ));
     }
@@ -162,7 +163,7 @@ class Bookmarks extends Component {
               <input style={{ display: 'none' }} type="submit" />
             </form>
           </DialogContent>
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-around', paddingBottom: 10 }}>
             <Button onClick={this.handleClose} color="primary">
               Close
             </Button>
