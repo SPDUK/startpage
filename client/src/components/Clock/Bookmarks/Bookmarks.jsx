@@ -75,19 +75,17 @@ class Bookmarks extends Component {
       name: this.state.name,
       icon: this.state.icon
     };
-
-    // if the form has no errors remove the form from the screen
-
     this.props.authStore.handleBookmark(bookmarkForm);
   };
 
   // TODO: look over this and make sure all the things work properly
-
-  // fetch the id , add id as props.. use id to update / delete?
+  // TODO: maybe add a way to edit bookmarks but since they are so easy to replace who cares?
+  // maybe add edit for bookmarks in a setting or something? list all bookmarks and then allow user to edit the text of them.
   render() {
     const { classes, authStore } = this.props;
     let bookmarks;
     console.log('update');
+    // only map over bookmarks and create them if there is at least 1.
     if (authStore.bookmarks[0]) {
       bookmarks = authStore.bookmarks.map(bookmark => (
         <BookmarkItem

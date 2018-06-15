@@ -8,22 +8,20 @@ import ReactAux from '../../hoc/ReactAux';
 import Bookmarks from './Bookmarks/Bookmarks';
 import Searchbar from './Searchbar/Searchbar';
 import ClockForm from './ClockForm/ClockForm';
-
+import './Clock.scss';
 // send the user with this request
 const styles = {
   wrapper: {
     position: 'fixed',
-    // maxHeight: '70vh',
-    // overflow: 'hidden',
     top: '50%',
     left: '50%',
     width: 500,
-    // border: '2px solid red',
     transform: 'translate(-50%, -50%)',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    // TODO: find best position for the clock ?
+    marginTop: '-3%'
   },
-  // when changing 24 hr etc change the padding to make it fit maybe?
   clockwrapper: {
     padding: '0 0%'
   },
@@ -73,6 +71,10 @@ class Clock extends Component {
     this.setState({ currentTime: this.props.authStore.time() });
   };
 
+  editClock = () => {
+    this.props.authStore.toggleClockLoading();
+  };
+
   render(props) {
     const { classes, authStore } = this.props;
     return (
@@ -81,12 +83,19 @@ class Clock extends Component {
           {/* when the fetch request has finished and the user has a location set, show the clock  */}
           {!authStore.clock.isLoading ? (
             <ReactAux>
-              <Fade in={!authStore.clock.isLoading} timeout={2000}>
+              <Fade in={!authStore.clock.isLoading} timeout={1000}>
                 <h1 id="clock" className={classes.clock}>
-                  {this.state.currentTime}
+                  <span className="clock-time">{this.state.currentTime}</span>
+                  <i
+                    role="button"
+                    onKeyDown={this.editClock}
+                    tabIndex="-1"
+                    onClick={this.editClock}
+                    className="fas fa-pencil-alt clock-edit"
+                  />
                 </h1>
               </Fade>
-              <Fade in={!authStore.clock.isLoading} timeout={2000}>
+              <Fade in={!authStore.clock.isLoading} timeout={1000}>
                 <h4 id="date" className={classes.date}>
                   {this.props.authStore.date}
                 </h4>

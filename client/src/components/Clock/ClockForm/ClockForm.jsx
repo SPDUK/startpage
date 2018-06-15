@@ -109,9 +109,8 @@ class ClockForm extends Component {
   render() {
     const { classes, authStore } = this.props;
     return (
-      <Fade in={authStore.clock.isLoading} timeout={600}>
+      <Fade in={authStore.clock.isLoading} timeout={2000}>
         <Card className={classes.card}>
-          {this.props.authStore.error ? <div>???</div> : null}
           <div className={classes.clockform}>
             <form onSubmit={this.handleSubmit}>
               <FormControl>

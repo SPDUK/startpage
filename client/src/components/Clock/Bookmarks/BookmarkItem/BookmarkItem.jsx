@@ -18,7 +18,7 @@ class BookmarkItem extends Component {
         <p className="bookmarkitem-text">
           <i
             role="button"
-            onKeyDown={this.props.authStore.deleteBookmark}
+            onKeyDown={this.deleteBookmark}
             tabIndex="-1"
             onClick={this.deleteBookmark}
             className="fa fa-times bookmarkitem-text-delete"

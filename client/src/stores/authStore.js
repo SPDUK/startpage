@@ -18,6 +18,8 @@ class AuthStore {
   };
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
+  // currently used to clear errors after posting a new bookmark, if this is not used the
+  // form will stay up after submitting a correct form
   clearErrors = () => {
     this.errors = {};
   };
@@ -94,12 +96,11 @@ class AuthStore {
       });
   };
 
-  // make an edit clock option, that does not use setupclock as changing isloading etc
-  // might cause problems and it will be easier to just avoid them
-  // TODO: make the ui refresh after sending this request
+  @action
+  toggleClockLoading() {
+    this.clock.isLoading = true;
+  }
 
-  // if the user has logged in before -> set the clock to be the response
-  // in front-end we show form to setUpClock.
   @action
   fetchClockTime = () => {
     axios
@@ -162,9 +163,14 @@ class AuthStore {
   };
 
   deleteBookmark = id => {
-    axios.delete(`api/users/bookmarks/${id}`).then(res => {
-      this.fetchBookmarks();
-    });
+    axios
+      .delete(`api/users/bookmarks/${id}`)
+      .then(res => {
+        this.fetchBookmarks();
+      })
+      .catch(err => {
+        this.errors = err.response.data;
+      });
   };
 }
 
