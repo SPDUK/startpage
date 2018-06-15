@@ -14,7 +14,7 @@ const styles = {
   wrapper: {
     position: 'fixed',
     // maxHeight: '70vh',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     top: '50%',
     left: '50%',
     width: 500,

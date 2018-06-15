@@ -33,7 +33,7 @@ const styles = {
   },
   selects: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     margin: '10px',
     textAlign: 'left'
   },
@@ -178,7 +178,7 @@ class ClockForm extends Component {
                 style={{
                   display: 'flex',
                   justifyContent: 'flex-end',
-                  margin: '20px 10px 0px 0px'
+                  margin: '15px 55px 0px 0px'
                 }}
               >
                 <Button variant="raised" color="secondary" onClick={this.handleSubmit}>

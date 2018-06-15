@@ -1,10 +1,13 @@
 .bookmarks {
-  width: 480px;
+  width: 500px;
   height: 340px;
+  margin-right: 0;
+  display: flex;
+  &-wrapper {
+    width: 480px;
+    margin-right: 0px;
+  }
   &-controller {
-    right: 8px;
-    top: 230px;
-    position: absolute;
     transition: 0.2s ease-in;
     color: rgba($color: #fafafa, $alpha: 0.4);
     text-align: center;

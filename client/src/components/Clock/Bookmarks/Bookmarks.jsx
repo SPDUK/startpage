@@ -101,9 +101,9 @@ class Bookmarks extends Component {
 
     // eslint-disable-next-line
     return (
-      <div>
-        <div className="bookmarks">
-          {bookmarks}
+      <div className="bookmarks">
+        <div className="bookmarks-wrapper">{bookmarks}</div>
+        <div>
           <i
             onClick={this.handleClickOpen}
             onKeyDown={this.handleClickOpen}
