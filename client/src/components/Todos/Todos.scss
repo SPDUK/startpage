@@ -1,9 +1,23 @@
 .todos {
   position: absolute;
   bottom: 0px;
-  right: 0px;
+  right: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  &-card {
+    padding: 20px;
+    height: 70vh;
+    width: 300px;
+  }
   &-menu {
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.603),
       -1px -1px rgba(0, 0, 0, 0.192), 1px 1px rgba(0, 0, 0, 0.295);
   }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

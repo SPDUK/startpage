@@ -16,7 +16,9 @@ class AuthStore {
     id: '',
     name: ''
   };
-  @observable background = 'https://i.imgur.com/2QdslFF.jpg';
+  // TODO: set up a toggle on-off somewhere to remove vignette if not needed
+  vignette = true;
+  @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
   // currently used to clear errors after posting a new bookmark, if this is not used the
   // form will stay up after submitting a correct form
