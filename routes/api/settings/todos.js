@@ -51,33 +51,46 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   sanitizeBody('todo');
   sanitizeBody('completed');
-  const { errors, isValid } = validateTodoInput(req.body);
-  if (!isValid) {
-    return res.status(400).json(errors);
+  console.log(req.body);
+  // if they are just toggling completed true or false it's ok, else make sure it's valid
+  if (req.body.todo) {
+    const { errors, isValid } = validateTodoInput(req.body.todo);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
   }
   UserModel.findOne({ user: req.user.id })
     .then(user => {
-      TodosModel.findById(req.params.id).then(todo => {
-        // if the user.id making the request is not the same as the jWT.id stop
-        if (todo.user.toString() !== req.user.id.toString()) {
-          return res.status(401).json({ notauthorized: 'User is not authoritzed ' });
-        }
-        // if the todo or completed field has a new input  - update it, else leave it as it was
-        todo
-          .update({
-            $set: {
-              todo: req.body.todo || todo.todo,
-              completed: req.body.completed || todo.completed
-            }
-          })
-          .then(() => res.json({ success: true }))
-          .catch(err =>
-            res.status(404).json({
-              todoError:
-                'Todos must be between 1 and 120 characters, Completed must be true or false'
+      TodosModel.findById(req.params.id)
+        .then(todo => {
+          // if the user.id making the request is not the same as the jWT.id stop
+          if (todo.user.toString() !== req.user.id.toString()) {
+            return res.status(401).json({ notauthorized: 'User is not authoritzed ' });
+          }
+          // if the todo or completed field has a new input  - update it, else leave it as it was
+
+          // TODO: find out why complete dhas to be a boolean to be saved and why 'false' is saved as false
+          // in the db and why false (boolean) does not work even though it is exactly what is saved..?
+          todo
+            .update({
+              $set: {
+                todo: req.body.todo || todo.todo,
+                completed: req.body.completed.toString() || todo.completed
+              }
             })
-          );
-      });
+            .then(() => res.json({ success: true }))
+            .catch(err =>
+              res.status(404).json({
+                todoError:
+                  'Todos must be between 1 and 120 characters, Completed must be true or false'
+              })
+            );
+        })
+        .catch(err =>
+          res
+            .status(404)
+            .json({ todoserror: 'There was an error updating that todo, maybe it does not exist' })
+        );
     })
     .catch(err => res.status(404).json({ nopostfound: 'No todo was found with that ID' }));
 });

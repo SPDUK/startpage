@@ -12,6 +12,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+
 import ReactAux from '../../hoc/ReactAux';
 
 import './Todos.scss';
@@ -21,23 +23,32 @@ import './Todos.scss';
 class Todos extends Component {
   state = {
     showTodos: false,
-    newTodo: ''
+    newTodo: '',
+    updateTodo: '',
+    editing: false
   };
 
   componentDidMount() {
     this.props.authStore.fetchTodos();
   }
 
+  // handling a client side todo
   toggleTodosDone = id => event => {
     console.log(id);
-    console.log(event.target.checked);
+
     this.setState({ [id]: event.target.checked });
+    const toggledTodo = {
+      completed: event.target.checked
+    };
+
+    this.props.authStore.updateTodo(id, toggledTodo);
   };
 
   inputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // manging the todo menu
   closeTodos = () => {
     if (this.state.showTodos === true) {
       this.setState({
@@ -45,7 +56,7 @@ class Todos extends Component {
       });
     }
   };
-  toggleTodosDoneTodos = () => {
+  toggleTodoList = () => {
     this.setState(prevState => ({
       showTodos: !prevState.showTodos
     }));
@@ -58,6 +69,23 @@ class Todos extends Component {
       completed: false
     };
     this.props.authStore.addTodo(todo);
+    this.setState({
+      newTodo: ''
+    });
+  };
+
+  openUpdateTodo = () => {
+    this.setState(prevState => ({
+      editTodo: !prevState.editTodo
+    }));
+  };
+  updateTodo = e => {
+    e.preventDefault();
+    const todo = {
+      todo: this.state.updateTodo,
+      completed: e.target.checked
+    };
+    this.props.authStore.updateTodo(todo);
   };
 
   render() {
@@ -65,13 +93,46 @@ class Todos extends Component {
     let todos;
     if (authStore.todos[0]) {
       todos = authStore.todos.map(todo => (
-        <FormControlLabel
-          key={todo._id}
-          id={todo._id}
-          label={todo.todo}
-          value={todo._id}
-          control={<Checkbox checked={this.state._id} onChange={this.toggleTodosDone(todo._id)} />}
-        />
+        <div
+          style={{ width: '270px' }}
+          onClick={this.openUpdateTodo}
+          onKeyDown={this.closeTodos}
+          tabIndex="-1"
+          role="button"
+        >
+          <Grid container>
+            <Grid item xs={2}>
+              <Checkbox onChange={this.toggleTodosDone(todo._id)} checked={todo.completed} />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  marginTop: '10px',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  wordBreak: 'break-all'
+                }}
+                variant="body2"
+              >
+                {this.state.editing ? (
+                  <form>
+                    <input placeholder={todo.todo} />
+                  </form>
+                ) : (
+                  <span>{todo.todo} </span>
+                )}
+              </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <i className="fas fa-pencil-alt todos-action " />
+            </Grid>
+            <Grid item xs={1}>
+              <i className="fas fa-times todos-action" />
+            </Grid>
+          </Grid>
+        </div>
       ));
     }
 
@@ -88,8 +149,12 @@ class Todos extends Component {
           <Grow in={this.state.showTodos}>
             <Card style={{ overflowY: 'auto' }} className="todos-card">
               <FormControl component="fieldset">
-                <FormLabel style={{ marginBottom: 10 }} component="legend">
-                  Todos: 3 of 12 Completed
+                <FormLabel
+                  onClick={this.props.authStore.updateTodo}
+                  style={{ marginBottom: 10 }}
+                  component="legend"
+                >
+                  X of {authStore.todos.length} Todos Completed
                 </FormLabel>
                 {todos}
               </FormControl>
@@ -114,7 +179,7 @@ class Todos extends Component {
           </Grow>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
-              onClick={this.toggleTodosDoneTodos}
+              onClick={this.toggleTodoList}
               style={{ color: 'white', width: '40px', paddingRight: 0 }}
               className="todos-menu"
               size="large"
