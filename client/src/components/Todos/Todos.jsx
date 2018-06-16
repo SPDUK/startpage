@@ -20,26 +20,61 @@ import './Todos.scss';
 @observer
 class Todos extends Component {
   state = {
-    gilad: true,
-    jason: false,
-    antoine: true,
-    showTodos: false
+    showTodos: false,
+    newTodo: ''
   };
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+
+  componentDidMount() {
+    this.props.authStore.fetchTodos();
+  }
+
+  toggleTodosDone = id => event => {
+    console.log(id);
+    console.log(event.target.checked);
+    this.setState({ [id]: event.target.checked });
   };
+
+  inputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   closeTodos = () => {
-    this.setState({
-      showTodos: false
-    });
+    if (this.state.showTodos === true) {
+      this.setState({
+        showTodos: false
+      });
+    }
   };
-  toggleTodos = () => {
+  toggleTodosDoneTodos = () => {
     this.setState(prevState => ({
       showTodos: !prevState.showTodos
     }));
   };
 
+  addTodo = e => {
+    e.preventDefault();
+    const todo = {
+      todo: this.state.newTodo,
+      completed: false
+    };
+    this.props.authStore.addTodo(todo);
+  };
+
   render() {
+    const { authStore } = this.props;
+    let todos;
+    if (authStore.todos[0]) {
+      todos = authStore.todos.map(todo => (
+        <FormControlLabel
+          key={todo._id}
+          id={todo._id}
+          label={todo.todo}
+          value={todo._id}
+          control={<Checkbox checked={this.state._id} onChange={this.toggleTodosDone(todo._id)} />}
+        />
+      ));
+    }
+
     return (
       <ReactAux>
         <div
@@ -56,216 +91,30 @@ class Todos extends Component {
                 <FormLabel style={{ marginBottom: 10 }} component="legend">
                   Todos: 3 of 12 Completed
                 </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.gilad}
-                        onChange={this.handleChange('gilad')}
-                        value="gilad"
-                      />
-                    }
-                    label="pick up dog"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.gilad}
-                        onChange={this.handleChange('gilad')}
-                        value="gilad"
-                      />
-                    }
-                    label="clean my car"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.gilad}
-                        onChange={this.handleChange('gilad')}
-                        value="gilad"
-                      />
-                    }
-                    label="Gilad Gray"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.gilad}
-                        onChange={this.handleChange('gilad')}
-                        value="gilad"
-                      />
-                    }
-                    label="Gilad Gray"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.gilad}
-                        onChange={this.handleChange('gilad')}
-                        value="gilad"
-                      />
-                    }
-                    label="Gilad Gray"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="123456789 12345678456789 1236789 123456784567 123456789 12345678456789"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />{' '}
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.jason}
-                        onChange={this.handleChange('jason')}
-                        value="jason"
-                      />
-                    }
-                    label="Jason Killian"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.antoine}
-                        onChange={this.handleChange('antoine')}
-                        value="antoine"
-                      />
-                    }
-                    label="Antoine Llorca"
-                  />
-                </FormGroup>
+                {todos}
               </FormControl>
             </Card>
           </Grow>
           <Grow in={this.state.showTodos}>
             <Card style={{ zIndex: 2, marginTop: '-5px' }}>
-              <Input
-                fullwidth
-                style={{ width: '300px' }}
-                placeholder="What are your tasks for today?"
-                inputProps={{
-                  'aria-label': 'Description'
-                }}
-              />
+              <form onSubmit={this.addTodo}>
+                <Input
+                  fullwidth
+                  style={{ width: '300px' }}
+                  placeholder="What are your tasks for today?"
+                  name="newTodo"
+                  value={this.state.newTodo}
+                  onChange={this.inputChange}
+                  inputProps={{
+                    'aria-label': 'Description'
+                  }}
+                />
+              </form>
             </Card>
           </Grow>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
-              onClick={this.toggleTodos}
+              onClick={this.toggleTodosDoneTodos}
               style={{ color: 'white', width: '40px', paddingRight: 0 }}
               className="todos-menu"
               size="large"

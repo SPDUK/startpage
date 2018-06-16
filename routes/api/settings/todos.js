@@ -37,10 +37,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   // just test stuff
   newTodo
     .save()
-    .then(post =>
+    .then(todo =>
       res.json({
-        post,
-        user: req.user
+        todo
       })
     )
     .catch(err => res.status(404).json({ todoError: 'There was an error with todo' }));

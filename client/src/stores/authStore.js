@@ -144,6 +144,7 @@ class AuthStore {
       .post('api/users/bookmarks', bookmark)
       .then(res => {
         this.bookmarks.push(res.data.bookmark);
+        console.log(this.bookmarks);
         this.errors = '';
       })
       .catch(err => {
@@ -173,6 +174,41 @@ class AuthStore {
       .catch(err => {
         this.errors = err.response.data;
       });
+  };
+
+  // / TODOS
+
+  @observable
+  todos = [
+    {
+      todo: '',
+      completed: true,
+      id: ''
+    }
+  ];
+
+  @action
+  fetchTodos = () => {
+    axios
+      .get('/api/users/todos/', this.user)
+      .then(res => {
+        this.todos = res.data;
+      })
+      .catch(err => {
+        this.errors = err.response.data;
+      });
+  };
+
+  @action
+  addTodo = todo => {
+    axios
+      .post('api/users/todos', todo)
+      .then(res => {
+        console.log(res.data);
+        this.todos.push(res.data.todo);
+        // this.todos.push(res.data);
+      })
+      .catch(err => console.log(err));
   };
 }
 
