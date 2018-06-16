@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+// TODO: make it so if a jwt token does not decode to an email then it is not valid!
 const bcrypt = require('bcryptjs');
 
 require('dotenv').config({ path: 'variables.env' });

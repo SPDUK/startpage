@@ -187,6 +187,7 @@ class AuthStore {
     }
   ];
 
+  @observable completedTodos = 0;
   @action
   fetchTodos = () => {
     axios
@@ -196,7 +197,7 @@ class AuthStore {
         this.todos = res.data;
       })
       .catch(err => {
-        this.errors = err.response.data;
+        this.errors = err;
       });
   };
 
@@ -221,8 +222,14 @@ class AuthStore {
 
   editTodo = todo => {
     console.log(todo.id);
-    axios.put(`api/users/todos/${todo.id}`, todo).then(todox => {
-      console.log(todox);
+    axios.put(`api/users/todos/${todo.id}`, todo).then(todos => {
+      this.fetchTodos();
+    });
+  };
+  deleteTodo = id => {
+    console.log(id);
+    axios.delete(`api/users/todos/${id}`).then(todos => {
+      this.fetchTodos();
     });
   };
 }

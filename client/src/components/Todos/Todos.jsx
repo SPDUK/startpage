@@ -50,7 +50,8 @@ class Todos extends Component {
   closeTodos = () => {
     if (this.state.showTodos === true) {
       this.setState({
-        showTodos: false
+        showTodos: false,
+        editing: ''
       });
     }
   };
@@ -78,12 +79,13 @@ class Todos extends Component {
       editingInput: todo,
       editingCompleted: completed
     });
+    setTimeout(() => {
+      document.getElementById(`edit ${id}`).focus();
+    }, 150);
   };
 
   submitEditTodo = e => {
     e.preventDefault();
-    // const meme = document.getElementById(`${this.state.editing}`);
-
     const editedTodo = {
       todo: this.state.editingInput,
       id: this.state.editing,
@@ -91,6 +93,9 @@ class Todos extends Component {
     };
 
     this.props.authStore.editTodo(editedTodo);
+    this.setState({
+      editing: ''
+    });
   };
   // updateTodo = e => {
   //   e.preventDefault();
@@ -107,7 +112,7 @@ class Todos extends Component {
     if (authStore.todos[0]) {
       todos = authStore.todos.map(todo => (
         // eslint-disable-next-line
-        <div key={todo.id} id={todo.id} style={{ width: '270px' }} onClick={this.openUpdateTodo} tabIndex="-1" role="button">
+        <div key={todo._id} id={todo._id} style={{ width: '270px' }}>
           <Grid id={todo._id} container>
             <Grid item xs={2}>
               <Checkbox onChange={this.toggleTodosDone(todo._id)} checked={todo.completed} />
@@ -122,11 +127,12 @@ class Todos extends Component {
                   overflowWrap: 'break-word',
                   wordBreak: 'break-all'
                 }}
-                variant="body2"
+                variant="subheading"
               >
                 {this.state.editing === todo._id ? (
                   <form onSubmit={this.submitEditTodo}>
-                    <input
+                    <Input
+                      id={`edit ${todo._id}`}
                       onChange={this.inputChange}
                       name="editingInput"
                       value={this.state.editingInput}
@@ -143,9 +149,8 @@ class Todos extends Component {
               xs={1}
             >
               <i id={todo._id} className="fas fa-pencil-alt todos-action " />
-              <i id={todo._id} className="fas fa-pencil-alt todos-action " />
             </Grid>
-            <Grid item xs={1}>
+            <Grid onClick={() => this.props.authStore.deleteTodo(todo._id)} item xs={1}>
               <i className="fas fa-times todos-action" />
             </Grid>
           </Grid>
