@@ -12,7 +12,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
-import ClickOff from '../../hoc/ClickOff/ClickOff';
 import ReactAux from '../../hoc/ReactAux';
 
 import './Todos.scss';
@@ -43,12 +42,20 @@ class Todos extends Component {
   render() {
     return (
       <ReactAux>
-        <ClickOff />
+        <div
+          style={{ outline: 'none', height: '100vh', width: '100vw', hightlight: 'none' }}
+          onKeyDown={this.closeTodos}
+          tabIndex="-1"
+          role="button"
+          onClick={this.closeTodos}
+        />
         <div className="todos">
           <Grow in={this.state.showTodos}>
             <Card style={{ overflowY: 'auto' }} className="todos-card">
               <FormControl component="fieldset">
-                <FormLabel component="legend">Todos: 3 of 12 Completed</FormLabel>
+                <FormLabel style={{ marginBottom: 10 }} component="legend">
+                  Todos: 3 of 12 Completed
+                </FormLabel>
                 <FormGroup>
                   <FormControlLabel
                     control={
@@ -58,7 +65,7 @@ class Todos extends Component {
                         value="gilad"
                       />
                     }
-                    label="123456789 12345678456789 1236789 123456784567 123456789 12345678456789 "
+                    label="pick up dog"
                   />
                   <FormControlLabel
                     control={
@@ -68,7 +75,7 @@ class Todos extends Component {
                         value="gilad"
                       />
                     }
-                    label="123456789 12345678456789 1236789 123456784567 123456789 12345678456789"
+                    label="clean my car"
                   />{' '}
                   <FormControlLabel
                     control={
@@ -244,7 +251,18 @@ class Todos extends Component {
               </FormControl>
             </Card>
           </Grow>
-
+          <Grow in={this.state.showTodos}>
+            <Card style={{ zIndex: 2, marginTop: '-5px' }}>
+              <Input
+                fullwidth
+                style={{ width: '300px' }}
+                placeholder="What are your tasks for today?"
+                inputProps={{
+                  'aria-label': 'Description'
+                }}
+              />
+            </Card>
+          </Grow>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
               onClick={this.toggleTodos}
