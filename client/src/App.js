@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 
 import ReactAux from './hoc/ReactAux';
 import Clock from './components/Clock/Clock';
+import Todos from './components/Todos/Todos';
 
 // import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import setAuthToken from './utils/setAuthToken';
@@ -35,7 +36,12 @@ class App extends Component {
       <ReactAux>
         <DevTools />
         <CssBaseline />
-        {authStore.isAuthenticated ? <Clock /> : null}
+        {authStore.isAuthenticated ? (
+          <ReactAux>
+            <Clock />
+            <Todos />
+          </ReactAux>
+        ) : null}
         {!authStore.isAuthenticated ? <Auth /> : null}
         <div className="app-background">
           <div id="bg" className="app-background-image" />

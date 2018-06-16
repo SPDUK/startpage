@@ -1,0 +1,9 @@
+.todos {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  &-menu {
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.603),
+      -1px -1px rgba(0, 0, 0, 0.192), 1px 1px rgba(0, 0, 0, 0.295);
+  }
+}
