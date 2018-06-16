@@ -45,20 +45,22 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     .catch(err => res.status(404).json({ todoError: 'There was an error with todo' }));
 });
 
-// @route UPDATE api/users/todos/:todo_id
+// @route PUT api/users/todos/:todo_id
 // @desc update a todo and or completed status
 // @access Private
 router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   sanitizeBody('todo');
   sanitizeBody('completed');
-  console.log(req.body);
-  // if they are just toggling completed true or false it's ok, else make sure it's valid
-  if (req.body.todo) {
-    const { errors, isValid } = validateTodoInput(req.body.todo);
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
+  if (req.body.completed) {
+    req.body.completed = req.body.completed.toString();
   }
+  // if they are just toggling completed true or false it's ok, else make sure it's valid
+  // if (req.body.todo) {
+  //   const { errors, isValid } = validateTodoInput(req.body);
+  //   if (!isValid) {
+  //     return res.status(400).json(errors);
+  //   }
+  // }
   UserModel.findOne({ user: req.user.id })
     .then(user => {
       TodosModel.findById(req.params.id)
@@ -69,13 +71,14 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
           }
           // if the todo or completed field has a new input  - update it, else leave it as it was
 
-          // TODO: find out why complete dhas to be a boolean to be saved and why 'false' is saved as false
+          // TODO: find out why completed has to be a boolean to be saved and why 'false' is saved as false
           // in the db and why false (boolean) does not work even though it is exactly what is saved..?
+          req.body.completed = req.body.completed.toString();
           todo
             .update({
               $set: {
                 todo: req.body.todo || todo.todo,
-                completed: req.body.completed.toString() || todo.completed
+                completed: req.body.completed.toString() || todo.completed.toString() || 'false'
               }
             })
             .then(() => res.json({ success: true }))

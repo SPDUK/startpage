@@ -24,8 +24,8 @@ class Todos extends Component {
   state = {
     showTodos: false,
     newTodo: '',
-    updateTodo: '',
-    editing: false
+    editing: '',
+    editingInput: ''
   };
 
   componentDidMount() {
@@ -34,8 +34,6 @@ class Todos extends Component {
 
   // handling a client side todo
   toggleTodosDone = id => event => {
-    console.log(id);
-
     this.setState({ [id]: event.target.checked });
     const toggledTodo = {
       completed: event.target.checked
@@ -74,33 +72,43 @@ class Todos extends Component {
     });
   };
 
-  openUpdateTodo = () => {
-    this.setState(prevState => ({
-      editTodo: !prevState.editTodo
-    }));
+  openEditTodo = (todo, id, completed) => {
+    this.setState({
+      editing: id,
+      editingInput: todo,
+      editingCompleted: completed
+    });
   };
-  updateTodo = e => {
+
+  submitEditTodo = e => {
     e.preventDefault();
-    const todo = {
-      todo: this.state.updateTodo,
-      completed: e.target.checked
+    // const meme = document.getElementById(`${this.state.editing}`);
+
+    const editedTodo = {
+      todo: this.state.editingInput,
+      id: this.state.editing,
+      completed: this.state.editingCompleted
     };
-    this.props.authStore.updateTodo(todo);
+
+    this.props.authStore.editTodo(editedTodo);
   };
+  // updateTodo = e => {
+  //   e.preventDefault();
+  //   const todo = {
+  //     todo: this.state.updateTodo,
+  //     completed: e.target.checked
+  //   };
+  //   this.props.authStore.updateTodo(todo);
+  // };
 
   render() {
     const { authStore } = this.props;
     let todos;
     if (authStore.todos[0]) {
       todos = authStore.todos.map(todo => (
-        <div
-          style={{ width: '270px' }}
-          onClick={this.openUpdateTodo}
-          onKeyDown={this.closeTodos}
-          tabIndex="-1"
-          role="button"
-        >
-          <Grid container>
+        // eslint-disable-next-line
+        <div key={todo.id} id={todo.id} style={{ width: '270px' }} onClick={this.openUpdateTodo} tabIndex="-1" role="button">
+          <Grid id={todo._id} container>
             <Grid item xs={2}>
               <Checkbox onChange={this.toggleTodosDone(todo._id)} checked={todo.completed} />
             </Grid>
@@ -116,17 +124,26 @@ class Todos extends Component {
                 }}
                 variant="body2"
               >
-                {this.state.editing ? (
-                  <form>
-                    <input placeholder={todo.todo} />
+                {this.state.editing === todo._id ? (
+                  <form onSubmit={this.submitEditTodo}>
+                    <input
+                      onChange={this.inputChange}
+                      name="editingInput"
+                      value={this.state.editingInput}
+                    />
                   </form>
                 ) : (
-                  <span>{todo.todo} </span>
+                  <span>{todo.todo}</span>
                 )}
               </Typography>
             </Grid>
-            <Grid item xs={1}>
-              <i className="fas fa-pencil-alt todos-action " />
+            <Grid
+              onClick={() => this.openEditTodo(todo.todo, todo._id, todo.completed)}
+              item
+              xs={1}
+            >
+              <i id={todo._id} className="fas fa-pencil-alt todos-action " />
+              <i id={todo._id} className="fas fa-pencil-alt todos-action " />
             </Grid>
             <Grid item xs={1}>
               <i className="fas fa-times todos-action" />
@@ -164,7 +181,6 @@ class Todos extends Component {
             <Card style={{ zIndex: 2, marginTop: '-5px' }}>
               <form onSubmit={this.addTodo}>
                 <Input
-                  fullwidth
                   style={{ width: '300px' }}
                   placeholder="What are your tasks for today?"
                   name="newTodo"

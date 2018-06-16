@@ -13,8 +13,7 @@ const todosSchema = new Schema({
   },
   completed: {
     type: Boolean,
-    default: false,
-    required: true
+    default: false
   }
 });
 

@@ -192,7 +192,7 @@ class AuthStore {
     axios
       .get('/api/users/todos/', this.user)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.todos = res.data;
       })
       .catch(err => {
@@ -216,6 +216,13 @@ class AuthStore {
     // console.log(completed);
     axios.put(`api/users/todos/${id}`, completed).then(todos => {
       this.fetchTodos();
+    });
+  };
+
+  editTodo = todo => {
+    console.log(todo.id);
+    axios.put(`api/users/todos/${todo.id}`, todo).then(todox => {
+      console.log(todox);
     });
   };
 }
