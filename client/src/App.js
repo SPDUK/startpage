@@ -27,6 +27,16 @@ class App extends Component {
       setAuthToken(localStorage.jwtToken);
       const decoded = jwtDecode(localStorage.jwtToken);
       this.props.authStore.setUser(decoded);
+
+      // if the jwt is expired, log them out and remove the jwt
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        // logout user
+
+        this.props.authStore.logoutUser();
+        // clear current profile
+        window.location.href = '/login';
+      }
     }
   }
 

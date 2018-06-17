@@ -67,6 +67,16 @@ class AuthStore {
   setUser = decoded => {
     this.isAuthenticated = !_.isEmpty(decoded);
     this.user = decoded;
+    console.log(decoded);
+    console.log(this.user);
+  };
+
+  @action
+  logoutUser = () => {
+    localStorage.removeItem('jwtToken');
+    setAuthToken(false);
+    this.user = {};
+    this.isAuthenticated = false;
   };
 
   // CLOCK  TODO: check over this when you are not tired
@@ -108,16 +118,19 @@ class AuthStore {
     axios
       .get('/api/users/clock/', this.user)
       .then(res => {
+        console.log(res);
         if (res.data.displayclock) {
           this.clock.isLoading = false;
           this.clock = res.data;
         }
       })
       .catch(err => {
+        // if this fails, redirect them to log back in
+        // this should never happen, but the main cause would be is if the JWT is broken somehow
+        // so this acts as a kind of "log out" if the user tries to enter an incorrect JWT also
+        // when they log back in the JWT will be reset and everything will work again
         console.log(err);
-        // console.log(err);
-        // console.log(res.data);
-        // this.errors = err.response.data;
+        this.isAuthenticated = false;
       });
   };
 
