@@ -28,6 +28,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   if (!isValid) {
     return res.status(400).json(errors);
   }
+  console.log(req.user);
   WeatherModel.findOne({ user: req.user.id }).then(user => {
     // if there is a weather setting already set up for the user, update that instead of making a new one
     if (user) {
@@ -54,6 +55,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         temptype: req.body.temptype,
         displayweather: req.body.displayweather
       });
+      console.log('??????????/');
       newWeather
         .save()
         .then(weather => res.json(weather))
@@ -64,17 +66,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         );
     }
   });
-});
-const key = '1e252c6355bd41b138ceaf1cc03e0538';
-
-const url = `http://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&appid=${key}`;
-router.get('/test', (req, res) => {
-  axios
-    .get(url)
-    .then(data => {
-      res.json(data.data);
-    })
-    .catch(err => console.log(err));
 });
 
 module.exports = router;

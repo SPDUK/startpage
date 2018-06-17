@@ -80,7 +80,6 @@ class Bookmarks extends Component {
   render() {
     const { classes, authStore } = this.props;
     let bookmarks;
-    console.log('update');
     // only map over bookmarks and create them if there is at least 1.
     if (authStore.bookmarks[0]) {
       bookmarks = authStore.bookmarks.map(bookmark => (

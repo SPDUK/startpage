@@ -67,8 +67,6 @@ class AuthStore {
   setUser = decoded => {
     this.isAuthenticated = !_.isEmpty(decoded);
     this.user = decoded;
-    console.log(decoded);
-    console.log(this.user);
   };
 
   @action
@@ -116,7 +114,6 @@ class AuthStore {
     axios
       .get('/api/users/clock/', this.user)
       .then(res => {
-        console.log(res);
         if (res.data.displayclock) {
           this.clock.isLoading = false;
           this.clock = res.data;
@@ -149,7 +146,6 @@ class AuthStore {
       .post('api/users/bookmarks', bookmark)
       .then(res => {
         this.bookmarks.push(res.data.bookmark);
-        console.log(this.bookmarks);
         this.errors = '';
       })
       .catch(err => {
@@ -199,7 +195,7 @@ class AuthStore {
     axios
       .get('/api/users/todos/', this.user)
       .then(res => {
-        // console.log(res.data);
+        console.log(res.data);
         this.todos = res.data;
       })
       .then(() => {
@@ -220,7 +216,6 @@ class AuthStore {
     axios
       .post('api/users/todos', todo)
       .then(res => {
-        console.log(res.data);
         this.todos.push(res.data.todo);
         // this.todos.push(res.data);
       })
@@ -245,6 +240,32 @@ class AuthStore {
     axios.delete(`api/users/todos/${id}`).then(() => {
       this.fetchTodos();
     });
+  };
+
+  // WEATHER
+
+  @observable
+  weather = {
+    name: 'london',
+    temptype: 'metric',
+    displayweather: true
+  };
+  key = '1e252c6355bd41b138ceaf1cc03e0538';
+  url = `http://api.openweathermap.org/data/2.5/forecast?q=${this.weather.name}units=${
+    this.weather.temptype
+  }&appid=${this.key}`;
+
+  fetchWeather = () => {
+    axios
+      .get('/api/users/weather/', this.user)
+      .then(res => {
+        this.weather.isLoading = false;
+        this.weather = res.data;
+        console.log(this.weather);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 }
 

@@ -66,18 +66,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   });
 });
 
-// test api fetch
-const key = '1e252c6355bd41b138ceaf1cc03e0538';
-const url = `http://api.openweathermap.org/data/2.5/forecast?q=london&units=imperial&appid=${key}`;
-router.post('/test', (req, res) => {
-  axios
-    .get(url)
-    .then(data => {
-      res.json(data.data);
-    })
-    .catch(err => console.log(err));
-});
-
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id,

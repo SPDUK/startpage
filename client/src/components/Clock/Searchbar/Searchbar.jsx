@@ -39,7 +39,6 @@ class SearchBar extends Component {
   };
 
   handleClose = e => {
-    console.log(e.target);
     this.setState({ searchType: e.target.id || 'Google' });
     this.setState({ anchorEl: null });
   };
