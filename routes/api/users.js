@@ -1,6 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-// TODO: make it so if a jwt token does not decode to an email then it is not valid!
 const bcrypt = require('bcryptjs');
 
 require('dotenv').config({ path: 'variables.env' });
@@ -87,7 +86,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-// TODO: set up a bcrypt.compare where user puts in an email and compare it to hashed email
+// TODO: maybe ?? set up a bcrypt.compare where user puts in an email and compare it to hashed email
 // if no email exists send a fake notification saying it was sent even if it was not.
 // if email = user.email then send a token
 

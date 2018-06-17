@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const { sanitizeBody } = require('express-validator/filter');
-// TODO: remove unused things eg: axios
+
 const app = express();
 const users = require('./routes/api/users.js');
 const todos = require('./routes/api/settings/todos.js');

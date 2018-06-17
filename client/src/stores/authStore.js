@@ -16,7 +16,7 @@ class AuthStore {
     id: '',
     name: ''
   };
-  // TODO: set up a toggle on-off somewhere to remove vignette if not needed
+  // TODO: set up a toggle on-off somewhere to remove vignette if not needed maybe?
   vignette = true;
   @observable background = 'https://i.imgur.com/FkPvPGH.jpg';
 
@@ -78,8 +78,6 @@ class AuthStore {
     this.user = {};
     this.isAuthenticated = false;
   };
-
-  // CLOCK  TODO: check over this when you are not tired
 
   // clock
   @observable
