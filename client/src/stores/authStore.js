@@ -131,7 +131,6 @@ class AuthStore {
   }
 
   // bookmarks
-
   @observable
   bookmarks = {
     bookmark: '',
@@ -176,8 +175,8 @@ class AuthStore {
       });
   };
 
-  // / TODOS
-
+  // / TODOS -- TODO: maybe add loading spinner for state in between when a request is sent then turn it off after
+  // request is finished?
   @observable
   todos = [
     {

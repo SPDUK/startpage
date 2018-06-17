@@ -191,6 +191,7 @@ class Todos extends Component {
             <Card style={{ zIndex: 2, marginTop: '-5px' }}>
               <form onSubmit={this.addTodo}>
                 <Input
+                  disabled={!this.state.showTodos}
                   style={{ width: '300px', paddingLeft: '15px' }}
                   placeholder="What are your tasks for today?"
                   name="newTodo"
