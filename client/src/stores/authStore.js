@@ -196,6 +196,14 @@ class AuthStore {
         // console.log(res.data);
         this.todos = res.data;
       })
+      .then(() => {
+        this.completedTodos = 0;
+        for (let i = 0; i < this.todos.length; i += 1) {
+          if (this.todos[i].completed === true) {
+            this.completedTodos += 1;
+          }
+        }
+      })
       .catch(err => {
         this.errors = err;
       });

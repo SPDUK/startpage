@@ -171,10 +171,17 @@ class Todos extends Component {
               <FormControl component="fieldset">
                 <FormLabel
                   onClick={this.props.authStore.updateTodo}
-                  style={{ marginBottom: 10 }}
+                  style={{ marginBottom: 10, paddingLeft: '12px' }}
                   component="legend"
                 >
-                  X of {authStore.todos.length} Todos Completed
+                  {authStore.completedTodos === authStore.todos.length &&
+                  authStore.todos.length > 0 ? (
+                    <span>Nice job! Everything is completed</span>
+                  ) : (
+                    <span>
+                      {authStore.completedTodos} of {authStore.todos.length} Todos Completed
+                    </span>
+                  )}
                 </FormLabel>
                 {todos}
               </FormControl>
