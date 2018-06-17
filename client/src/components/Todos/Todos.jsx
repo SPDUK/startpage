@@ -99,13 +99,17 @@ class Todos extends Component {
     let todos;
     if (authStore.todos[0]) {
       todos = authStore.todos.map(todo => (
-        // eslint-disable-next-line
-        <div key={todo._id} id={todo._id} style={{ width: '270px' }}>
+        // eslint-disable-next-line -- i don't know why todo._id is not good enough but yeah
+        <div key={todo._id || Math.random()} id={todo._id} style={{ width: '270px' }}>
           <Grid id={todo._id} container>
             <Grid item xs={2}>
-              <Checkbox onChange={this.toggleTodosDone(todo._id)} checked={todo.completed} />
+              <Checkbox
+                style={{ paddingBottom: '5px' }}
+                onChange={this.toggleTodosDone(todo._id)}
+                checked={todo.completed}
+              />
             </Grid>
-            <Grid item xs={8}>
+            <Grid className="todos-todo" item xs={8}>
               <Typography
                 style={{
                   display: 'flex',
@@ -132,13 +136,19 @@ class Todos extends Component {
               </Typography>
             </Grid>
             <Grid
+              className="todos-todo-edit"
               onClick={() => this.openEditTodo(todo.todo, todo._id, todo.completed)}
               item
               xs={1}
             >
               <i id={todo._id} className="fas fa-pencil-alt todos-action " />
             </Grid>
-            <Grid onClick={() => this.props.authStore.deleteTodo(todo._id)} item xs={1}>
+            <Grid
+              className="todos-todo-delete"
+              onClick={() => this.props.authStore.deleteTodo(todo._id)}
+              item
+              xs={1}
+            >
               <i className="fas fa-times todos-action" />
             </Grid>
           </Grid>
@@ -174,7 +184,7 @@ class Todos extends Component {
             <Card style={{ zIndex: 2, marginTop: '-5px' }}>
               <form onSubmit={this.addTodo}>
                 <Input
-                  style={{ width: '300px' }}
+                  style={{ width: '300px', paddingLeft: '15px' }}
                   placeholder="What are your tasks for today?"
                   name="newTodo"
                   value={this.state.newTodo}

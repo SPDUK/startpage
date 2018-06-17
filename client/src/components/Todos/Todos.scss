@@ -20,6 +20,33 @@
     margin-top: 15px;
     font-size: 0.9em;
   }
+
+  &-todo {
+    &:hover + .todos-todo-edit {
+      opacity: 1;
+      transition: 0.2s ease;
+    }
+    &-edit {
+      text-align: left;
+      margin-right: 50px;
+      opacity: 0;
+      transition: 0.2s ease;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    &-delete {
+      opacity: 0.15;
+      cursor: pointer;
+      transition: 0.2s ease;
+      &:hover {
+        transition: 0.2s ease;
+        opacity: 1;
+        color: red;
+      }
+    }
+  }
 }
 
 ::-webkit-scrollbar {
