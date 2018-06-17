@@ -197,6 +197,7 @@ class AuthStore {
     }
   ];
 
+  // TODO: make it so when a todo is completed it shows at the top of the list?
   @observable completedTodos = 0;
   @action
   fetchTodos = () => {

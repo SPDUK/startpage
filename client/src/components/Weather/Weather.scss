@@ -1,0 +1,32 @@
+.weather {
+  right: 30px;
+  display: flex;
+  top: 15px;
+  position: absolute;
+  height: 50px;
+  width: 200px;
+  opacity: 1;
+  // background-color: red;
+  justify-content: flex-end;
+  &-preview {
+    font-size: 1em !important;
+    color: white !important;
+    background-color: rgba($color: #000000, $alpha: 0.08) !important;
+    transition: 0.25s ease-in;
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: 0.2) !important;
+      transition: 0.25s ease-in;
+    }
+  }
+  &-icon {
+    color: white;
+    opacity: 0.8;
+    transition: 0.25s ease-in;
+
+    &:hover {
+      opacity: 1;
+      transition: 0.25s ease-in;
+      transform: scale(1.05);
+    }
+  }
+}

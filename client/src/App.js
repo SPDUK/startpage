@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 import ReactAux from './hoc/ReactAux';
 import Clock from './components/Clock/Clock';
 import Todos from './components/Todos/Todos';
+import Weather from './components/Weather/Weather';
 
 // import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import setAuthToken from './utils/setAuthToken';
@@ -44,11 +45,12 @@ class App extends Component {
     const { authStore } = this.props;
     return (
       <ReactAux>
-        <DevTools />
+        {/* <DevTools /> */}
         <CssBaseline />
         {authStore.isAuthenticated ? (
           <ReactAux>
             <Clock />
+            <Weather />
             <Todos />
           </ReactAux>
         ) : null}
