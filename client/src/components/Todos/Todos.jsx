@@ -140,6 +140,7 @@ class Todos extends Component {
               onClick={() => this.openEditTodo(todo.todo, todo._id, todo.completed)}
               item
               xs={1}
+              style={{ display: 'flex', justifyContent: 'center' }}
             >
               <i id={todo._id} className="fas fa-pencil-alt todos-action " />
             </Grid>
@@ -148,6 +149,7 @@ class Todos extends Component {
               onClick={() => this.props.authStore.deleteTodo(todo._id)}
               item
               xs={1}
+              style={{ display: 'flex', justifyContent: 'center' }}
             >
               <i className="fas fa-times todos-action" />
             </Grid>
