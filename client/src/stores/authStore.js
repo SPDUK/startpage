@@ -123,12 +123,7 @@ class AuthStore {
         }
       })
       .catch(err => {
-        // if this fails, redirect them to log back in
-        // this should never happen, but the main cause would be is if the JWT is broken somehow
-        // so this acts as a kind of "log out" if the user tries to enter an incorrect JWT also
-        // when they log back in the JWT will be reset and everything will work again
         console.log(err);
-        this.isAuthenticated = false;
       });
   };
 

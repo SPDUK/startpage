@@ -56,8 +56,8 @@ class App extends Component {
         ) : null}
         {!authStore.isAuthenticated ? <Auth /> : null}
         <div className="app-background">
-          {authStore.vignette ? <div className="app-background-vignette" /> : null}
           <div id="bg" className="app-background-image" />
+          {authStore.vignette ? <div className="app-background-vignette" /> : null}
         </div>
       </ReactAux>
     );

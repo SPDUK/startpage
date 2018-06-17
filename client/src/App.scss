@@ -27,8 +27,10 @@ html {
       }
     }
     // vignette for border and center of background to make the text readable
+    // fades in to prevent it flashing on screen at page load
     &-vignette {
       position: fixed;
+      animation: FadeInVignette 0.5s;
       top: 0;
       left: 0;
       width: 100%;
@@ -39,7 +41,15 @@ html {
         rgba(0, 0, 0, 0.15) 0%,
         rgba(0, 0, 0, 0) 40%
       );
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 );
     }
+  }
+}
+
+@keyframes FadeInVignette {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

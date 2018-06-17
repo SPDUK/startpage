@@ -20,13 +20,6 @@
   }
   &-icon {
     color: white;
-    opacity: 0.8;
-    transition: 0.25s ease-in;
-
-    &:hover {
-      opacity: 1;
-      transition: 0.25s ease-in;
-      transform: scale(1.05);
-    }
+    opacity: 0.9;
   }
 }
