@@ -45,7 +45,6 @@ class SearchBar extends Component {
   };
 
   render() {
-    const { open } = this.state;
     const { anchorEl } = this.state;
     return (
       <div className="searchbar">

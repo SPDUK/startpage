@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import Typography from '@material-ui/core/Typography';
 import Grow from '@material-ui/core/Grow';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormLabel from '@material-ui/core/FormLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -97,14 +93,6 @@ class Todos extends Component {
       editing: ''
     });
   };
-  // updateTodo = e => {
-  //   e.preventDefault();
-  //   const todo = {
-  //     todo: this.state.updateTodo,
-  //     completed: e.target.checked
-  //   };
-  //   this.props.authStore.updateTodo(todo);
-  // };
 
   render() {
     const { authStore } = this.props;

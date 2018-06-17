@@ -215,20 +215,20 @@ class AuthStore {
   @action
   updateTodo = (id, completed) => {
     // console.log(completed);
-    axios.put(`api/users/todos/${id}`, completed).then(todos => {
+    axios.put(`api/users/todos/${id}`, completed).then(() => {
       this.fetchTodos();
     });
   };
 
   editTodo = todo => {
     console.log(todo.id);
-    axios.put(`api/users/todos/${todo.id}`, todo).then(todos => {
+    axios.put(`api/users/todos/${todo.id}`, todo).then(() => {
       this.fetchTodos();
     });
   };
   deleteTodo = id => {
     console.log(id);
-    axios.delete(`api/users/todos/${id}`).then(todos => {
+    axios.delete(`api/users/todos/${id}`).then(() => {
       this.fetchTodos();
     });
   };

@@ -75,7 +75,7 @@ class Clock extends Component {
     this.props.authStore.toggleClockLoading();
   };
 
-  render(props) {
+  render() {
     const { classes, authStore } = this.props;
     return (
       <div className={classes.wrapper}>
