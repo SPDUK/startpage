@@ -1,14 +1,14 @@
 .todos {
   position: absolute;
   bottom: 0px;
-  right: 10px;
+  right: 20px;
   width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   &-card {
     padding: 20px 20px 20px 10px;
-    max-height: 70vh;
+    max-height: 60vh;
     width: 300px;
   }
   &-menu {
@@ -49,5 +49,5 @@
 }
 
 ::-webkit-scrollbar {
-  // display: none;
+  display: none;
 }

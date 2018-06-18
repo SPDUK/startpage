@@ -1,9 +1,9 @@
 .weather {
-  right: 30px;
+  right: 20px;
   display: flex;
   top: 15px;
+  height: 19vh;
   position: absolute;
-  height: 50px;
   width: 200px;
   opacity: 1;
   justify-content: flex-end;
@@ -12,6 +12,7 @@
     color: white !important;
     background-color: rgba($color: #000000, $alpha: 0.08) !important;
     transition: 0.25s ease-in;
+    display: block;
     &:hover {
       background-color: rgba($color: #000000, $alpha: 0.2) !important;
       transition: 0.25s ease-in;

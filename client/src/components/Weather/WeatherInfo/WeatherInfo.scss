@@ -1,0 +1,30 @@
+.weatherinfo {
+  width: 200px;
+  background-color: red;
+  top: 55px;
+  right: 20px;
+  max-height: 22vh;
+  position: absolute;
+  width: 300px;
+  opacity: 1;
+  padding: 20px;
+  &-title {
+    display: flex !important;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    word-break: break-all;
+    &-country {
+      font-size: 0.7em;
+      opacity: 0.8;
+    }
+    &-edit {
+      font-size: 0.8em;
+      opacity: 0.3;
+      transition: 0.2s ease;
+      &:hover {
+        transition: 0.2s ease;
+        opacity: 1;
+      }
+    }
+  }
+}

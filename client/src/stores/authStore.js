@@ -222,20 +222,17 @@ class AuthStore {
   };
   @action
   updateTodo = (id, completed) => {
-    // console.log(completed);
     axios.put(`api/users/todos/${id}`, completed).then(() => {
       this.fetchTodos();
     });
   };
 
   editTodo = todo => {
-    console.log(todo.id);
     axios.put(`api/users/todos/${todo.id}`, todo).then(() => {
       this.fetchTodos();
     });
   };
   deleteTodo = id => {
-    console.log(id);
     axios.delete(`api/users/todos/${id}`).then(() => {
       this.fetchTodos();
     });
@@ -263,7 +260,6 @@ class AuthStore {
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
-        console.log(res.data);
         this.weather = res.data;
       })
       .then(() => {
@@ -272,8 +268,8 @@ class AuthStore {
           fetch(this.url)
             .then(res => res.json())
             .then(res => {
+              console.log(res);
               this.weatherInfo = res;
-              console.log(this.weatherInfo);
             });
         }
       })
