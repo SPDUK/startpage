@@ -20,14 +20,18 @@
   &-icon {
     color: white;
     opacity: 02;
-    margin-left: 10px;
+    margin-left: 20px;
     filter: grayscale(1);
     height: 30px !important;
     width: 30px !important;
     transition: 0.25s ease-in;
+    margin-top: 15px;
     &:hover {
-      filter: grayscale(0);
-      transform: scale(1.1);
+      transition: 0.25s ease-in;
+    }
+    i {
+      height: 30px !important;
+      width: 30px !important;
       transition: 0.25s ease-in;
     }
   }

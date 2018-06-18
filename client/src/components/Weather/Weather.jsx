@@ -16,8 +16,10 @@ function handleClick() {
 @observer
 class Weather extends Component {
   componentDidMount() {
-    this.props.authStore.fetchWeatherSettings();
-    this.props.authStore.fetchWeather();
+    if (this.props.authStore.clock.isLoading) {
+      this.props.authStore.fetchWeatherSettings();
+    }
+    // this.props.authStore.fetchWeather();
   }
 
   findWeatherIcon = () => {
@@ -42,6 +44,7 @@ class Weather extends Component {
     }
     console.log(authStore.weatherInfo);
     return (
+      // eslint-disable-next-line
       <div className="weather">
         {authStore.weatherInfo.name ? (
           <Chip
@@ -50,7 +53,7 @@ class Weather extends Component {
               <Avatar
                 style={{ marginRight: '20px', background: 'rgba(255,255,255, 0)', color: 'white' }}
               >
-                <span>
+                <span className="weather-icon">
                   <i className={this.findWeatherIcon()} />
                   alt={authStore.weatherInfo.main.temp}
                 </span>

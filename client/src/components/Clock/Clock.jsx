@@ -78,6 +78,7 @@ class Clock extends Component {
   render() {
     const { classes, authStore } = this.props;
     return (
+      // eslint-disable-next-line
       <div className={classes.wrapper}>
         <div className={classes.clockwrapper}>
           {/* when the fetch request has finished and the user has a location set, show the clock  */}

@@ -119,6 +119,27 @@ class AuthStore {
           this.clock = res.data;
         }
       })
+      .then(res => {
+        // sets up a temporary but inaccurate weather display based on clock input
+        if (!this.weather.name === '') {
+          const weatherLocation = this.clock.clocklocation.split('/');
+          if (weatherLocation[2]) {
+            // eslint-disable-next-line
+          this.weather.name = weatherLocation[2];
+          } else if (weatherLocation[1]) {
+            // eslint-disable-next-line
+          this.weather.name = weatherLocation[1];
+          } else if (weatherLocation[0]) {
+            // eslint-disable-next-line
+          this.weather.name = weatherLocation[0];
+          }
+          console.log(weatherLocation);
+        }
+      })
+      .then(() => this.fetchWeatherSettings())
+      .catch(err => {
+        console.log(err);
+      })
       .catch(err => {
         console.log(err);
       });
@@ -243,19 +264,21 @@ class AuthStore {
   };
 
   // WEATHER
-  key = '1e252c6355bd41b138ceaf1cc03e0538';
+  key = 'f24f40b1c24505685fce3b8acd0fcffc';
   @observable
   weather = {
-    name: 'london',
+    name: '',
     temptype: 'metric',
     displayweather: true
   };
 
   @observable weatherInfo = {};
-  @observable
-  url = `https://api.openweathermap.org/data/2.5/weather?q=${this.weather.name}&units=${
-    this.weather.temptype
-  }&appid=1e252c6355bd41b138ceaf1cc03e0538`;
+  @computed
+  get url() {
+    return `https://api.openweathermap.org/data/2.5/weather?q=${this.weather.name}&units=${
+      this.weather.temptype
+    }&appid=${this.key}`;
+  }
 
   @action
   fetchWeatherSettings = () => {
@@ -264,21 +287,30 @@ class AuthStore {
       .then(res => {
         this.weather.isLoading = false;
         this.weather = res.data;
-        console.log(this.weather);
+        console.log(this.weather.name);
+        console.log('WEATHER SETTINGD FETCHED');
+      })
+      .then(() => {
+        if (this.weather.name !== '') {
+          console.log('API CALL MADE!!');
+          fetch(this.url)
+            .then(res => res.json())
+            .then(res => {
+              this.weatherInfo = res;
+            });
+        }
       })
       .catch(err => {
         console.log(err);
       });
   };
-  @action
-  fetchWeather = () => {
-    fetch(this.url)
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        this.weatherInfo = res;
-      });
-  };
 }
+// only fetch the weather if it has a name, name comes from the clock by default (eg. London)
+// but can be set automatically when fetchWeatherSettings
+// @action
+// fetchWeather = () => {
+
+// };
+// }
 
 export default new AuthStore();
