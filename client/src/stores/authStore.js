@@ -119,27 +119,6 @@ class AuthStore {
           this.clock = res.data;
         }
       })
-      .then(res => {
-        // sets up a temporary but inaccurate weather display based on clock input
-        if (!this.weather.name === '') {
-          const weatherLocation = this.clock.clocklocation.split('/');
-          if (weatherLocation[2]) {
-            // eslint-disable-next-line
-          this.weather.name = weatherLocation[2];
-          } else if (weatherLocation[1]) {
-            // eslint-disable-next-line
-          this.weather.name = weatherLocation[1];
-          } else if (weatherLocation[0]) {
-            // eslint-disable-next-line
-          this.weather.name = weatherLocation[0];
-          }
-          console.log(weatherLocation);
-        }
-      })
-      .then(() => this.fetchWeatherSettings())
-      .catch(err => {
-        console.log(err);
-      })
       .catch(err => {
         console.log(err);
       });
@@ -216,7 +195,6 @@ class AuthStore {
     axios
       .get('/api/users/todos/', this.user)
       .then(res => {
-        console.log(res.data);
         this.todos = res.data;
       })
       .then(() => {
@@ -285,18 +263,17 @@ class AuthStore {
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
-        this.weather.isLoading = false;
+        console.log(res.data);
         this.weather = res.data;
-        console.log(this.weather.name);
-        console.log('WEATHER SETTINGD FETCHED');
       })
       .then(() => {
-        if (this.weather.name !== '') {
+        if (this.weather !== null) {
           console.log('API CALL MADE!!');
           fetch(this.url)
             .then(res => res.json())
             .then(res => {
               this.weatherInfo = res;
+              console.log(this.weatherInfo);
             });
         }
       })

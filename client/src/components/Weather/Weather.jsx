@@ -19,7 +19,6 @@ class Weather extends Component {
     if (this.props.authStore.clock.isLoading) {
       this.props.authStore.fetchWeatherSettings();
     }
-    // this.props.authStore.fetchWeather();
   }
 
   findWeatherIcon = () => {
