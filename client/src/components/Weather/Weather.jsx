@@ -5,8 +5,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import axios from 'axios';
-
+import weatherIcons from './weatherIcons';
 import './Weather.scss';
+import './WeatherIcons/weather-icons.min.css';
 
 function handleClick() {
   console.log('haha'); // eslint-disable-line no-alert
@@ -19,12 +20,26 @@ class Weather extends Component {
     this.props.authStore.fetchWeather();
   }
 
-  // icon url
-  // grayscale it
-  // `http://openweathermap.org/img/w/${authstore.weatherInfo.icon}.png`
+  findWeatherIcon = () => {
+    const prefix = 'wi wi-';
+    const code = this.props.authStore.weatherInfo.weather[0].id;
+    // eslint-disable-next-line
+    let icon = weatherIcons[code].icon;
+
+    // If we are not in the ranges mentioned above, add a day/night prefix.
+    if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+      icon = `day-${icon}`;
+    }
+    // Finally tack on the prefix.
+    icon = prefix + icon;
+    return icon;
+  };
 
   render() {
     const { authStore } = this.props;
+    if (authStore.weatherInfo.name) {
+      // const var = this.findWeatherIcon();
+    }
     console.log(authStore.weatherInfo);
     return (
       <div className="weather">
@@ -32,14 +47,13 @@ class Weather extends Component {
           <Chip
             className="weather-preview"
             avatar={
-              <Avatar style={{ marginRight: '20px', background: 'rgba(255,255,255, 0)' }}>
-                <img
-                  src={`http://openweathermap.org/img/w/${
-                    authStore.weatherInfo.weather[0].icon
-                  }.png`}
-                  className="weather-icon"
+              <Avatar
+                style={{ marginRight: '20px', background: 'rgba(255,255,255, 0)', color: 'white' }}
+              >
+                <span>
+                  <i className={this.findWeatherIcon()} />
                   alt={authStore.weatherInfo.main.temp}
-                />
+                </span>
               </Avatar>
             }
             label={`${authStore.weatherInfo.main.temp.toFixed(0)} °C`}
