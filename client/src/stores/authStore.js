@@ -243,19 +243,22 @@ class AuthStore {
   };
 
   // WEATHER
-
+  key = '1e252c6355bd41b138ceaf1cc03e0538';
   @observable
   weather = {
     name: 'london',
     temptype: 'metric',
     displayweather: true
   };
-  key = '1e252c6355bd41b138ceaf1cc03e0538';
-  url = `http://api.openweathermap.org/data/2.5/forecast?q=${this.weather.name}units=${
-    this.weather.temptype
-  }&appid=${this.key}`;
 
-  fetchWeather = () => {
+  @observable weatherInfo = {};
+  @observable
+  url = `https://api.openweathermap.org/data/2.5/weather?q=${this.weather.name}&units=${
+    this.weather.temptype
+  }&appid=1e252c6355bd41b138ceaf1cc03e0538`;
+
+  @action
+  fetchWeatherSettings = () => {
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
@@ -265,6 +268,15 @@ class AuthStore {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+  @action
+  fetchWeather = () => {
+    fetch(this.url)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.weatherInfo = res;
       });
   };
 }

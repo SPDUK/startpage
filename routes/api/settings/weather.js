@@ -28,7 +28,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  console.log(req.user);
   WeatherModel.findOne({ user: req.user.id }).then(user => {
     // if there is a weather setting already set up for the user, update that instead of making a new one
     if (user) {
@@ -55,7 +54,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         temptype: req.body.temptype,
         displayweather: req.body.displayweather
       });
-      console.log('??????????/');
       newWeather
         .save()
         .then(weather => res.json(weather))
