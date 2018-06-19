@@ -278,7 +278,22 @@ class AuthStore {
         console.log(err);
       });
   };
+
+  @observable showWeatherInfo = false;
+  @action
+  toggleWeatherInfo = () => {
+    this.showWeatherInfo = !this.showWeatherInfo;
+    console.log(this.showWeatherInfo);
+  };
+
+  @observable editWeather = false;
+  @action
+  toggleEditWeatherSettings = () => {
+    this.editWeather = !this.editWeather;
+    console.log(this.editWeather);
+  };
 }
+
 // only fetch the weather if it has a name, name comes from the clock by default (eg. London)
 // but can be set automatically when fetchWeatherSettings
 // @action

@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import Typography from '@material-ui/core/Typography';
-import Grow from '@material-ui/core/Grow';
+import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -168,7 +168,7 @@ class Todos extends Component {
           onClick={this.closeTodos}
         />
         <div className="todos">
-          <Grow in={this.state.showTodos}>
+          <Collapse in={this.state.showTodos}>
             <Card style={{ overflowY: 'auto' }} className="todos-card">
               <FormControl component="fieldset">
                 <FormLabel
@@ -188,8 +188,8 @@ class Todos extends Component {
                 {todos}
               </FormControl>
             </Card>
-          </Grow>
-          <Grow in={this.state.showTodos}>
+          </Collapse>
+          <Collapse in={this.state.showTodos}>
             <Card style={{ zIndex: 2, marginTop: '-5px' }}>
               <form onSubmit={this.addTodo}>
                 <Input
@@ -205,7 +205,7 @@ class Todos extends Component {
                 />
               </form>
             </Card>
-          </Grow>
+          </Collapse>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
               onClick={this.toggleTodoList}

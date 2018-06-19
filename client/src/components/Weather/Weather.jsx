@@ -11,9 +11,6 @@ import WeatherInfo from './WeatherInfo/WeatherInfo';
 import './Weather.scss';
 import './WeatherIcons/weather-icons.min.css';
 
-function handleClick() {
-  console.log('haha'); // eslint-disable-line no-alert
-}
 @inject('authStore')
 @observer
 class Weather extends Component {
@@ -62,7 +59,7 @@ class Weather extends Component {
                 </Avatar>
               }
               label={`${authStore.weatherInfo.main.temp.toFixed(0)} °C`}
-              onClick={handleClick}
+              onClick={authStore.toggleWeatherInfo}
             />
           ) : (
             <CircularProgress color="secondary" />
