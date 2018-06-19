@@ -16,6 +16,7 @@
     &-country {
       font-size: 0.7em;
       opacity: 0.8;
+      letter-spacing: 1.5px;
     }
     &-edit {
       font-size: 0.8em;
@@ -26,5 +27,8 @@
         opacity: 1;
       }
     }
+  }
+  &-description {
+    text-transform: capitalize;
   }
 }
