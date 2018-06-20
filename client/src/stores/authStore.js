@@ -317,6 +317,22 @@ class AuthStore {
     this.weatherLoading = false;
   };
 
+  @action
+  changeWeatherName = name => {
+    this.weatherLoading = true;
+    this.weather.name = name.name;
+    axios
+      .post('/api/users/weather', this.weather)
+      .then(res => {
+        console.log(this.weather);
+        this.weather = res.data;
+      })
+      .then(() => this.fetchWeatherSettings())
+      .then(() => {
+        this.weatherLoading = false;
+      })
+      .catch(err => console.log(err));
+  };
   @observable editWeather = false;
   @action
   toggleEditWeatherSettings = () => {

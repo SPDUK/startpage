@@ -30,13 +30,10 @@ class WeatherForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const clockForm = {
-      clocklocation: this.findCity(this.state.clocklocation),
-      format: this.state.format,
-      dateformat: this.state.dateformat,
-      displayclock: true
+    const WeatherNameForm = {
+      name: this.state.name
     };
-    this.props.authStore.setUpClock(clockForm);
+    this.props.authStore.changeWeatherName(WeatherNameForm);
   };
 
   render() {
@@ -60,11 +57,11 @@ class WeatherForm extends Component {
         ) : (
           <div />
         )}
-        {authStore.weatherInfo.name ? (
+        {authStore.weatherInfo.name && !authStore.weatherLoading ? (
           <Card className="weatherform">
             <ReactAux>
               <Typography className="weatherform-name" variant="title">
-                <form noValidate autoComplete="off">
+                <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
                   <TextField
                     id="name"
                     fullWidth
