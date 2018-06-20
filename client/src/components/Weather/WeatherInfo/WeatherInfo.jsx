@@ -11,8 +11,6 @@ import ReactAux from '../../../hoc/ReactAux';
 class WeatherInfo extends Component {
   render() {
     const { authStore } = this.props;
-    console.log(authStore.showWeatherInfo);
-    console.log(authStore.weatherInfo);
     return (
       <ReactAux>
         {authStore.showWeatherInfo ? (

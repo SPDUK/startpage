@@ -106,7 +106,7 @@ class AuthStore {
 
   @action
   toggleClockLoading() {
-    this.clock.isLoading = true;
+    this.clock.isLoading = !this.clock.isLoading;
   }
 
   @action
@@ -149,7 +149,6 @@ class AuthStore {
         this.errors = '';
       })
       .catch(err => {
-        console.log(err.response.data);
         this.errors = err.response.data;
       });
   };
@@ -262,12 +261,8 @@ class AuthStore {
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
-        console.log(res.data);
-        console.log(this.weather);
-
         if (res.data !== null) {
           this.weather = res.data;
-          console.log(this.weatherInfo);
         }
       })
       .then(() => {

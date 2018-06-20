@@ -106,6 +106,9 @@ class ClockForm extends Component {
 
     return '';
   }
+  closeClock = () => {
+    this.props.authStore.toggleClockLoading();
+  };
 
   render() {
     const { classes, authStore } = this.props;
@@ -135,7 +138,7 @@ class ClockForm extends Component {
               <div className={classes.selects}>
                 <FormControl className={classes.formControl}>
                   <Select
-                    value={this.state.format}
+                    value={this.state.format || authStore.clock.format}
                     onChange={this.onChange}
                     className={classes.select}
                     input={<Input name="format" id="format-helper" />}
@@ -157,7 +160,7 @@ class ClockForm extends Component {
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <Select
-                    value={this.state.dateformat}
+                    value={this.state.dateformat || authStore.clock.dateformat}
                     onChange={this.onChange}
                     className={classes.select}
                     input={<Input name="dateformat" value="hi" id="dateformat-helper" />}
@@ -165,6 +168,7 @@ class ClockForm extends Component {
                     <MenuItem value="dddd MMMM Do YYYY">Wednesday June 13th 2018</MenuItem>
                     <MenuItem value="dddd MMMM Do">Wednesday June 13th</MenuItem>
                     <MenuItem value="dddd D">Wednesday 13</MenuItem>
+                    <MenuItem value="dddd ">Wednesday</MenuItem>
                   </Select>
                   {!authStore.errors.dateformat ? (
                     <FormHelperText>Date Format</FormHelperText>
@@ -180,10 +184,11 @@ class ClockForm extends Component {
               <div
                 style={{
                   display: 'flex',
-                  justifyContent: 'flex-end',
-                  margin: '15px 55px 0px 0px'
+                  justifyContent: 'space-between',
+                  margin: '15px 55px 0px 55px'
                 }}
               >
+                <Button onClick={this.closeClock}>Cancel</Button>
                 <Button variant="raised" color="secondary" onClick={this.handleSubmit}>
                   Submit
                 </Button>
