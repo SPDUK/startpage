@@ -255,8 +255,10 @@ class AuthStore {
     }&appid=${this.key}`;
   }
 
+  @observable weatherLoading = true;
   @action
   fetchWeatherSettings = () => {
+    this.weatherLoading = true;
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
@@ -274,6 +276,7 @@ class AuthStore {
             });
         }
       })
+      .then((this.weatherLoading = false))
       .catch(err => {
         console.log(err);
       });
@@ -284,6 +287,28 @@ class AuthStore {
   toggleWeatherInfo = () => {
     this.showWeatherInfo = !this.showWeatherInfo;
     console.log(this.showWeatherInfo);
+  };
+  @action
+  toggleTemptype = () => {
+    if (this.weather.temptype === 'metric') {
+      this.weather.temptype = 'imperial';
+      axios
+        .post('/api/users/weather', this.weather)
+        .then(res => {
+          console.log(res);
+        })
+        .then(this.fetchWeatherSettings())
+        .catch(err => console.log(err));
+    } else if (this.weather.temptype === 'imperial') {
+      this.weather.temptype = 'metric';
+      axios
+        .post('/api/users/weather', this.weather)
+        .then(res => {
+          console.log(res);
+        })
+        .then(this.fetchWeatherSettings())
+        .catch(err => console.log(err));
+    }
   };
 
   @observable editWeather = false;

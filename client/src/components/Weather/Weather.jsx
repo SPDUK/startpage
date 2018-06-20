@@ -42,7 +42,7 @@ class Weather extends Component {
       <ReactAux>
         {/* eslint-disable-next-line */}
         <div className="weather">
-          {authStore.weatherInfo.name ? (
+          {authStore.weatherInfo.name && !authStore.weatherLoading ? (
             <Chip
               className="weather-preview"
               avatar={

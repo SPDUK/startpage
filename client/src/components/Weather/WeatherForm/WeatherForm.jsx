@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
+import Switch from '@material-ui/core/Switch';
+import Menu from '@material-ui/core/Menu';
+import { MenuItem } from '@material-ui/core/MenuItem';
 
 import Grow from '@material-ui/core/Grow';
 import ReactAux from '../../../hoc/ReactAux';
@@ -21,9 +25,7 @@ class WeatherForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      // eslint-disable-next-line
-      temptype: ''
+      name: ''
     };
   }
 
@@ -44,6 +46,7 @@ class WeatherForm extends Component {
 
   render() {
     const { authStore } = this.props;
+    const { anchorEl } = this.state;
     console.log('rerender');
     return (
       <ReactAux>
@@ -80,6 +83,15 @@ class WeatherForm extends Component {
                     onChange={this.onChange}
                     margin="normal"
                   />
+                  <div className="weatherform-switch">
+                    C
+                    <Switch
+                      checked={authStore.weather.temptype}
+                      onChange={authStore.toggleTemptype}
+                      value={authStore.weather.temptype}
+                      color="primary"
+                    />
+                  </div>
                 </form>
               </Typography>
             </ReactAux>
