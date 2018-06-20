@@ -100,9 +100,10 @@ class ClockForm extends Component {
         }
       }
     } catch (error) {
+      console.log(this.props.authStore.errors);
       return error;
     }
-    console.log(this.props.authStore.errors);
+
     return '';
   }
 

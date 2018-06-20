@@ -95,8 +95,6 @@ class AuthStore {
       .post('api/users/clock', format)
       .then(res => {
         this.clock = res.data;
-        console.log(res.data);
-        console.log(this.clock);
         this.clock.isLoading = false;
       })
       .catch(err => {
@@ -274,20 +272,15 @@ class AuthStore {
             .then(res => res.json())
             .then(res => {
               this.weatherInfo = res;
-              console.log(res);
-              console.log(this.weatherInfo);
             })
             .catch(err => {
               this.errors = err;
-              console.log(this.errors.message);
             });
         }
       })
       .then((this.weatherLoading = false))
       .catch(err => {
         this.errors = err;
-        console.log('*********');
-        console.log(this.errors.message);
       });
   };
 
@@ -295,7 +288,6 @@ class AuthStore {
   @action
   toggleWeatherInfo = () => {
     this.showWeatherInfo = !this.showWeatherInfo;
-    console.log(this.showWeatherInfo);
   };
   @action
   toggleTemptype = () => {
@@ -333,7 +325,6 @@ class AuthStore {
     axios
       .post('/api/users/weather', this.weather)
       .then(res => {
-        console.log(this.weather);
         this.weather = res.data;
       })
       .then(() => this.fetchWeatherSettings())

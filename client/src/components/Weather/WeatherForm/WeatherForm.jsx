@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
-
-import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-import Menu from '@material-ui/core/Menu';
-import { MenuItem } from '@material-ui/core/MenuItem';
-
 import Grow from '@material-ui/core/Grow';
 import ReactAux from '../../../hoc/ReactAux';
 import './WeatherForm.scss';

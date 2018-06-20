@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { withStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import axios from 'axios';
 import WeatherForm from './WeatherForm/WeatherForm';
 import ReactAux from '../../hoc/ReactAux';
 import WeatherIcons from './WeatherIcons/WeatherIcons';
@@ -41,7 +38,6 @@ class Weather extends Component {
   render() {
     const { authStore } = this.props;
     const tempType = authStore.weather.temptype === 'metric' ? '°C' : '°F';
-    const errors = authStore;
     return (
       <ReactAux>
         <div className="weather">
