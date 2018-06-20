@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import axios from 'axios';
+import WeatherForm from './WeatherForm/WeatherForm';
 import ReactAux from '../../hoc/ReactAux';
 import WeatherIcons from './WeatherIcons/WeatherIcons';
 import WeatherInfo from './WeatherInfo/WeatherInfo';
@@ -66,6 +67,7 @@ class Weather extends Component {
           )}
         </div>
         <WeatherInfo findWeatherIcon={this.findWeatherIcon} />
+        <WeatherForm />
       </ReactAux>
     );
   }

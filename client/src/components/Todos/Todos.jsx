@@ -160,13 +160,23 @@ class Todos extends Component {
 
     return (
       <ReactAux>
-        <div
-          style={{ outline: 'none', height: '100vh', width: '100vw', hightlight: 'none' }}
-          onKeyDown={this.closeTodos}
-          tabIndex="-1"
-          role="button"
-          onClick={this.closeTodos}
-        />
+        {this.state.showTodos ? (
+          <div
+            style={{
+              outline: 'none',
+              height: '100vh',
+              width: '100vw',
+              hightlight: 'none',
+              zIndex: 500
+            }}
+            onKeyDown={this.closeTodos}
+            tabIndex="-1"
+            role="button"
+            onClick={this.closeTodos}
+          />
+        ) : (
+          <div />
+        )}
         <div className="todos">
           <Collapse in={this.state.showTodos}>
             <Card style={{ overflowY: 'auto' }} className="todos-card">

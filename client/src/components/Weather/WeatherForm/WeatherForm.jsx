@@ -1,47 +1,95 @@
 import React, { Component } from 'react';
-import Card from '@material-ui/core/Card';
 import { inject, observer } from 'mobx-react';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 
-import './WeatherForm.scss';
+import Grow from '@material-ui/core/Grow';
 import ReactAux from '../../../hoc/ReactAux';
+import './WeatherForm.scss';
+
+// const styles = {
+//   card: {
+//     height: 250,
+//     padding: '30px 0px'
+//   }
+// };
 
 @inject('authStore')
 @observer
-class WeatherInfo extends Component {
+class WeatherForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      // eslint-disable-next-line
+      temptype: ''
+    };
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const clockForm = {
+      clocklocation: this.findCity(this.state.clocklocation),
+      format: this.state.format,
+      dateformat: this.state.dateformat,
+      displayclock: true
+    };
+    this.props.authStore.setUpClock(clockForm);
+  };
+
   render() {
     const { authStore } = this.props;
+    console.log('rerender');
     return (
-      <Card className="weatherinfo">
-        {authStore.weatherInfo.name ? (
-          <ReactAux>
-            <Typography className="weatherinfo-title" variant="title">
-              {/* TODO: set up opacity to be 0 then 0.8 when hover */}
-              <span>
-                {authStore.weatherInfo.name}
-                <span className="weatherinfo-title-country">
-                  , {authStore.weatherInfo.sys.country}
-                  <i className={this.props.findWeatherIcon()} />
-                </span>
-              </span>
-              <i
-                role="button"
-                onKeyDown={authStore.toggleEditWeatherSettings}
-                tabIndex="-1"
-                onClick={authStore.toggleEditWeatherSettings}
-                className="fas fa-pencil-alt weatherinfo-title-edit"
-              />
-            </Typography>
-            <Typography className="weatherinfo-description" variant="subheading">
-              {authStore.weatherInfo.weather[0].description}
-            </Typography>
-          </ReactAux>
+      <ReactAux>
+        {authStore.showWeatherInfo ? (
+          <div
+            style={{
+              outline: 'none',
+              height: '100vh',
+              width: '100vw',
+              hightlight: 'none',
+              zIndex: 500
+            }}
+            onKeyDown={authStore.toggleWeatherInfo}
+            tabIndex="-1"
+            role="button"
+            onClick={authStore.toggleWeatherInfo}
+          />
         ) : (
           <div />
         )}
-      </Card>
+        {authStore.weatherInfo.name ? (
+          <Card className="weatherform">
+            <ReactAux>
+              <Typography className="weatherform-name" variant="title">
+                <form noValidate autoComplete="off">
+                  <TextField
+                    id="name"
+                    fullWidth
+                    label={`Current Location: ${authStore.weather.name
+                      .charAt(0)
+                      .toUpperCase()}${authStore.weather.name.slice(1)}`}
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.onChange}
+                    margin="normal"
+                  />
+                </form>
+              </Typography>
+            </ReactAux>
+          </Card>
+        ) : (
+          <div />
+        )}
+      </ReactAux>
     );
   }
 }
 
-export default WeatherInfo;
+export default WeatherForm;

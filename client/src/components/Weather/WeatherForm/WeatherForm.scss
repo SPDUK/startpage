@@ -1,0 +1,15 @@
+.weatherform {
+  width: 200px;
+  background-color: red;
+  top: 55px;
+  right: 20px;
+  max-height: 22vh;
+  height: 300px;
+  position: absolute;
+  width: 300px;
+  opacity: 1;
+  padding: 20px;
+  &-name {
+    margin-top: 10px;
+  }
+}
