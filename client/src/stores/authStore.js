@@ -95,6 +95,8 @@ class AuthStore {
       .post('api/users/clock', format)
       .then(res => {
         this.clock = res.data;
+        console.log(res.data);
+        console.log(this.clock);
         this.clock.isLoading = false;
       })
       .catch(err => {

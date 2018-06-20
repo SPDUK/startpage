@@ -3,7 +3,7 @@
   background-color: red;
   top: 55px;
   right: 20px;
-  max-height: 22vh;
+  max-height: 30vh;
   position: absolute;
   width: 300px;
   opacity: 1;
@@ -16,12 +16,13 @@
     &-country {
       font-size: 0.7em;
       opacity: 0.8;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
     }
     &-edit {
       font-size: 0.8em;
       opacity: 0.3;
       transition: 0.2s ease;
+      cursor: pointer;
       &:hover {
         transition: 0.2s ease;
         opacity: 1;

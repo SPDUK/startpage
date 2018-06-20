@@ -121,11 +121,11 @@ class ClockForm extends Component {
                   name="clocklocation"
                   placeholder={
                     `Current Location: ${authStore.clock.clocklocation}` ||
-                    `Enter Location eg. London, New York, Paris`
+                    `Enter a timezone EG. GMT+1 or a Capital City / State`
                   }
                   margin="normal"
                 />
-                <Fade in={authStore.errors.clocklocation} timeout={600}>
+                <Fade in={Boolean(authStore.errors.clocklocation)} timeout={600}>
                   <FormHelperText style={{ color: 'red' }}>
                     {authStore.errors.clocklocation}
                   </FormHelperText>
@@ -147,7 +147,7 @@ class ClockForm extends Component {
                   {!authStore.errors.format ? (
                     <FormHelperText>Time Format</FormHelperText>
                   ) : (
-                    <Fade in={authStore.errors.format} timeout={600}>
+                    <Fade in={Boolean(authStore.errors.format)} timeout={600}>
                       <FormHelperText style={{ color: 'red' }}>
                         {authStore.errors.format}{' '}
                       </FormHelperText>
@@ -168,7 +168,7 @@ class ClockForm extends Component {
                   {!authStore.errors.dateformat ? (
                     <FormHelperText>Date Format</FormHelperText>
                   ) : (
-                    <Fade in={authStore.errors.dateformat} timeout={400}>
+                    <Fade in={Boolean(authStore.errors.dateformat)} timeout={400}>
                       <FormHelperText style={{ color: 'red' }}>
                         {authStore.errors.dateformat}
                       </FormHelperText>

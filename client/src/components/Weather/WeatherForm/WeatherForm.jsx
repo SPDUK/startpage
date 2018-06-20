@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
-import Collapse from '@material-ui/core/Collapse';
 
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
@@ -60,11 +59,11 @@ class WeatherForm extends Component {
           <div />
         )}
         {(!authStore.weatherLoading && authStore.editWeather) || !authStore.weatherInfo.name ? (
-          <Collapse in={authStore.editWeather}>
+          <Grow in={authStore.editWeather}>
             <Card className="weatherform">
               <ReactAux>
                 <Typography className="weatherform-name" variant="title">
-                  <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
+                  <form onSubmit={this.handleSubmit} noValidate autoComplete="on">
                     <Typography color="secondary" variant="subheading">
                       {authStore.weatherInfo.message}
                     </Typography>
@@ -93,7 +92,7 @@ class WeatherForm extends Component {
                           checked={authStore.weather.temptype === 'metric'}
                           onChange={authStore.toggleTemptype}
                           value={authStore.weather.temptype}
-                          color="primary"
+                          color="secondary"
                         />
                       </div>
                     )}
@@ -101,7 +100,7 @@ class WeatherForm extends Component {
                 </Typography>
               </ReactAux>
             </Card>
-          </Collapse>
+          </Grow>
         ) : (
           <div />
         )}
