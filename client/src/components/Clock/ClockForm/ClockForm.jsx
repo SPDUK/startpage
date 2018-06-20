@@ -53,9 +53,7 @@ class ClockForm extends Component {
   constructor() {
     super();
     this.state = {
-      format: '',
-      dateformat: '',
-      clocklocation: ''
+      format: ''
     };
   }
 
@@ -67,8 +65,8 @@ class ClockForm extends Component {
     e.preventDefault();
     const clockForm = {
       clocklocation: this.findCity(this.state.clocklocation),
-      format: this.state.format,
-      dateformat: this.state.dateformat,
+      format: this.state.format || this.props.authStore.clock.format,
+      dateformat: this.state.dateformat || this.props.authStore.clock.dateformat,
       displayclock: true
     };
     this.props.authStore.setUpClock(clockForm);
