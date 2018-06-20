@@ -5,19 +5,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import Menu from '@material-ui/core/Menu';
 import { MenuItem } from '@material-ui/core/MenuItem';
 
 import Grow from '@material-ui/core/Grow';
 import ReactAux from '../../../hoc/ReactAux';
 import './WeatherForm.scss';
-
-// const styles = {
-//   card: {
-//     height: 250,
-//     padding: '30px 0px'
-//   }
-// };
 
 @inject('authStore')
 @observer
@@ -46,8 +41,6 @@ class WeatherForm extends Component {
 
   render() {
     const { authStore } = this.props;
-    const { anchorEl } = this.state;
-    console.log('rerender');
     return (
       <ReactAux>
         {authStore.showWeatherInfo ? (
@@ -83,15 +76,20 @@ class WeatherForm extends Component {
                     onChange={this.onChange}
                     margin="normal"
                   />
-                  <div className="weatherform-switch">
-                    C
-                    <Switch
-                      checked={authStore.weather.temptype}
-                      onChange={authStore.toggleTemptype}
-                      value={authStore.weather.temptype}
-                      color="primary"
-                    />
-                  </div>
+                  {authStore.weatherLoading ? (
+                    <CircularProgress color="secondary" />
+                  ) : (
+                    <div className="weatherform-switch">
+                      {authStore.weather.temptype === 'metric' ? <span>°C</span> : <span>°F</span>}
+                      <Switch
+                        disabled={authStore.weatherLoading}
+                        checked={authStore.weather.temptype === 'metric'}
+                        onChange={authStore.toggleTemptype}
+                        value={authStore.weather.temptype}
+                        color="primary"
+                      />
+                    </div>
+                  )}
                 </form>
               </Typography>
             </ReactAux>

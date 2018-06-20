@@ -290,25 +290,31 @@ class AuthStore {
   };
   @action
   toggleTemptype = () => {
+    this.weatherLoading = true;
     if (this.weather.temptype === 'metric') {
       this.weather.temptype = 'imperial';
       axios
         .post('/api/users/weather', this.weather)
         .then(res => {
-          console.log(res);
+          this.weather = res.data;
         })
-        .then(this.fetchWeatherSettings())
+        .then(() => {
+          this.fetchWeatherSettings();
+        })
         .catch(err => console.log(err));
     } else if (this.weather.temptype === 'imperial') {
       this.weather.temptype = 'metric';
       axios
         .post('/api/users/weather', this.weather)
         .then(res => {
-          console.log(res);
+          this.weather = res.data;
         })
-        .then(this.fetchWeatherSettings())
+        .then(() => {
+          this.fetchWeatherSettings();
+        })
         .catch(err => console.log(err));
     }
+    this.weatherLoading = false;
   };
 
   @observable editWeather = false;

@@ -38,6 +38,7 @@ class Weather extends Component {
 
   render() {
     const { authStore } = this.props;
+    const tempType = authStore.weather.temptype === 'metric' ? '°C' : '°F';
     return (
       <ReactAux>
         {/* eslint-disable-next-line */}
@@ -59,7 +60,7 @@ class Weather extends Component {
                   </span>
                 </Avatar>
               }
-              label={`${authStore.weatherInfo.main.temp.toFixed(0)} °C`}
+              label={`${authStore.weatherInfo.main.temp.toFixed(0)} ${tempType} `}
               onClick={authStore.toggleWeatherInfo}
             />
           ) : (
