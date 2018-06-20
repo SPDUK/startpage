@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
+import _ from 'lodash';
 import { Typography } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -52,49 +53,45 @@ class WeatherForm extends Component {
         ) : (
           <div />
         )}
-        {(!authStore.weatherLoading && authStore.editWeather) || !authStore.weatherInfo.name ? (
-          <Grow in={authStore.editWeather}>
-            <Card className="weatherform">
-              <ReactAux>
-                <Typography className="weatherform-name" variant="title">
-                  <form onSubmit={this.handleSubmit} noValidate autoComplete="on">
-                    <Typography color="secondary" variant="subheading">
-                      {authStore.weatherInfo.message}
-                    </Typography>
-                    <TextField
-                      id="name"
-                      fullWidth
-                      label={`Current Location: ${authStore.weather.name
-                        .charAt(0)
-                        .toUpperCase()}${authStore.weather.name.slice(1)}`}
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.onChange}
-                      margin="normal"
-                    />
-                    {authStore.weatherLoading ? (
-                      <CircularProgress color="secondary" />
-                    ) : (
-                      <div className="weatherform-switch">
-                        {authStore.weather.temptype === 'metric' ? (
-                          <span>°C</span>
-                        ) : (
-                          <span>°F</span>
-                        )}
-                        <Switch
-                          disabled={authStore.weatherLoading}
-                          checked={authStore.weather.temptype === 'metric'}
-                          onChange={authStore.toggleTemptype}
-                          value={authStore.weather.temptype}
-                          color="secondary"
-                        />
-                      </div>
-                    )}
-                  </form>
-                </Typography>
-              </ReactAux>
-            </Card>
-          </Grow>
+        {(!authStore.weatherLoading && authStore.editWeather) ||
+        authStore.weatherInfo.cod === '400' ||
+        authStore.weatherInfo.cod === '404' ? (
+          <Card className="weatherform">
+            <ReactAux>
+              <Typography className="weatherform-name" variant="title">
+                <form onSubmit={this.handleSubmit} noValidate autoComplete="on">
+                  <Typography color="secondary" variant="subheading">
+                    {authStore.weatherInfo.message}
+                  </Typography>
+                  <TextField
+                    id="name"
+                    fullWidth
+                    label={`Current Location: ${authStore.weather.name
+                      .charAt(0)
+                      .toUpperCase()}${authStore.weather.name.slice(1)}`}
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.onChange}
+                    margin="normal"
+                  />
+                  {authStore.weatherLoading ? (
+                    <CircularProgress color="secondary" />
+                  ) : (
+                    <div className="weatherform-switch">
+                      {authStore.weather.temptype === 'metric' ? <span>°C</span> : <span>°F</span>}
+                      <Switch
+                        disabled={authStore.weatherLoading}
+                        checked={authStore.weather.temptype === 'metric'}
+                        onChange={authStore.toggleTemptype}
+                        value={authStore.weather.temptype}
+                        color="secondary"
+                      />
+                    </div>
+                  )}
+                </form>
+              </Typography>
+            </ReactAux>
+          </Card>
         ) : (
           <div />
         )}

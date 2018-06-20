@@ -262,8 +262,12 @@ class AuthStore {
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
-        if (res !== null) {
+        console.log(res.data);
+        console.log(this.weather);
+
+        if (res.data !== null) {
           this.weather = res.data;
+          console.log(this.weatherInfo);
         }
       })
       .then(() => {
@@ -292,6 +296,7 @@ class AuthStore {
   @action
   toggleTemptype = () => {
     this.weatherLoading = true;
+
     if (this.weather.temptype === 'metric') {
       this.weather.temptype = 'imperial';
       axios
@@ -321,11 +326,18 @@ class AuthStore {
   @action
   changeWeatherName = name => {
     this.weatherLoading = true;
+    this.weather = {
+      name: '',
+      temptype: 'metric',
+      displayweather: true
+    };
     this.weather.name = name.name;
+
     axios
       .post('/api/users/weather', this.weather)
       .then(res => {
         this.weather = res.data;
+        console.log(res.data);
       })
       .then(() => this.fetchWeatherSettings())
       .then(() => {
