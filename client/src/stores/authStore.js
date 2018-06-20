@@ -262,7 +262,9 @@ class AuthStore {
     axios
       .get('/api/users/weather/', this.user)
       .then(res => {
-        this.weather = res.data;
+        if (res !== null) {
+          this.weather = res.data;
+        }
       })
       .then(() => {
         if (this.weather !== null) {
@@ -346,6 +348,7 @@ class AuthStore {
   @action
   toggleEditWeatherSettings = () => {
     this.editWeather = !this.editWeather;
+    this.showWeatherInfo = false;
   };
 }
 

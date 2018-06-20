@@ -46,10 +46,10 @@ class WeatherForm extends Component {
           <div
             style={{
               outline: 'none',
-              height: '1vh',
-              width: '1vw',
+              height: '100vh',
+              width: '100vw',
               hightlight: 'none',
-              zIndex: 0
+              zIndex: 50
             }}
             onKeyDown={authStore.toggleEditWeatherSetting}
             tabIndex="-1"

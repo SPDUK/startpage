@@ -119,7 +119,10 @@ class ClockForm extends Component {
                   className={classes.input}
                   id="full-width"
                   name="clocklocation"
-                  placeholder="Enter Location eg. London, New York, Paris,"
+                  placeholder={
+                    `Current Location: ${authStore.clock.clocklocation}` ||
+                    `Enter Location eg. London, New York, Paris`
+                  }
                   margin="normal"
                 />
                 <Fade in={authStore.errors.clocklocation} timeout={600}>
