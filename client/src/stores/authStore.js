@@ -266,19 +266,24 @@ class AuthStore {
       })
       .then(() => {
         if (this.weather !== null) {
-          console.log('API CALL MADE!!');
           fetch(this.url)
             .then(res => res.json())
             .then(res => {
               this.weatherInfo = res;
               console.log(res);
               console.log(this.weatherInfo);
+            })
+            .catch(err => {
+              this.errors = err;
+              console.log(this.errors.message);
             });
         }
       })
       .then((this.weatherLoading = false))
       .catch(err => {
-        console.log(err);
+        this.errors = err;
+        console.log('*********');
+        console.log(this.errors.message);
       });
   };
 
@@ -330,23 +335,18 @@ class AuthStore {
       .then(() => this.fetchWeatherSettings())
       .then(() => {
         this.weatherLoading = false;
+        this.editWeather = false;
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.errors = err;
+        console.log(this.errors);
+      });
   };
   @observable editWeather = false;
   @action
   toggleEditWeatherSettings = () => {
     this.editWeather = !this.editWeather;
-    console.log(this.editWeather);
   };
 }
-
-// only fetch the weather if it has a name, name comes from the clock by default (eg. London)
-// but can be set automatically when fetchWeatherSettings
-// @action
-// fetchWeather = () => {
-
-// };
-// }
 
 export default new AuthStore();

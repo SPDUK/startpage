@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
@@ -39,9 +41,9 @@ class Weather extends Component {
   render() {
     const { authStore } = this.props;
     const tempType = authStore.weather.temptype === 'metric' ? '°C' : '°F';
+    const errors = authStore;
     return (
       <ReactAux>
-        {/* eslint-disable-next-line */}
         <div className="weather">
           {authStore.weatherInfo.name && !authStore.weatherLoading ? (
             <Chip
@@ -64,7 +66,9 @@ class Weather extends Component {
               onClick={authStore.toggleWeatherInfo}
             />
           ) : (
-            <CircularProgress color="secondary" />
+            <ReactAux>
+              <CircularProgress color="secondary" />
+            </ReactAux>
           )}
         </div>
         <WeatherInfo findWeatherIcon={this.findWeatherIcon} />
