@@ -204,7 +204,11 @@ class Todos extends Component {
               <form onSubmit={this.addTodo}>
                 <Input
                   disabled={!this.state.showTodos}
-                  style={{ width: '300px', paddingLeft: '15px', paddingRight: '15px' }}
+                  style={{
+                    width: '300px',
+                    paddingLeft: '15px',
+                    paddingRight: '15px'
+                  }}
                   placeholder="What are your tasks for today?"
                   name="newTodo"
                   value={this.state.newTodo}

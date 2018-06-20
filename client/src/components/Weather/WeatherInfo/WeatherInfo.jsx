@@ -39,8 +39,7 @@ class WeatherInfo extends Component {
                   <span>
                     {authStore.weatherInfo.name}
                     <span className="weatherinfo-title-country">
-                      , {authStore.weatherInfo.sys.country}
-                      <i className={this.props.findWeatherIcon()} />
+                      , {authStore.weatherInfo.sys.country}{' '}
                     </span>
                   </span>
                   <i
@@ -52,7 +51,8 @@ class WeatherInfo extends Component {
                   />
                 </Typography>
                 <Typography className="weatherinfo-description" variant="subheading">
-                  {authStore.weatherInfo.weather[0].description}
+                  {authStore.weatherInfo.weather[0].description}{' '}
+                  <i className={this.props.findWeatherIcon()} />
                 </Typography>
               </ReactAux>
             </Card>
