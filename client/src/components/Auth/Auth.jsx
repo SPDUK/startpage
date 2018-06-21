@@ -160,7 +160,7 @@ class Auth extends Component {
                         margin="dense"
                         style={{ width: 375 }}
                       />
-                      <Collapse in={!!authStore.errors.name}>
+                      <Collapse in={Boolean(authStore.errors.name)}>
                         <FormHelperText style={{ color: 'red' }}>
                           {authStore.errors.name}
                         </FormHelperText>
@@ -177,7 +177,7 @@ class Auth extends Component {
                       className={classes.textField}
                       margin="dense"
                     />
-                    <Collapse in={!!authStore.errors.email}>
+                    <Collapse in={Boolean(authStore.errors.email)}>
                       <FormHelperText style={{ color: 'red' }}>
                         {authStore.errors.email}
                       </FormHelperText>
@@ -195,7 +195,7 @@ class Auth extends Component {
                       className={classes.textField}
                       margin="dense"
                     />
-                    <Collapse in={!!authStore.errors.password}>
+                    <Collapse in={Boolean(authStore.errors.password)}>
                       <FormHelperText style={{ color: 'red' }}>
                         {authStore.errors.password}
                       </FormHelperText>
@@ -215,7 +215,7 @@ class Auth extends Component {
                         margin="dense"
                         style={{ width: 375 }}
                       />
-                      <Collapse in={!!authStore.errors.password2}>
+                      <Collapse in={Boolean(authStore.errors.password2)}>
                         <FormHelperText style={{ color: 'red' }}>
                           {authStore.errors.password2}
                         </FormHelperText>

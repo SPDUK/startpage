@@ -117,7 +117,6 @@ class AuthStore {
         if (res.data.displayclock) {
           this.clock.isLoading = false;
           this.clock = res.data;
-          console.log(this.clock);
         }
       })
       .catch(err => {
@@ -330,7 +329,6 @@ class AuthStore {
       .post('/api/users/weather', this.weather)
       .then(res => {
         this.weather = res.data;
-        console.log(res.data);
       })
       .then(() => this.fetchWeatherSettings())
       .then(() => {

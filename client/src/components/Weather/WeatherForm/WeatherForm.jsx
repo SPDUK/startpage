@@ -33,6 +33,7 @@ class WeatherForm extends Component {
 
   render() {
     const { authStore } = this.props;
+    console.log(authStore.weatherInfo);
     return (
       <ReactAux>
         {authStore.editWeather ? (
@@ -55,7 +56,13 @@ class WeatherForm extends Component {
         {(!authStore.weatherLoading && authStore.editWeather) ||
         authStore.weatherInfo.cod === '400' ||
         authStore.weatherInfo.cod === '404' ? (
-          <Grow in={authStore.editWeather}>
+          <Grow
+            in={
+              authStore.editWeather ||
+              authStore.weatherInfo.cod === '404' ||
+              authStore.weatherInfo.cod === '400'
+            }
+          >
             <Card className="weatherform">
               <ReactAux>
                 <Typography className="weatherform-name" variant="title">
