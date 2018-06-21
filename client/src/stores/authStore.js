@@ -177,8 +177,6 @@ class AuthStore {
       });
   };
 
-  // / TODOS -- TODO: maybe add loading spinner for state in between when a request is sent then turn it off after
-  // request is finished?
   @observable
   todos = [
     {
@@ -188,7 +186,6 @@ class AuthStore {
     }
   ];
 
-  // TODO: make it so when a todo is completed it shows at the top of the list?
   @observable completedTodos = 0;
   @action
   fetchTodos = () => {

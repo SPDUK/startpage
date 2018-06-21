@@ -12,8 +12,8 @@ module.exports = function validateLoginInput(data) {
     errors.email = 'Email is invalid';
   }
 
-  if (!Validator.isLength(data.password, { min: 4, max: 100 })) {
-    errors.password = 'Password must be between 4 and 100 characters';
+  if (!Validator.isLength(data.password, { min: 6, max: 100 })) {
+    errors.password = 'Password must be between 6 and 100 characters';
   }
   // returns an object with two properties errors and isValid,
   // errors.email = "email is invalid"

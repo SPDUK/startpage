@@ -35,7 +35,6 @@ class WeatherInfo extends Component {
             <Card className="weatherinfo">
               <ReactAux>
                 <Typography className="weatherinfo-title" variant="title">
-                  {/* TODO: set up opacity to be 0 then 0.8 when hover */}
                   <span>
                     {authStore.weatherInfo.name}
                     <span className="weatherinfo-title-country">

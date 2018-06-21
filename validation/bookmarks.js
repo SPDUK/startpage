@@ -20,14 +20,14 @@ module.exports = function validateTodoInput(data) {
   }
 
   if (Validator.isEmpty(data.icon)) {
-    errors.icon = 'Icon field can not be empty';
+    errors.icon = 'Icon field cannot be empty';
   }
 
   if (!Validator.isLength(data.name, { min: 1, max: 120 })) {
     errors.name = 'Name length must be less than 120 characters';
   }
   if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name field can not be empty';
+    errors.name = 'Name field cannot be empty';
   }
   return {
     errors,

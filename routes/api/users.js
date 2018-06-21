@@ -86,8 +86,4 @@ router.post('/login', (req, res) => {
   });
 });
 
-// TODO: maybe ?? set up a bcrypt.compare where user puts in an email and compare it to hashed email
-// if no email exists send a fake notification saying it was sent even if it was not.
-// if email = user.email then send a token
-
 module.exports = router;
