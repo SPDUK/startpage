@@ -19,7 +19,6 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     display: 'flex',
     flexDirection: 'column',
-    // TODO: find best position for the clock ?
     marginTop: '-3%'
   },
   clockwrapper: {

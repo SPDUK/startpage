@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DevTools from 'mobx-react-devtools';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { inject, observer } from 'mobx-react';
 import jwtDecode from 'jwt-decode';
@@ -45,7 +44,6 @@ class App extends Component {
     const { authStore } = this.props;
     return (
       <ReactAux>
-        {/* <DevTools /> */}
         <CssBaseline />
         {authStore.isAuthenticated ? (
           <ReactAux>

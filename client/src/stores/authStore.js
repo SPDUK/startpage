@@ -117,6 +117,7 @@ class AuthStore {
         if (res.data.displayclock) {
           this.clock.isLoading = false;
           this.clock = res.data;
+          console.log(this.clock);
         }
       })
       .catch(err => {
