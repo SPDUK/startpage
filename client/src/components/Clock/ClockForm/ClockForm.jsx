@@ -161,7 +161,7 @@ class ClockForm extends Component {
                     value={this.state.dateformat || authStore.clock.dateformat}
                     onChange={this.onChange}
                     className={classes.select}
-                    input={<Input name="dateformat" value="hi" id="dateformat-helper" />}
+                    input={<Input name="dateformat" id="dateformat-helper" />}
                   >
                     <MenuItem value="dddd MMMM Do YYYY">Wednesday June 13th 2018</MenuItem>
                     <MenuItem value="dddd MMMM Do">Wednesday June 13th</MenuItem>

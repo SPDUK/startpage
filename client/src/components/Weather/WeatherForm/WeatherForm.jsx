@@ -33,7 +33,6 @@ class WeatherForm extends Component {
 
   render() {
     const { authStore } = this.props;
-    console.log(authStore.weatherInfo);
     return (
       <ReactAux>
         {authStore.editWeather ? (
