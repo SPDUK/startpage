@@ -32,7 +32,7 @@
     "jest": "20.0.4",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.10",
-    "mobx": "^5.0.0",
+    "mobx": "^5.0.3",
     "mobx-react": "^5.2.2",
     "mobx-react-devtools": "^5.0.1",
     "moment": "^2.22.1",
