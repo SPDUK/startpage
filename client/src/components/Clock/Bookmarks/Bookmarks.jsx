@@ -73,7 +73,6 @@ class Bookmarks extends Component {
     };
     this.props.authStore.handleBookmark(bookmarkForm);
   };
-
   // TODO: look over this and make sure all the things work properly
   // TODO: maybe add a way to edit bookmarks but since they are so easy to replace who cares?
   // maybe add edit for bookmarks in a setting or something? list all bookmarks and then allow user to edit the text of them.

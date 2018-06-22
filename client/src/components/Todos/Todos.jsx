@@ -34,7 +34,6 @@ class Todos extends Component {
     const toggledTodo = {
       completed: event.target.checked
     };
-
     this.props.authStore.updateTodo(id, toggledTodo);
   };
 
@@ -51,6 +50,7 @@ class Todos extends Component {
       });
     }
   };
+
   toggleTodoList = () => {
     this.setState(prevState => ({
       showTodos: !prevState.showTodos
