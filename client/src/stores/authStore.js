@@ -237,7 +237,7 @@ class AuthStore {
   };
 
   // WEATHER
-  key = 'f24f40b1c24505685fce3b8acd0fcffc';
+  key = '9caacdba0323f5bcf30cc1cc2724b63a';
   @observable
   weather = {
     name: '',
