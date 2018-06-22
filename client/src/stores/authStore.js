@@ -20,7 +20,7 @@ class AuthStore {
   vignette = true;
   @observable
   background =
-    'http://res.cloudinary.com/dmjolhdaq/image/upload/v1529553911/startpage/mountains-01.jpg';
+    'https://res.cloudinary.com/dmjolhdaq/image/upload/v1529553911/startpage/mountains-01.jpg';
 
   // currently used to clear errors after posting a new bookmark, if this is not used the
   // form will stay up after submitting a correct form
