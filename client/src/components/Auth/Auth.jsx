@@ -130,7 +130,8 @@ class Auth extends Component {
           <div className={classes.auth}>
             <Card className={classes.card}>
               <h2 style={{ fontFamily: 'Roboto, sans-serif' }} className={classes.marginLeft}>
-                AppName.
+                <i className="fas fa-fire" /> Fira{' '}
+                <span style={{ opacity: '0.4', fontSize: '0.6em' }}>v0.1</span>
               </h2>
               <div className={classes.text}>
                 <Collapse in={this.state.signUp} timeout={600}>
@@ -140,10 +141,10 @@ class Auth extends Component {
                   <Typography variant="display3">Log In</Typography>
                 </Collapse>
                 <Typography className={classes.subheading} variant="display1">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing.
+                  Fira is a startpage that <strong>ignites</strong> your browser with the
                 </Typography>
                 <Typography className={classes.subheading} variant="display1">
-                  Aliquam, mollitia aspernatur temporibus doloremque.
+                  ability to sync settings across any browser or device.
                 </Typography>
               </div>
               <div className={classes.logincontainer}>
@@ -247,7 +248,7 @@ class Auth extends Component {
                 </form>
               </div>
               <Typography className={classes.marginLeft} variant="subheading">
-                Privacy Policy
+                {/* Privacy Policy */}
               </Typography>
             </Card>
           </div>

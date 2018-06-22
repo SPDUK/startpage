@@ -141,8 +141,8 @@ class ClockForm extends Component {
                     className={classes.select}
                     input={<Input name="format" id="format-helper" />}
                   >
-                    <MenuItem value="h:mm:a">6:30 PM</MenuItem>
-                    <MenuItem value="hh:mm:ss A">6:30:28 PM</MenuItem>
+                    <MenuItem value="h:mm a">6:30 PM</MenuItem>
+                    <MenuItem value="hh:mm:ss a">6:30:28 PM</MenuItem>
                     <MenuItem value="hh:mm">18:30</MenuItem>
                     <MenuItem value="hh:mm:ss">18:30:28</MenuItem>
                   </Select>
