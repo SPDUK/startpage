@@ -144,7 +144,7 @@ class Auth extends Component {
                   Fira is a startpage that <strong>ignites</strong> your browser with synced
                 </Typography>
                 <Typography className={classes.subheading} variant="display1">
-                  settings across any browser or device, for <strong>free.</strong>
+                  settings across any browser, it is open source and <strong>free.</strong>
                 </Typography>
               </div>
               <div className={classes.logincontainer}>
