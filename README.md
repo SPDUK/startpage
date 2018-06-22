@@ -7,7 +7,7 @@
 
 
 ## Current Version
-
+https://fira.app
 The current version is usable if you understand some of the limitations, but not very user friendly.
 
 * Icons for bookmarks currently use [fontawesome icons](https://fontawesome.com/icons?d=gallery).
