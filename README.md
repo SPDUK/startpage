@@ -12,7 +12,7 @@ The current version is usable if you understand some of the limitations, but not
 * Icons for bookmarks currently use [fontawesome icons](https://fontawesome.com/icons?d=gallery).
 * The timezones for the clock are using [moment timezone](https://momentjs.com/timezone/).
 * The weather information is using [openweathermap](https://www.openweathermap.org/) free version.
- 
+* It is only intended for larger screens as smaller devices have these things built-in anyway.
 
 
 
