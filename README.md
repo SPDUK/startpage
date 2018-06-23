@@ -1,5 +1,5 @@
-# Fira
-> Fira is a startpage with all settings saved to a database, so you can keep your bookmarks and other options saved and synced wherever you use it.
+# Fira.startpage.app
+> This is a startpage with all settings saved to a database, so you can keep your bookmarks and other options saved and synced wherever you use it.
 
 
 
