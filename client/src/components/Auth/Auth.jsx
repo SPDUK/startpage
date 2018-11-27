@@ -130,7 +130,7 @@ class Auth extends Component {
           <div className={classes.auth}>
             <Card className={classes.card}>
               <h2 style={{ fontFamily: 'Roboto, sans-serif' }} className={classes.marginLeft}>
-                <i className="fas fa-fire" /> Fira{' '}
+                <i className="fas fa-fire" /> Startpage{' '}
                 <span style={{ opacity: '0.4', fontSize: '0.6em' }}>v0.1</span>
               </h2>
               <div className={classes.text}>
@@ -141,10 +141,8 @@ class Auth extends Component {
                   <Typography variant="display3">Log In</Typography>
                 </Collapse>
                 <Typography className={classes.subheading} variant="display1">
-                  Fira is a startpage that <strong>ignites</strong> your browser with synced
-                </Typography>
-                <Typography className={classes.subheading} variant="display1">
-                  settings across any browser, it is open source and <strong>free.</strong>
+                  A startpage that syncs settings across any browser, it is open source and{' '}
+                  <strong>free.</strong>
                 </Typography>
               </div>
               <div className={classes.logincontainer}>
