@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A fast and simple start-page, synced up to all browsers.",
   "main": "index.js",
-  "repository": "https://github.com/SPDUK/startpage",
+  "repository": "https://github.com/SPDUK/startpage.git",
   "author": "SPDUK",
   "license": "GPL-3.0",
   "scripts": {
