@@ -1,4 +1,4 @@
-# startpage.fira.app
+# https://startpage-spduk.herokuapp.com/
 
 > This is a startpage with all settings saved to a database, so you can keep your bookmarks and other options saved and synced wherever you use it.
 
