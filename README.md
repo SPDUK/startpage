@@ -4,7 +4,9 @@
 
 ![](https://i.imgur.com/1x8K8mu.jpg)
 
-## Current Version https://startpage.fira.app
+## Current Version https://startpage-spduk.herokuapp.com/
+
+### Will take a few seconds to load as it's hosted for free on heroku
 
 ## Example of a pre-login screen: http://startpage-0dd33d.webflow.io/
 
@@ -24,6 +26,11 @@ inside variables.env add a JWT secret and a link to your mongoDB
 JWT_SECRET='A JWT Secret string goes here',
 MONGODB="MongoDB Url goes here"
 ```
+
+run these commands:
+`yarn dev` to start the express server and react server at the same time
+`yarn start` to start the express server
+`yarn client` to start the react server
 
 ## To self-host
 
