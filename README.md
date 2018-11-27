@@ -4,8 +4,6 @@
 
 ![](https://i.imgur.com/1x8K8mu.jpg)
 
-## Current Version https://startpage-spduk.herokuapp.com/
-
 ### Will take a few seconds to load as it's hosted for free on heroku
 
 ## Example of a pre-login screen: http://startpage-0dd33d.webflow.io/
