@@ -17,7 +17,10 @@ require('./config/passport')(passport);
 require('dotenv').config({ path: 'variables.env' });
 
 mongoose
-  .connect(process.env.MONGODB)
+  .connect(
+    process.env.MONGODB,
+    { useNewUrlParser: true }
+  )
   .then(() => console.log('mongoDB connected'))
   .catch(err => console.log(err));
 app.use(sanitizeBody('*').escape());
@@ -33,5 +36,17 @@ app.use('/api/users/weather', weather);
 app.use('/api/users/bookmarks', bookmarks);
 app.use('/api/users/background', background);
 
-const port = 8888;
+// ... other imports
+const path = require('path');
+
+// ... other app.use middleware
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+// ...
+// Right before your app.listen(), add this:
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
+
+const port = process.env.PORT || 8888;
 app.listen(port, () => console.log(`Server running on port ${port}`));

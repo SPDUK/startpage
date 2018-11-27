@@ -11,7 +11,11 @@
     "start": "node index.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
+  },
+  "engines": {
+    "node": "11.2.0"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
